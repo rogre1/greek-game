@@ -52,16 +52,16 @@
 
   /* ---------- top bar ---------- */
   .bar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; min-height: 30px; }
-  .bar h1 { font-size: 15px; font-weight: 700; letter-spacing: -.01em; flex: 1; }
+  .bar h1 { font-size: 17px; font-weight: 700; letter-spacing: -.01em; flex: 1; }
   .bar h1 span { color: var(--muted); font-weight: 500; }
   .chip {
-    font-size: 12px; font-weight: 700; padding: 4px 9px; border-radius: 999px;
+    font-size: 13.5px; font-weight: 700; padding: 4px 9px; border-radius: 999px;
     background: var(--blue-s); color: var(--blue); white-space: nowrap;
   }
   .chip.streak { background: var(--navy-s); color: var(--navy); }
   .iconbtn {
     border: 1px solid var(--rule); background: var(--card); color: var(--muted);
-    border-radius: 9px; width: 30px; height: 30px; font-size: 14px; cursor: pointer;
+    border-radius: 9px; width: 30px; height: 30px; font-size: 15.5px; cursor: pointer;
   }
   .iconbtn:hover { color: var(--ink); }
 
@@ -76,9 +76,9 @@
 
   /* ---------- start screen ---------- */
   .hero { text-align: center; padding: 26px 18px 24px; }
-  .hero .big { font-size: 44px; line-height: 1; letter-spacing: .04em; margin-bottom: 14px; color: var(--blue); }
-  .hero h2 { font-size: 21px; font-weight: 700; letter-spacing: -.02em; }
-  .hero p { font-size: 13.5px; color: var(--muted); margin-top: 7px; line-height: 1.5; }
+  .hero .big { font-size: 49.5px; line-height: 1; letter-spacing: .04em; margin-bottom: 14px; color: var(--blue); }
+  .hero h2 { font-size: 23.5px; font-weight: 700; letter-spacing: -.02em; }
+  .hero p { font-size: 15px; color: var(--muted); margin-top: 7px; line-height: 1.5; }
 
   /* the nine stripes of the Greek flag */
   .flag {
@@ -96,9 +96,9 @@
   }
   .mode:hover { border-color: var(--blue); }
   .mode:active { transform: scale(.99); }
-  .mode .em { font-size: 22px; width: 28px; text-align: center; }
-  .mode b { display: block; font-size: 15px; font-weight: 700; }
-  .mode small { display: block; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  .mode .em { font-size: 24.5px; width: 28px; text-align: center; }
+  .mode b { display: block; font-size: 17px; font-weight: 700; }
+  .mode small { display: block; font-size: 14px; color: var(--muted); margin-top: 2px; }
 
   /* level switch */
   .tabs {
@@ -107,46 +107,46 @@
   }
   .tab {
     flex: 1; border: none; background: transparent; color: var(--muted); font: inherit;
-    font-size: 13.5px; font-weight: 700; padding: 8px 6px; border-radius: 9px; cursor: pointer;
+    font-size: 15px; font-weight: 700; padding: 8px 6px; border-radius: 9px; cursor: pointer;
   }
   .tab.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
 
   /* category grid inside level 2 */
   .cats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .cats .mode { padding: 11px 10px; gap: 8px; }
-  .cats .mode .em { font-size: 17px; width: 20px; }
-  .cats .mode b { font-size: 13.5px; }
-  .cats .mode small { font-size: 11.5px; }
+  .cats .mode .em { font-size: 19px; width: 20px; }
+  .cats .mode b { font-size: 15px; }
+  .cats .mode small { font-size: 13px; }
 
   /* ---------- question ---------- */
-  .ask { font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: .01em; }
+  .ask { font-size: 14.5px; color: var(--muted); font-weight: 600; letter-spacing: .01em; }
   .prompt { text-align: center; padding: 18px 0 22px; }
-  .prompt .glyph { font-size: 62px; line-height: 1.05; letter-spacing: .03em; color: var(--blue); }
-  .prompt .word  { font-size: 34px; font-weight: 700; line-height: 1.15; color: var(--blue); }
-  .prompt .plain { font-size: 26px; font-weight: 700; line-height: 1.25; }
-  .prompt .hint  { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .prompt .glyph { font-size: 69.5px; line-height: 1.05; letter-spacing: .03em; color: var(--blue); }
+  .prompt .word  { font-size: 38px; font-weight: 700; line-height: 1.15; color: var(--blue); }
+  .prompt .plain { font-size: 29px; font-weight: 700; line-height: 1.25; }
+  .prompt .hint  { font-size: 14.5px; color: var(--muted); margin-top: 8px; }
   .say {
     margin-top: 10px; border: 1px solid var(--rule); background: transparent; color: var(--muted);
-    border-radius: 999px; padding: 5px 13px; font: inherit; font-size: 12.5px; cursor: pointer;
+    border-radius: 999px; padding: 5px 13px; font: inherit; font-size: 14px; cursor: pointer;
   }
   .say:hover { color: var(--blue); border-color: var(--blue); }
-  .sayhint { font-size: 11.5px; color: var(--muted); margin-top: 7px; line-height: 1.35; }
+  .sayhint { font-size: 13px; color: var(--muted); margin-top: 7px; line-height: 1.35; }
 
   .opts { display: grid; gap: 9px; }
   .opt {
     display: flex; align-items: center; gap: 11px; text-align: right;
     border: 1.5px solid var(--rule); background: var(--card); color: var(--ink);
     border-radius: 12px; padding: 12px 13px; cursor: pointer; font: inherit;
-    font-size: 16px; line-height: 1.25; transition: border-color .12s, background .12s;
+    font-size: 18px; line-height: 1.25; transition: border-color .12s, background .12s;
   }
   .opt:hover:not(:disabled) { border-color: var(--blue); }
   .opt:disabled { cursor: default; }
   .opt .n {
     flex: none; width: 21px; height: 21px; border-radius: 6px; background: var(--rule);
-    color: var(--muted); font-size: 11px; font-weight: 700; display: grid; place-items: center;
+    color: var(--muted); font-size: 12.5px; font-weight: 700; display: grid; place-items: center;
   }
   .opt .txt { flex: 1; }
-  .opt.gk .txt { font-family: "Times New Roman", Times, serif; font-size: 21px; font-weight: 700; color: var(--blue); }
+  .opt.gk .txt { font-family: "Times New Roman", Times, serif; font-size: 23.5px; font-weight: 700; color: var(--blue); }
   .opt.right { border-color: var(--good); background: var(--good-s); }
   .opt.right .n { background: var(--good); color: #fff; }
   .opt.wrong { border-color: var(--bad); background: var(--bad-s); }
@@ -154,32 +154,32 @@
   .opt.dim { opacity: .45; }
 
   .feedback {
-    margin-top: 14px; border-radius: 12px; padding: 11px 13px; font-size: 13.5px; line-height: 1.45;
+    margin-top: 14px; border-radius: 12px; padding: 11px 13px; font-size: 15px; line-height: 1.45;
     display: none;
   }
   .feedback.on { display: block; }
   .feedback.ok { background: var(--good-s); color: var(--good); }
   .feedback.no { background: var(--bad-s); color: var(--bad); }
   .feedback b { font-weight: 700; }
-  .feedback .gk { font-size: 17px; }
+  .feedback .gk { font-size: 19px; }
 
   /* ---------- end screen ---------- */
   .score { text-align: center; padding: 8px 0 4px; }
-  .score .num { font-size: 46px; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
-  .score .of { font-size: 15px; color: var(--muted); margin-top: 6px; }
-  .score .msg { font-size: 14.5px; margin-top: 12px; line-height: 1.5; }
+  .score .num { font-size: 51.5px; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+  .score .of { font-size: 17px; color: var(--muted); margin-top: 6px; }
+  .score .msg { font-size: 16px; margin-top: 12px; line-height: 1.5; }
 
   .review { margin-top: 18px; border-top: 1px solid var(--rule); padding-top: 14px; }
-  .review h3 { font-size: 12.5px; color: var(--muted); font-weight: 700; letter-spacing: .04em; margin-bottom: 9px; }
-  .row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--rule); font-size: 14px; }
+  .review h3 { font-size: 14px; color: var(--muted); font-weight: 700; letter-spacing: .04em; margin-bottom: 9px; }
+  .row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--rule); font-size: 15.5px; }
   .row:last-child { border-bottom: none; }
-  .row .k { font-family: "Times New Roman", Times, serif; font-size: 20px; font-weight: 700; min-width: 62px; color: var(--blue); }
-  .row .v { flex: 1; color: var(--muted); font-size: 13px; }
+  .row .k { font-family: "Times New Roman", Times, serif; font-size: 22.5px; font-weight: 700; min-width: 62px; color: var(--blue); }
+  .row .v { flex: 1; color: var(--muted); font-size: 14.5px; }
   .row .v b { color: var(--ink); font-weight: 600; }
 
   .btn {
     display: block; width: 100%; margin-top: 16px; border: none; border-radius: 12px;
-    background: var(--blue); color: #fff; font: inherit; font-size: 15.5px; font-weight: 700;
+    background: var(--blue); color: #fff; font: inherit; font-size: 17.5px; font-weight: 700;
     padding: 13px; cursor: pointer;
   }
   .btn:active { opacity: .9; }
@@ -192,9 +192,9 @@
   .tbl { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0 14px; direction: ltr; text-align: left; }
   .tbl .e { display: flex; gap: 9px; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--rule); min-width: 0; }
   .tbl .e .d { min-width: 0; overflow-wrap: anywhere; }
-  .tbl .e .g { font-family: "Times New Roman", Times, serif; font-size: 17px; font-weight: 700; min-width: 34px; color: var(--blue); }
-  .tbl .e .d { font-size: 12.5px; line-height: 1.35; }
-  .tbl .e .d b { display: block; font-family: "Times New Roman", Times, serif; font-size: 15px; }
+  .tbl .e .g { font-family: "Times New Roman", Times, serif; font-size: 19px; font-weight: 700; min-width: 34px; color: var(--blue); }
+  .tbl .e .d { font-size: 14px; line-height: 1.35; }
+  .tbl .e .d b { display: block; font-family: "Times New Roman", Times, serif; font-size: 17px; }
   .tbl .e .d i { font-style: normal; color: var(--blue); }
   /* the Hebrew gloss gets its own line and its own direction, so "!הצילו" keeps its punctuation */
   .tbl .e .d s {
@@ -203,16 +203,31 @@
   }
   @media (max-width: 520px) { .tbl { grid-template-columns: 1fr; } }
 
+  /* ---------- שני הפרופילים במסך הראשי ---------- */
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px; margin-bottom: 12px; }
+  .duocol {
+    border: 1.5px solid var(--rule); background: var(--card); color: var(--ink);
+    border-radius: 12px; padding: 11px 10px; text-align: right; cursor: pointer; font: inherit;
+  }
+  .duocol.me { border-color: var(--blue); background: var(--blue-s); }
+  .duocol:hover { border-color: var(--blue); }
+  .duoname { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+  .duostage { font-size: 12.5px; color: var(--muted); margin-top: 3px; line-height: 1.3; min-height: 32px; }
+  .duobar { height: 5px; background: var(--rule); border-radius: 99px; overflow: hidden; margin: 7px 0 6px; }
+  .duobar i { display: block; height: 100%; background: var(--blue); border-radius: 99px; }
+  .duometa { font-size: 12px; color: var(--blue); font-weight: 600; }
+  .duocol.idle .duometa { color: var(--muted); font-weight: 400; }
+
   /* ---------- מסך המסלול ---------- */
   .pathhead { padding: 18px 16px 16px; }
   .chapnav { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
   .chapmid { flex: 1; text-align: center; }
-  .chaptitle { font-size: 15.5px; font-weight: 700; letter-spacing: -.01em; }
-  .chapcount { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+  .chaptitle { font-size: 17.5px; font-weight: 700; letter-spacing: -.01em; }
+  .chapcount { font-size: 14px; color: var(--muted); margin-top: 3px; }
   .chapbtn {
     flex: none; width: 32px; height: 32px; border-radius: 10px; cursor: pointer;
     border: 1px solid var(--rule); background: var(--card); color: var(--blue);
-    font-size: 19px; line-height: 1; font-family: inherit;
+    font-size: 21.5px; line-height: 1; font-family: inherit;
   }
   .chapbtn.off { opacity: .3; pointer-events: none; }
   .chaptrack { height: 5px; background: var(--rule); border-radius: 99px; overflow: hidden; margin-bottom: 16px; }
@@ -221,12 +236,12 @@
   .mode.station { gap: 11px; }
   .stmark {
     flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
-    font-size: 13px; font-weight: 700; background: var(--rule); color: var(--muted);
+    font-size: 14.5px; font-weight: 700; background: var(--rule); color: var(--muted);
   }
   .stmark.done { background: var(--blue); color: #fff; }
-  .stmark.open { background: var(--blue-s); color: var(--blue); font-size: 10px; }
+  .stmark.open { background: var(--blue-s); color: var(--blue); font-size: 11px; }
   .stbody { flex: 1; min-width: 0; }
-  .stmeta { flex: none; font-size: 12px; font-weight: 700; color: var(--blue); }
+  .stmeta { flex: none; font-size: 13.5px; font-weight: 700; color: var(--blue); }
   .station.locked, .station.soon { opacity: .5; }
   .station.locked:hover, .station.soon:hover { border-color: var(--rule); }
 
@@ -235,29 +250,29 @@
   .tools .mode:hover b { color: var(--blue); }
 
   .pathfoot { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding: 0 4px; }
-  .chip.prof { border: none; font-family: inherit; cursor: pointer; font-size: 12.5px; }
+  .chip.prof { border: none; font-family: inherit; cursor: pointer; font-size: 14px; }
   .linkbtn {
-    border: none; background: none; color: var(--muted); font: inherit; font-size: 13px;
+    border: none; background: none; color: var(--muted); font: inherit; font-size: 14.5px;
     cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
   }
   .linkbtn:hover { color: var(--blue); }
 
   /* ---------- שאלות חדשות ---------- */
-  .prompt .phrase { font-size: 25px; font-weight: 700; line-height: 1.3; color: var(--blue); }
+  .prompt .phrase { font-size: 28px; font-weight: 700; line-height: 1.3; color: var(--blue); }
   .prompt .muted-listen { color: var(--rule); letter-spacing: .15em; }
-  .say.big { font-size: 15px; padding: 10px 20px; border-color: var(--blue); color: var(--blue); font-weight: 600; }
-  .opt.gk.sm .txt { font-size: 17px; line-height: 1.35; }
+  .say.big { font-size: 17px; padding: 10px 20px; border-color: var(--blue); color: var(--blue); font-weight: 600; }
+  .opt.gk.sm .txt { font-size: 19px; line-height: 1.35; }
 
   .unlock {
-    margin-top: 14px; border-radius: 12px; padding: 10px 13px; font-size: 13.5px;
+    margin-top: 14px; border-radius: 12px; padding: 10px 13px; font-size: 15px;
     background: var(--blue-s); color: var(--blue);
   }
-  .btn.small { font-size: 13.5px; padding: 9px; margin-top: 10px; }
+  .btn.small { font-size: 15px; padding: 9px; margin-top: 10px; }
 
   /* ---------- מצב שיחה ---------- */
   .micwrap { text-align: center; padding: 20px 0 8px; }
   .mic {
-    width: 84px; height: 84px; border-radius: 50%; font-size: 34px; cursor: pointer;
+    width: 84px; height: 84px; border-radius: 50%; font-size: 38px; cursor: pointer;
     border: 2px solid var(--blue); background: var(--blue-s); color: var(--blue);
     transition: transform .12s, background .2s;
   }
@@ -265,35 +280,35 @@
   .mic.rec { background: var(--blue); color: #fff; animation: pulse 1.4s infinite; }
   .mic.off { opacity: .4; }
   @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(13,94,175,.35); } 50% { box-shadow: 0 0 0 14px rgba(13,94,175,0); } }
-  .miclabel { font-size: 13.5px; color: var(--muted); margin-top: 12px; line-height: 1.4; }
-  .miclive { font-size: 17px; color: var(--blue); margin-top: 8px; min-height: 22px; font-family: "Times New Roman", Times, serif; }
-  .talkstatus { font-size: 12.5px; color: var(--muted); margin-top: 6px; min-height: 16px; }
+  .miclabel { font-size: 15px; color: var(--muted); margin-top: 12px; line-height: 1.4; }
+  .miclive { font-size: 19px; color: var(--blue); margin-top: 8px; min-height: 22px; font-family: "Times New Roman", Times, serif; }
+  .talkstatus { font-size: 14px; color: var(--muted); margin-top: 6px; min-height: 16px; }
   .talkstatus.warn { color: var(--bad); }
-  .michint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .michint { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
 
   .talkinput { display: flex; gap: 8px; margin: 14px 0 4px; }
   .talkinput input {
     flex: 1; min-width: 0; border: 1px solid var(--rule); border-radius: 11px;
-    padding: 11px 12px; font: inherit; font-size: 15px; background: var(--card); color: var(--ink);
+    padding: 11px 12px; font: inherit; font-size: 17px; background: var(--card); color: var(--ink);
   }
   .talkinput input:focus { outline: none; border-color: var(--blue); }
   .tbtn {
     border: 1px solid var(--rule); background: var(--card); color: var(--muted);
-    border-radius: 10px; padding: 8px 13px; font: inherit; font-size: 13px; cursor: pointer;
+    border-radius: 10px; padding: 8px 13px; font: inherit; font-size: 14.5px; cursor: pointer;
   }
   .tbtn:hover { color: var(--blue); border-color: var(--blue); }
   .tbtn.done { color: var(--good); border-color: var(--good); }
 
   .tcard { border: 1px solid var(--rule); border-radius: 13px; padding: 14px; margin-top: 10px; }
-  .tgk { font-size: 24px; font-weight: 700; color: var(--blue); line-height: 1.3; }
-  .tpron { font-size: 14px; color: var(--blue); opacity: .85; margin-top: 4px; direction: ltr; text-align: right; }
-  .the { font-size: 15px; font-weight: 600; color: var(--navy); margin-top: 6px; }
-  .tmiss { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .tgk { font-size: 27px; font-weight: 700; color: var(--blue); line-height: 1.3; }
+  .tpron { font-size: 15.5px; color: var(--blue); opacity: .85; margin-top: 4px; direction: ltr; text-align: right; }
+  .the { font-size: 17px; font-weight: 600; color: var(--navy); margin-top: 6px; }
+  .tmiss { font-size: 14.5px; color: var(--muted); margin-top: 4px; }
   .trow { display: flex; gap: 8px; margin-top: 11px; }
 
   .suggest { border: 1px solid var(--blue); background: var(--blue-s); border-radius: 13px; padding: 14px; margin-top: 14px; }
-  .sugtitle { font-size: 13.5px; font-weight: 600; color: var(--blue); margin-bottom: 10px; line-height: 1.4; }
-  .sug { display: flex; align-items: center; gap: 9px; padding: 5px 0; font-size: 13.5px; cursor: pointer; }
+  .sugtitle { font-size: 15px; font-weight: 600; color: var(--blue); margin-bottom: 10px; line-height: 1.4; }
+  .sug { display: flex; align-items: center; gap: 9px; padding: 5px 0; font-size: 15px; cursor: pointer; }
   .sug input { width: 16px; height: 16px; accent-color: var(--blue); }
   .sugrow { display: flex; gap: 8px; margin-top: 8px; }
   .sugrow .btn { margin-top: 4px; }
@@ -303,30 +318,43 @@
   .vrow:last-child { border-bottom: none; }
   .vsay, .vdel {
     flex: none; width: 30px; height: 30px; border-radius: 9px; cursor: pointer;
-    border: 1px solid var(--rule); background: var(--card); color: var(--muted); font-size: 13px;
+    border: 1px solid var(--rule); background: var(--card); color: var(--muted); font-size: 14.5px;
   }
   .vsay:hover { color: var(--blue); }
   .vdel:hover { color: var(--bad); }
   .vtext { flex: 1; min-width: 0; }
-  .vtext b { display: block; font-size: 19px; color: var(--blue); line-height: 1.2; }
-  .vtext i { display: block; font-style: normal; font-size: 12.5px; color: var(--blue); opacity: .8; direction: ltr; text-align: right; }
-  .vtext s { display: block; text-decoration: none; font-size: 13px; color: var(--muted); margin-top: 1px; }
-  .empty { font-size: 13.5px; color: var(--muted); line-height: 1.6; text-align: center; padding: 26px 10px; }
+  .vtext b { display: block; font-size: 21.5px; color: var(--blue); line-height: 1.2; }
+  .vtext i { display: block; font-style: normal; font-size: 14px; color: var(--blue); opacity: .8; direction: ltr; text-align: right; }
+  .vtext s { display: block; text-decoration: none; font-size: 14.5px; color: var(--muted); margin-top: 1px; cursor: text; }
+  .vtext s:hover { color: var(--blue); }
+  .vedit {
+    width: 100%; border: 1px solid var(--blue); border-radius: 8px; padding: 5px 8px;
+    font: inherit; font-size: 14.5px; background: var(--card); color: var(--ink);
+  }
+  .vedit:focus { outline: none; }
+  .empty { font-size: 15px; color: var(--muted); line-height: 1.6; text-align: center; padding: 26px 10px; }
 
   /* ---------- השוואה ---------- */
   .pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .pcol { border: 1px solid var(--rule); border-radius: 13px; padding: 13px 10px; text-align: center; }
   .pcol.me { border-color: var(--blue); background: var(--blue-s); }
-  .phead { font-size: 14.5px; font-weight: 700; margin-bottom: 10px; }
+  .phead { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
   .pstat { padding: 5px 0; }
-  .pstat b { display: block; font-size: 21px; font-weight: 700; color: var(--blue); line-height: 1.1; }
-  .pstat span { font-size: 11.5px; color: var(--muted); }
-  .note2 { font-size: 12px; color: var(--muted); line-height: 1.5; margin-top: 14px; }
+  .pstat b { display: block; font-size: 23.5px; font-weight: 700; color: var(--blue); line-height: 1.1; }
+  .pstat span { font-size: 13px; color: var(--muted); }
+  .note2 { font-size: 13.5px; color: var(--muted); line-height: 1.5; margin-top: 14px; }
+  .syncbox { border: 1px solid var(--rule); border-radius: 13px; padding: 13px; margin-top: 16px; }
+  .syncttl { font-size: 14.5px; font-weight: 700; }
+  .syncstatus { font-size: 13px; color: var(--muted); line-height: 1.5; margin: 5px 0 4px; }
+  .syncstatus.ok { color: var(--good); }
+  .syncstatus.err { color: var(--bad); }
+  .syncbox .talkinput { margin-bottom: 0; }
+  .syncbox input { font-size: 13px; }
 
   /* ---------- הודעה צפה ---------- */
   .toast {
     position: fixed; bottom: 22px; left: 50%; transform: translate(-50%, 14px);
-    background: var(--ink); color: var(--paper); font-size: 13.5px; font-weight: 600;
+    background: var(--ink); color: var(--paper); font-size: 15px; font-weight: 600;
     padding: 10px 18px; border-radius: 999px; opacity: 0; pointer-events: none;
     transition: opacity .2s, transform .2s; z-index: 50; max-width: 88vw; text-align: center;
   }
@@ -368,6 +396,8 @@
 
   <!-- המסלול -->
   <section id="screenPath" class="hide">
+    <div class="card duo" id="duoStrip"></div>
+
     <div class="card pathhead">
       <div class="flag"></div>
       <div class="chapnav">
@@ -439,6 +469,7 @@
       <div class="miclabel" id="micLabel"></div>
       <div class="miclive" id="micLive"></div>
       <div class="talkstatus" id="talkStatus"></div>
+      <button class="btn small hide" id="btnTranslateNow">תרגם עכשיו</button>
       <div class="michint" id="micHint"></div>
     </div>
 
@@ -476,7 +507,14 @@
   <section class="card hide" id="screenStats">
     <div class="ask" style="margin-bottom:14px">רוני מול ניר</div>
     <div class="pgrid" id="statsBody"></div>
-    <div class="note2">כל טלפון שומר את הנתונים אצלו — הנתונים של ניר יופיעו כאן רק אם הוא שיחק במכשיר הזה.</div>
+    <div class="syncbox">
+      <div class="syncttl">סנכרון בין הטלפונים</div>
+      <div class="syncstatus" id="syncStatus"></div>
+      <div class="talkinput">
+        <input id="syncInput" type="text" placeholder="להדביק כאן את כתובת השרת…" autocomplete="off" dir="ltr">
+        <button class="tbtn" id="syncSave">לחבר</button>
+      </div>
+    </div>
     <button class="btn" id="btnShareStats">לשלוח את הסיכום שלי</button>
     <button class="btn ghost" data-back>חזרה למסלול</button>
   </section>
@@ -485,6 +523,23 @@
 <div class="toast" id="toast"></div>
 
 <script>
+/* GitHub Pages מבקש מהדפדפן לשמור את הדף ל-10 דקות, ולכן עדכון לא מופיע מיד —
+   ובמסך הבית של האייפון זה יכול להיתקע להרבה יותר. הבדיקה הזאת מוודאת שתמיד רצה
+   הגרסה האחרונה: מושכים את הדף מהשרת בלי מטמון, ואם מספר הגרסה שם שונה — טוענים אותה.
+   כתובת עם ?v= היא כתובת אחרת מבחינת המטמון, ולכן הטעינה הזאת תמיד מביאה קובץ טרי. */
+const APP_VERSION = '2026-08-25-1715';
+(function checkForUpdate(){
+  if (location.protocol === 'file:') return;
+  fetch(location.pathname + '?bust=' + Date.now(), { cache: 'no-store' })
+    .then(r => r.ok ? r.text() : null)
+    .then(txt => {
+      if (!txt) return;
+      const m = txt.match(/APP_VERSION\s*=\s*'([^']+)'/);
+      if (m && m[1] !== APP_VERSION) location.replace(location.pathname + '?v=' + encodeURIComponent(m[1]));
+    })
+    .catch(() => {});
+})();
+
 const LETTERS = [
   {u:'Α',l:'α',name:'Alpha',   say:'AL-fa',      sound:'a in father'},
   {u:'Β',l:'β',name:'Vita',    say:'VEE-ta',     sound:'v in very'},
@@ -763,7 +818,84 @@ function loadState(id){
 }
 function saveState(){
   if (!profile) return;
+  S.rev = (S.rev || 0) + 1;
+  S.updated = Date.now();
   try { localStorage.setItem(SKEY(profile.id), JSON.stringify(S)); } catch(e){}
+  schedulePush();
+}
+
+/* ---------- סנכרון בין הטלפונים ----------
+   הכתובת נשמרת במכשיר ולא בקוד, כך שהיא לא מתפרסמת ב-repo הציבורי.
+   כל מכשיר דוחף את המצב שלו ומושך את של השני; הגרסה (rev) קובעת מי מנצח. */
+const SYNC_KEY = 'greek:sync-url';
+const syncUrl = () => { try { return (localStorage.getItem(SYNC_KEY) || '').replace(/\/+$/, ''); } catch(e){ return ''; } };
+let syncState = 'off', lastSync = 0, pushTimer = null, pulling = null;
+
+function setSyncStatus(s){ syncState = s; if ($('syncStatus')) renderSyncBox(); }
+
+function schedulePush(){
+  if (!syncUrl() || !profile) return;
+  clearTimeout(pushTimer);
+  pushTimer = setTimeout(pushState, 1500);       // לא דוחפים על כל תשובה, רק כשנרגע
+}
+
+async function pushState(){
+  const u = syncUrl();
+  if (!u || !profile) return;
+  try {
+    const r = await fetch(u + '/state/' + profile.id, {
+      method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(S)
+    });
+    if (r.status === 409) {                       // המכשיר השני מעודכן יותר — מאמצים אותו
+      const j = await r.json();
+      if (j && j.state) { S = Object.assign(blankState(), j.state);
+        try { localStorage.setItem(SKEY(profile.id), JSON.stringify(S)); } catch(e){} }
+      setSyncStatus('ok'); lastSync = Date.now(); return;
+    }
+    setSyncStatus(r.ok ? 'ok' : 'err');
+    if (r.ok) lastSync = Date.now();
+  } catch(e){ setSyncStatus('err'); }
+}
+
+async function pullProfile(id){
+  const u = syncUrl();
+  if (!u) return null;
+  try {
+    const r = await fetch(u + '/state/' + id + '?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) return null;
+    return await r.json();
+  } catch(e){ return null; }
+}
+
+/* מושך את שני הפרופילים: את שלי מאמץ רק אם הגרסה בענן חדשה יותר.
+   אם משיכה כבר רצה — מחזירים את אותה הבטחה במקום לוותר בשקט. */
+function syncPull(){
+  if (!syncUrl() || !profile) return Promise.resolve();
+  if (pulling) return pulling;
+  pulling = doPull().finally(() => { pulling = null; });
+  return pulling;
+}
+
+async function doPull(){
+  const u = syncUrl();
+  try {
+    for (const p of PROFILES) {
+      const remote = await pullProfile(p.id);
+      if (!remote) continue;
+      if (p.id === profile.id) {
+        if ((remote.rev || 0) > (S.rev || 0)) {
+          S = Object.assign(blankState(), remote);
+          try { localStorage.setItem(SKEY(p.id), JSON.stringify(S)); } catch(e){}
+        }
+      } else {
+        const local = peekState(p.id);
+        if ((remote.rev || 0) >= (local.rev || 0)) {
+          try { localStorage.setItem(SKEY(p.id), JSON.stringify(remote)); } catch(e){}
+        }
+      }
+    }
+    setSyncStatus('ok'); lastSync = Date.now();
+  } catch(e){ setSyncStatus('err'); }
 }
 function setProfile(id){
   profile = PROFILES.find(p => p.id === id) || PROFILES[0];
@@ -787,11 +919,27 @@ function stStatus(st){
 
 /* ווקבולרי אישי */
 function addVocab(it){
-  if (!it || !it.gk) return false;
+  if (!it || !it.gk || !it.he) return false;          // בלי תרגום אין מה לתרגל
   if (S.vocab.some(v => v.gk === it.gk)) return false;
-  S.vocab.unshift({ gk: it.gk, he: it.he || '', pron: it.pron || translit(it.gk), at: Date.now() });
+  S.vocab.unshift({ gk: it.gk, he: it.he, pron: it.pron || translit(it.gk), at: Date.now(), src: it.src || 'save' });
   saveState();
   return true;
+}
+
+/* המילים שנאספו מהשיחות מצטרפות למאגר של התחנות — מילים בודדות לתחנה 4, ביטויים לתחנה 5 */
+function vocabFor(poolName){
+  const isPhrase = s => /\s/.test(s);
+  return S.vocab
+    .filter(v => v.he && (poolName === 'PHRASES' ? isPhrase(v.gk) : !isPhrase(v.gk)))
+    .map(v => ({ gk: v.gk, he: v.he, pron: v.pron }));
+}
+function poolFor(st){
+  const pools = { WORDS, WORDS2, PHRASES, REPLIES };
+  if (!st.pool) return null;
+  const base = pools[st.pool];
+  if (st.pool !== 'WORDS2' && st.pool !== 'PHRASES') return base;
+  const extra = vocabFor(st.pool).filter(v => !base.some(b => b.gk === v.gk));
+  return extra.length ? base.concat(extra) : base;
 }
 function removeVocab(gk){
   S.vocab = S.vocab.filter(v => v.gk !== gk);
@@ -994,8 +1142,7 @@ function startRound(cfg){
 }
 
 function startStation(st){
-  const pools = { WORDS, WORDS2, PHRASES, REPLIES };
-  startRound({ kinds: st.kinds, pool: st.pool ? pools[st.pool] : null, label: st.name, stationId: st.id });
+  startRound({ kinds: st.kinds, pool: poolFor(st), label: st.name, stationId: st.id });
 }
 
 function render(){
@@ -1125,10 +1272,43 @@ function finish(){
   show('screenEnd');
 }
 
+/* ---------- שני הפרופילים במסך הראשי ---------- */
+const CONTENT_STATIONS = () => STATIONS.filter(s => !s.soon);
+
+function profileSummary(p){
+  const st = p.id === profile.id ? S : peekState(p.id);
+  const list = CONTENT_STATIONS();
+  const done = list.filter(s => st.stations[s.id] && st.stations[s.id].best >= 0.75).length;
+  const next = list.find(s => !(st.stations[s.id] && st.stations[s.id].best >= 0.75));
+  const played = done > 0 || st.stats.correct > 0 || st.vocab.length > 0;
+  return { p, done, total: list.length, next, correct: st.stats.correct, vocab: st.vocab.length, played };
+}
+
+function renderDuo(){
+  const data = PROFILES.map(profileSummary);
+  const both = data.filter(d => d.played);
+  // "מוביל" רק כשלשניהם יש נתונים ויש הפרש אמיתי
+  const lead = both.length === 2 && data[0].correct !== data[1].correct
+    ? (data[0].correct > data[1].correct ? data[0].p.id : data[1].p.id) : null;
+
+  $('duoStrip').innerHTML = data.map(d => `
+    <button class="duocol${d.p.id === profile.id ? ' me' : ''}${d.played ? '' : ' idle'}" data-switch="${d.p.id}">
+      <div class="duoname">${d.p.em} ${d.p.name}${lead === d.p.id ? ' 👑' : ''}</div>
+      <div class="duostage">${d.played
+        ? (d.next ? 'תחנה ' + d.next.id + ' · ' + d.next.name : 'סיים את כל התחנות 🎉')
+        : 'עוד לא שיחק כאן'}</div>
+      <div class="duobar"><i style="width:${Math.round(d.done / d.total * 100)}%"></i></div>
+      <div class="duometa">${d.played
+        ? `${d.done}/${d.total} תחנות · ${d.correct} נכונות`
+        : 'אין נתונים במכשיר הזה'}</div>
+    </button>`).join('');
+}
+
 /* ---------- מסך המסלול ---------- */
 let chapterView = 1;
 
 function renderPath(){
+  renderDuo();
   const ch = CHAPTERS[chapterView - 1];
   const list = STATIONS.filter(s => s.ch === ch.n);
   const done = list.filter(s => stDone(s.id)).length;
@@ -1144,9 +1324,13 @@ function renderPath(){
     const mark = s === 'done' ? '✓' : s === 'open' ? '●' : '🔒';
     const meta = s === 'done' ? `<span class="stmeta">${Math.round(stBest(st.id) * 100)}%</span>`
                : s === 'soon' ? `<span class="stmeta">בקרוב</span>` : '';
+    // כמה מילים מהשיחות שלכם נכנסו לתחנה הזאת
+    const base = { WORDS, WORDS2, PHRASES, REPLIES }[st.pool];
+    const extra = base ? poolFor(st).length - base.length : 0;
+    const sub = st.sub + (extra ? ` · +${extra} מהשיחות שלכם` : '');
     return `<button class="mode station ${s}" data-st="${st.id}">
         <span class="stmark ${s}">${mark}</span>
-        <span class="stbody"><b>${st.id}. ${st.name}</b><small>${st.sub}</small></span>
+        <span class="stbody"><b>${st.id}. ${st.name}</b><small>${sub}</small></span>
         ${meta}</button>`;
   }).join('');
 
@@ -1163,7 +1347,11 @@ function renderVocab(){
   $('vocabList').innerHTML = S.vocab.map(v => `
     <div class="vrow">
       <button class="vsay" data-say="${esc(v.gk)}" title="להשמיע">🔊</button>
-      <span class="vtext"><b class="gk">${esc(v.gk)}</b><i>${esc(v.pron)}</i><s>${esc(v.he)}</s></span>
+      <span class="vtext">
+        <b class="gk">${esc(v.gk)}</b>
+        <i>${esc(v.pron)}</i>
+        <s data-edit="${esc(v.gk)}" title="לחצי לתיקון התרגום">${esc(v.he)}${v.src === 'talk' ? ' · 🎙️' : ''} ✎</s>
+      </span>
       <button class="vdel" data-del="${esc(v.gk)}" title="למחוק">✕</button>
     </div>`).join('');
 }
@@ -1181,6 +1369,7 @@ function practiceVocab(){
 
 /* ---------- השוואה ---------- */
 function renderStats(){
+  renderSyncBox();
   $('statsBody').innerHTML = PROFILES.map(p => {
     const st = p.id === profile.id ? S : peekState(p.id);
     const total = st.stats.correct + st.stats.wrong;
@@ -1195,6 +1384,18 @@ function renderStats(){
       <div class="pstat"><b>${st.vocab.length}</b><span>מילים שנשמרו</span></div>
     </div>`;
   }).join('');
+}
+
+function renderSyncBox(){
+  const box = $('syncStatus'); if (!box) return;
+  const u = syncUrl();
+  const when = lastSync ? ' · עודכן ' + new Date(lastSync).toLocaleTimeString('he-IL', {hour:'2-digit', minute:'2-digit'}) : '';
+  box.className = 'syncstatus' + (u ? (syncState === 'err' ? ' err' : syncState === 'ok' ? ' ok' : '') : '');
+  box.textContent = !u
+    ? 'כרגע כל טלפון עומד בפני עצמו. אחרי חיבור, ההתקדמות של שניכם תופיע בשני המכשירים.'
+    : syncState === 'err' ? 'לא הצלחתי להתחבר לשרת — כדאי לבדוק את הכתובת'
+    : 'מחובר' + when;
+  if ($('syncInput') && document.activeElement !== $('syncInput')) $('syncInput').value = u;
 }
 
 function statsSummary(){
@@ -1264,36 +1465,90 @@ function talkStatus(msg, cls){
   $('talkStatus').className = 'talkstatus' + (cls ? ' ' + cls : '');
 }
 
+let pendingText = '', handledText = '';
+
+/* הכפתור מופיע רק כשיש טקסט שנקלט ועדיין לא תורגם — כדי שלא יישאר מסך תקוע */
+function updatePending(){
+  const waiting = !!pendingText && pendingText !== handledText && !listening;
+  $('btnTranslateNow').classList.toggle('hide', !waiting);
+  $('micBtn').textContent = listening ? '⏹' : '🎙️';
+}
+
+function finalizeHeard(){
+  const t = (pendingText || '').trim();
+  if (!t || t === handledText) return;
+  handledText = t;
+  updatePending();
+  handleHeard(t);
+}
+
 function startListen(){
-  if (listening) { try { recog.stop(); } catch(e){} return; }
+  if (listening) { try { recog.stop(); } catch(e){} return; }   // לחיצה שנייה עוצרת
   if (!canHear) { talkStatus('הדפדפן הזה לא תומך בזיהוי קולי — אפשר להקליד למטה', 'warn'); return; }
   const lang = talkTab === 'hear' ? 'el-GR' : 'he-IL';
   try {
     recog = new SR();
     recog.lang = lang; recog.interimResults = true; recog.maxAlternatives = 1; recog.continuous = false;
-    recog.onstart = () => { listening = true; $('micBtn').classList.add('rec'); talkStatus(talkTab === 'hear' ? 'מקשיב ליוונית…' : 'מקשיב לעברית…'); };
+    recog.onstart = () => {
+      listening = true; pendingText = ''; handledText = '';
+      $('micBtn').classList.add('rec');
+      talkStatus(talkTab === 'hear' ? 'מקשיב ליוונית… לחצי שוב כדי לעצור' : 'מקשיב לעברית… לחצי שוב כדי לעצור');
+      updatePending();
+    };
     recog.onresult = e => {
       let txt = '';
       for (let i = 0; i < e.results.length; i++) txt += e.results[i][0].transcript;
-      $('micLive').textContent = txt;
-      if (e.results[e.results.length - 1].isFinal) handleHeard(txt.trim());
+      pendingText = txt.trim();
+      $('micLive').textContent = pendingText;
+      if (e.results[e.results.length - 1].isFinal) finalizeHeard();
     };
     recog.onerror = ev => {
       listening = false; $('micBtn').classList.remove('rec');
-      talkStatus(ev.error === 'not-allowed'
-        ? 'אין הרשאת מיקרופון — צריך לאשר בדפדפן'
-        : 'לא הצלחתי לשמוע. אפשר לנסות שוב או להקליד', 'warn');
+      talkStatus(ev.error === 'not-allowed' ? 'אין הרשאת מיקרופון — צריך לאשר בדפדפן'
+               : ev.error === 'no-speech'   ? 'לא שמעתי כלום — אפשר לנסות שוב'
+               : 'לא הצלחתי לשמוע. אפשר לנסות שוב או להקליד', 'warn');
+      updatePending();
     };
-    recog.onend = () => { listening = false; $('micBtn').classList.remove('rec'); };
+    // סיום ההקלטה מתרגם לבד את מה שנקלט — ואם משהו נכשל, נשאר כפתור "תרגם עכשיו"
+    recog.onend = () => {
+      listening = false;
+      $('micBtn').classList.remove('rec');
+      if (pendingText && pendingText !== handledText) finalizeHeard();
+      else updatePending();
+    };
     recog.start();
   } catch (e) {
     talkStatus('לא הצלחתי להפעיל את המיקרופון — אפשר להקליד למטה', 'warn');
+    updatePending();
   }
+}
+
+/* מילות קישור שאין טעם לשמור בנפרד */
+const GREEK_STOP = new Set(['ο','η','το','τα','οι','του','της','των','τον','την','τους','τις','να','με',
+  'σε','και','ειναι','είναι','στο','στη','στην','στον','στα','απο','από','για','δεν','θα','που','πως',
+  'ενα','ένα','μια','ενας','ένας','μου','σου','μας','σας','αυτο','αυτό','αυτη','αυτή','αυτος','αυτός',
+  'εγω','εγώ','εσυ','εσύ','ναι','οχι','όχι','πιο','τι','πού','που','μην','αλλα','αλλά']);
+
+const knownGreek = w => { const t = norm(w); return localPairs().some(p => norm(p.gk) === t); };
+
+/* שמירה מהשיחה: הביטוי עצמו, ובנוסף מילים חדשות מתוכו שעוד לא פגשנו */
+async function saveFromTalk(item){
+  let phrase = addVocab(item) ? 1 : 0, words = 0;
+  const parts = String(item.gk || '').split(/[\s,.;!·?"'()]+/).filter(Boolean);
+  if (parts.length > 1) {
+    const cands = parts.filter(w => w.length >= 3 && !GREEK_STOP.has(norm(w)) && !knownGreek(w)).slice(0, 3);
+    for (const w of cands) {
+      const tr = await translateText(w, 'el2he');
+      if (tr && tr.text && addVocab({ gk: w, he: tr.text, pron: translit(w), src: 'talk' })) words++;
+    }
+  }
+  return { phrase, words };
 }
 
 async function handleHeard(text){
   if (!text) return;
   $('micLive').textContent = '';
+  pendingText = ''; handledText = ''; updatePending();
   talkStatus('מתרגם…');
   const dir = talkTab === 'hear' ? 'el2he' : 'he2el';
   const res = await translateText(text, dir);
@@ -1322,7 +1577,7 @@ function renderTalk(){
       ${it.he ? `<div class="the">${esc(it.he)}</div>` : (it.gk ? `<div class="tmiss">אין תרגום — אבל ההגייה למעלה נכונה</div>` : '')}
       <div class="trow">
         ${it.gk && canSpeak ? `<button class="tbtn" data-say="${esc(it.gk)}">🔊 להשמיע</button>` : ''}
-        ${it.gk ? `<button class="tbtn ${saved ? 'done' : ''}" data-save="${i}">${saved ? '✓ נשמר' : '⭐ לשמור'}</button>` : ''}
+        ${it.gk && it.he ? `<button class="tbtn ${saved ? 'done' : ''}" data-save="${i}">${saved ? '✓ נשמר' : '⭐ לשמור'}</button>` : ''}
       </div>
     </div>`;
   }).join('');
@@ -1339,13 +1594,28 @@ function renderTalk(){
 }
 
 /* ================= חיווט ================= */
-function goPath(){ clearTimeout(timer); renderPath(); show('screenPath'); }
+function goPath(){
+  clearTimeout(timer);
+  renderPath();
+  show('screenPath');
+  if (syncUrl() && Date.now() - lastSync > 20000) syncPull().then(renderPath);
+}
 
 // פרופילים
 $('screenProfile').addEventListener('click', e => {
   const b = e.target.closest('[data-profile]'); if (!b) return;
   setProfile(b.dataset.profile);
   goPath();
+});
+
+// החלפת פרופיל ישירות מהפס העליון
+$('duoStrip').addEventListener('click', e => {
+  const b = e.target.closest('[data-switch]'); if (!b) return;
+  if (b.dataset.switch === profile.id) { renderStats(); show('screenStats'); $('modeLabel').textContent = '· השוואה'; return; }
+  setProfile(b.dataset.switch);
+  chapterView = 1;
+  renderPath();
+  toast('עברנו ל' + profile.name);
 });
 
 // פרקים
@@ -1379,19 +1649,33 @@ $('talkTabSay').onclick  = () => { talkTab = 'say';  renderTalk(); };
 $('micBtn').onclick = startListen;
 $('talkSend').onclick = () => { const v = $('talkInput').value.trim(); if (v) { $('talkInput').value = ''; handleHeard(v); } };
 $('talkInput').addEventListener('keydown', e => { if (e.key === 'Enter') $('talkSend').click(); });
-$('talkResults').addEventListener('click', e => {
+$('btnTranslateNow').onclick = finalizeHeard;
+
+$('talkResults').addEventListener('click', async e => {
   const say = e.target.closest('[data-say]');
   if (say) { speak(say.dataset.say, translit(say.dataset.say)); return; }
   const sv = e.target.closest('[data-save]');
-  if (sv) { const it = talkItems[+sv.dataset.save]; if (addVocab(it)) toast('נשמר למילים שלי'); renderTalk(); }
+  if (!sv) return;
+  const it = talkItems[+sv.dataset.save];
+  sv.disabled = true; sv.textContent = 'שומר…';
+  const r = await saveFromTalk(it);
+  toast(r.words ? `נשמר · ${r.words} מילים חדשות נכנסו גם לתרגול`
+      : r.phrase ? 'נשמר למילים שלי' : 'כבר שמור');
+  renderTalk();
 });
-$('suggestYes').onclick = () => {
-  let n = 0;
-  $('suggestList').querySelectorAll('input[data-sug]:checked').forEach(cb => {
+
+$('suggestYes').onclick = async () => {
+  const boxes = [...$('suggestList').querySelectorAll('input[data-sug]:checked')];
+  $('suggestYes').disabled = true; $('suggestYes').textContent = 'שומר…';
+  let n = 0, w = 0;
+  for (const cb of boxes) {
     const it = talkItems.find(x => x.gk === cb.dataset.sug);
-    if (it && addVocab(it)) n++;
-  });
-  toast(n ? `נוספו ${n} למילים שלי` : 'כבר היו שמורים');
+    if (!it) continue;
+    const r = await saveFromTalk(it);
+    n += r.phrase; w += r.words;
+  }
+  $('suggestYes').disabled = false; $('suggestYes').textContent = 'להוסיף';
+  toast(n + w ? `נוספו ${n + w} למילים שלי` : 'כבר היו שמורים');
   renderTalk();
 };
 $('suggestNo').onclick = () => { $('talkSuggest').classList.add('hide'); };
@@ -1401,9 +1685,39 @@ $('vocabList').addEventListener('click', e => {
   const s = e.target.closest('[data-say]');
   if (s) { speak(s.dataset.say, translit(s.dataset.say)); return; }
   const d = e.target.closest('[data-del]');
-  if (d) { removeVocab(d.dataset.del); renderVocab(); }
+  if (d) { removeVocab(d.dataset.del); renderVocab(); return; }
+  // תיקון התרגום במקום — מה שמתוקן כאן הוא מה שיופיע בתרגול
+  const ed = e.target.closest('[data-edit]');
+  if (!ed || ed.querySelector('input')) return;
+  const item = S.vocab.find(v => v.gk === ed.dataset.edit);
+  if (!item) return;
+  ed.innerHTML = `<input class="vedit" type="text" value="${esc(item.he)}">`;
+  const inp = ed.querySelector('input');
+  inp.focus(); inp.select();
+  const save = () => {
+    const val = inp.value.trim();
+    if (val && val !== item.he) { item.he = val; saveState(); toast('התרגום עודכן'); }
+    renderVocab();
+  };
+  inp.addEventListener('keydown', ev => {
+    if (ev.key === 'Enter') { ev.preventDefault(); save(); }
+    if (ev.key === 'Escape') renderVocab();
+  });
+  inp.addEventListener('blur', save);
 });
 $('btnPractice').onclick = practiceVocab;
+$('syncSave').onclick = async () => {
+  const v = $('syncInput').value.trim().replace(/\/+$/, '');
+  if (v && !/^https?:\/\//.test(v)) { toast('הכתובת צריכה להתחיל ב-https://'); return; }
+  try { localStorage.setItem(SYNC_KEY, v); } catch(e){}
+  if (!v) { setSyncStatus('off'); toast('הסנכרון נותק'); return; }
+  setSyncStatus('...'); renderSyncBox();
+  await syncPull();
+  await pushState();
+  renderStats();
+  toast(syncState === 'ok' ? 'מחובר · הנתונים סונכרנו' : 'לא הצלחתי להתחבר');
+};
+
 $('btnShareStats').onclick = async () => {
   const txt = statsSummary();
   try {
@@ -1461,7 +1775,11 @@ $('btnTheme').onclick = () => setTheme(root.getAttribute('data-theme') === 'dark
 /* עלייה: מי שכבר בחר פרופיל נכנס ישר למסלול */
 let lastProfile = null;
 try { lastProfile = localStorage.getItem('greek:v2:last'); } catch(e){}
-if (lastProfile && PROFILES.some(p => p.id === lastProfile)) { setProfile(lastProfile); goPath(); }
+if (lastProfile && PROFILES.some(p => p.id === lastProfile)) {
+  setProfile(lastProfile);
+  goPath();
+  if (syncUrl()) syncPull().then(renderPath);
+}
 else show('screenProfile');
 </script>
 </body>
