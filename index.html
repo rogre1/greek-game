@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>משחק יוונית — אותיות ומילים</title>
+<meta name="description" content="משחק לתרגול האלפבית היווני ומילים שימושיות ליום־יום ביוון.">
+<meta name="theme-color" content="#0d5eaf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="יוונית">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230d5eaf'/><text x='50' y='74' font-size='68' font-family='Georgia,serif' fill='%23ffffff' text-anchor='middle'>%CE%A9</text></svg>">
+<style>
+  :root {
+    --paper:  #ffffff;
+    --card:   #ffffff;
+    --ink:    #0e1b2a;
+    --muted:  #6d8298;
+    --rule:   #d9e6f2;
+    --blue:   #0d5eaf;   /* the blue of the Greek flag */
+    --blue-s: #e8f1fb;
+    --navy:   #0a3d72;
+    --navy-s: #dfeaf7;
+    --good:   #1a7a4f;
+    --good-s: #e3f4ec;
+    --bad:    #b03a3a;
+    --bad-s:  #fbeaea;
+    --shadow: 0 1px 2px rgba(13,94,175,.06), 0 8px 24px rgba(13,94,175,.10);
+  }
+  :root[data-theme="dark"] {
+      --paper:#0b1420; --card:#121e2d; --ink:#eaf1f8; --muted:#8ea4bb; --rule:#22344a;
+      --blue:#63a9f0; --blue-s:#13293f; --navy:#a9c9ea; --navy-s:#182b3f;
+      --good:#5ed49f; --good-s:#123227; --bad:#f08a8a; --bad-s:#331e1e;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 18px 14px 28px;
+  }
+  .app { width: 100%; max-width: 520px; display: flex; flex-direction: column; }
+
+  .gk { font-family: "Times New Roman", Times, serif; }
+
+  /* ---------- top bar ---------- */
+  .bar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; min-height: 30px; }
+  .bar h1 { font-size: 15px; font-weight: 700; letter-spacing: -.01em; flex: 1; }
+  .bar h1 span { color: var(--muted); font-weight: 500; }
+  .chip {
+    font-size: 12px; font-weight: 700; padding: 4px 9px; border-radius: 999px;
+    background: var(--blue-s); color: var(--blue); white-space: nowrap;
+  }
+  .chip.streak { background: var(--navy-s); color: var(--navy); }
+  .iconbtn {
+    border: 1px solid var(--rule); background: var(--card); color: var(--muted);
+    border-radius: 9px; width: 30px; height: 30px; font-size: 14px; cursor: pointer;
+  }
+  .iconbtn:hover { color: var(--ink); }
+
+  .track { height: 5px; background: var(--rule); border-radius: 99px; overflow: hidden; margin-bottom: 18px; }
+  .fill { height: 100%; width: 0; background: var(--blue); border-radius: 99px; transition: width .35s ease; }
+
+  /* ---------- cards ---------- */
+  .card {
+    background: var(--card); border: 1px solid var(--rule); border-radius: 16px;
+    padding: 22px 18px; box-shadow: var(--shadow);
+  }
+
+  /* ---------- start screen ---------- */
+  .hero { text-align: center; padding: 26px 18px 24px; }
+  .hero .big { font-size: 44px; line-height: 1; letter-spacing: .04em; margin-bottom: 14px; color: var(--blue); }
+  .hero h2 { font-size: 21px; font-weight: 700; letter-spacing: -.02em; }
+  .hero p { font-size: 13.5px; color: var(--muted); margin-top: 7px; line-height: 1.5; }
+
+  /* the nine stripes of the Greek flag */
+  .flag {
+    width: 76px; height: 18px; margin: 0 auto 16px; border-radius: 3px;
+    border: 1px solid var(--rule);
+    background: repeating-linear-gradient(to bottom, var(--blue) 0 2px, var(--card) 2px 4px);
+  }
+
+  .modes { display: grid; gap: 10px; margin-top: 20px; }
+  .mode {
+    display: flex; align-items: center; gap: 12px; text-align: right;
+    border: 1px solid var(--rule); background: var(--card); color: var(--ink);
+    border-radius: 13px; padding: 13px 14px; cursor: pointer; font: inherit;
+    transition: border-color .15s, transform .1s;
+  }
+  .mode:hover { border-color: var(--blue); }
+  .mode:active { transform: scale(.99); }
+  .mode .em { font-size: 22px; width: 28px; text-align: center; }
+  .mode b { display: block; font-size: 15px; font-weight: 700; }
+  .mode small { display: block; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+
+  /* level switch */
+  .tabs {
+    display: flex; gap: 6px; margin-top: 22px; padding: 4px;
+    background: var(--rule); border-radius: 12px;
+  }
+  .tab {
+    flex: 1; border: none; background: transparent; color: var(--muted); font: inherit;
+    font-size: 13.5px; font-weight: 700; padding: 8px 6px; border-radius: 9px; cursor: pointer;
+  }
+  .tab.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+
+  /* category grid inside level 2 */
+  .cats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cats .mode { padding: 11px 10px; gap: 8px; }
+  .cats .mode .em { font-size: 17px; width: 20px; }
+  .cats .mode b { font-size: 13.5px; }
+  .cats .mode small { font-size: 11.5px; }
+
+  /* ---------- question ---------- */
+  .ask { font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: .01em; }
+  .prompt { text-align: center; padding: 18px 0 22px; }
+  .prompt .glyph { font-size: 62px; line-height: 1.05; letter-spacing: .03em; color: var(--blue); }
+  .prompt .word  { font-size: 34px; font-weight: 700; line-height: 1.15; color: var(--blue); }
+  .prompt .plain { font-size: 26px; font-weight: 700; line-height: 1.25; }
+  .prompt .hint  { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .say {
+    margin-top: 10px; border: 1px solid var(--rule); background: transparent; color: var(--muted);
+    border-radius: 999px; padding: 5px 13px; font: inherit; font-size: 12.5px; cursor: pointer;
+  }
+  .say:hover { color: var(--blue); border-color: var(--blue); }
+  .sayhint { font-size: 11.5px; color: var(--muted); margin-top: 7px; line-height: 1.35; }
+
+  .opts { display: grid; gap: 9px; }
+  .opt {
+    display: flex; align-items: center; gap: 11px; text-align: right;
+    border: 1.5px solid var(--rule); background: var(--card); color: var(--ink);
+    border-radius: 12px; padding: 12px 13px; cursor: pointer; font: inherit;
+    font-size: 16px; line-height: 1.25; transition: border-color .12s, background .12s;
+  }
+  .opt:hover:not(:disabled) { border-color: var(--blue); }
+  .opt:disabled { cursor: default; }
+  .opt .n {
+    flex: none; width: 21px; height: 21px; border-radius: 6px; background: var(--rule);
+    color: var(--muted); font-size: 11px; font-weight: 700; display: grid; place-items: center;
+  }
+  .opt .txt { flex: 1; }
+  .opt.gk .txt { font-family: "Times New Roman", Times, serif; font-size: 21px; font-weight: 700; color: var(--blue); }
+  .opt.right { border-color: var(--good); background: var(--good-s); }
+  .opt.right .n { background: var(--good); color: #fff; }
+  .opt.wrong { border-color: var(--bad); background: var(--bad-s); }
+  .opt.wrong .n { background: var(--bad); color: #fff; }
+  .opt.dim { opacity: .45; }
+
+  .feedback {
+    margin-top: 14px; border-radius: 12px; padding: 11px 13px; font-size: 13.5px; line-height: 1.45;
+    display: none;
+  }
+  .feedback.on { display: block; }
+  .feedback.ok { background: var(--good-s); color: var(--good); }
+  .feedback.no { background: var(--bad-s); color: var(--bad); }
+  .feedback b { font-weight: 700; }
+  .feedback .gk { font-size: 17px; }
+
+  /* ---------- end screen ---------- */
+  .score { text-align: center; padding: 8px 0 4px; }
+  .score .num { font-size: 46px; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+  .score .of { font-size: 15px; color: var(--muted); margin-top: 6px; }
+  .score .msg { font-size: 14.5px; margin-top: 12px; line-height: 1.5; }
+
+  .review { margin-top: 18px; border-top: 1px solid var(--rule); padding-top: 14px; }
+  .review h3 { font-size: 12.5px; color: var(--muted); font-weight: 700; letter-spacing: .04em; margin-bottom: 9px; }
+  .row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--rule); font-size: 14px; }
+  .row:last-child { border-bottom: none; }
+  .row .k { font-family: "Times New Roman", Times, serif; font-size: 20px; font-weight: 700; min-width: 62px; color: var(--blue); }
+  .row .v { flex: 1; color: var(--muted); font-size: 13px; }
+  .row .v b { color: var(--ink); font-weight: 600; }
+
+  .btn {
+    display: block; width: 100%; margin-top: 16px; border: none; border-radius: 12px;
+    background: var(--blue); color: #fff; font: inherit; font-size: 15.5px; font-weight: 700;
+    padding: 13px; cursor: pointer;
+  }
+  .btn:active { opacity: .9; }
+  .btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--rule); margin-top: 9px; font-weight: 600; }
+  .btn.ghost:hover { color: var(--ink); }
+
+  /* ---------- reference table ---------- */
+  /* the reference rows are Greek/English content — read them left-to-right */
+  /* minmax(0,…) + min-width:0 keep long phrases like "Δεν καταλαβαίνω" from widening the page */
+  .tbl { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0 14px; direction: ltr; text-align: left; }
+  .tbl .e { display: flex; gap: 9px; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--rule); min-width: 0; }
+  .tbl .e .d { min-width: 0; overflow-wrap: anywhere; }
+  .tbl .e .g { font-family: "Times New Roman", Times, serif; font-size: 17px; font-weight: 700; min-width: 34px; color: var(--blue); }
+  .tbl .e .d { font-size: 12.5px; line-height: 1.35; }
+  .tbl .e .d b { display: block; font-family: "Times New Roman", Times, serif; font-size: 15px; }
+  .tbl .e .d i { font-style: normal; color: var(--blue); }
+  /* the Hebrew gloss gets its own line and its own direction, so "!הצילו" keeps its punctuation */
+  .tbl .e .d s {
+    display: block; text-decoration: none; color: var(--muted);
+    direction: rtl; unicode-bidi: isolate; text-align: left; margin-top: 1px;
+  }
+  @media (max-width: 520px) { .tbl { grid-template-columns: 1fr; } }
+
+  /* in dark mode the accents are light, so anything sitting on them needs dark text */
+  :root[data-theme="dark"] .btn { color: #0b1420; }
+  :root[data-theme="dark"] .opt.right .n,
+  :root[data-theme="dark"] .opt.wrong .n { color: #0b1420; }
+  :root[data-theme="dark"] .tab.on { box-shadow: none; }
+
+  .hide { display: none !important; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="bar">
+    <h1>משחק יוונית <span id="modeLabel"></span></h1>
+    <span class="chip hide" id="chipScore">0</span>
+    <span class="chip streak hide" id="chipStreak">🔥 0</span>
+    <button class="iconbtn" id="btnTheme" title="רקע בהיר / כהה">🌙</button>
+    <button class="iconbtn hide" id="btnQuit" title="חזרה לתפריט">✕</button>
+  </div>
+
+  <div class="track hide" id="track"><div class="fill" id="fill"></div></div>
+
+  <!-- START -->
+  <section class="card hero" id="screenStart">
+    <div class="flag"></div>
+    <div class="big gk">Α α &nbsp; Ω ω</div>
+    <h2>ללמוד לקרוא יוונית</h2>
+    <p>שלב 1: האותיות ו־24 מילים.<br>שלב 2: 32 מילים ליום־יום ביוון.</p>
+    <div class="tabs">
+      <button class="tab on" data-lvl="1">שלב 1 · אותיות</button>
+      <button class="tab" data-lvl="2">שלב 2 · יום־יום</button>
+    </div>
+
+    <div class="modes" id="lvl1">
+      <button class="mode" data-mode="letters"><span class="em gk">Δ</span><span><b>אותיות</b><small>לזהות אות, שם וצליל</small></span></button>
+      <button class="mode" data-mode="words"><span class="em">💬</span><span><b>מילים</b><small>24 המילים של האלפבית</small></span></button>
+      <button class="mode" data-mode="mixed"><span class="em">🎲</span><span><b>הכול מעורבב</b><small>אותיות ומילים ביחד</small></span></button>
+      <button class="mode" data-mode="study"><span class="em">📖</span><span><b>ללמוד קודם</b><small>הצצה בכל האותיות והמילים</small></span></button>
+    </div>
+
+    <div class="modes hide" id="lvl2">
+      <button class="mode" data-cat="all"><span class="em">🎲</span><span><b>הכול מעורבב</b><small>32 מילים ליום־יום ביוון</small></span></button>
+      <div class="cats" id="cats"></div>
+      <button class="mode" data-cat="study"><span class="em">📖</span><span><b>ללמוד קודם</b><small>כל המילים לפי נושא</small></span></button>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="card hide" id="screenQuiz">
+    <div class="ask" id="ask"></div>
+    <div class="prompt" id="prompt"></div>
+    <div class="opts" id="opts"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="btn hide" id="btnNext">המשך</button>
+  </section>
+
+  <!-- END -->
+  <section class="card hide" id="screenEnd">
+    <div class="score">
+      <div class="num" id="endNum">0/12</div>
+      <div class="of" id="endPct"></div>
+      <div class="msg" id="endMsg"></div>
+    </div>
+    <div class="review hide" id="review">
+      <h3>כדאי לחזור על אלה</h3>
+      <div id="reviewRows"></div>
+    </div>
+    <button class="btn" id="btnAgain">עוד סיבוב</button>
+    <button class="btn ghost" id="btnMenu">חזרה לתפריט</button>
+  </section>
+
+  <!-- STUDY -->
+  <section class="card hide" id="screenStudy">
+    <div id="studyBody"></div>
+    <button class="btn" id="btnStudyDone">יאללה, לשחק</button>
+  </section>
+
+</div>
+
+<script>
+const LETTERS = [
+  {u:'Α',l:'α',name:'Alpha',   say:'AL-fa',      sound:'a in father'},
+  {u:'Β',l:'β',name:'Vita',    say:'VEE-ta',     sound:'v in very'},
+  {u:'Γ',l:'γ',name:'Gama',    say:'GHA-ma',     sound:'soft gh · y before e/i'},
+  {u:'Δ',l:'δ',name:'Delta',   say:'THEL-ta',    sound:'th in this'},
+  {u:'Ε',l:'ε',name:'Epsilon', say:'EP-see-lon', sound:'e in bed'},
+  {u:'Ζ',l:'ζ',name:'Zita',    say:'ZEE-ta',     sound:'z in zoo'},
+  {u:'Η',l:'η',name:'Ita',     say:'EE-ta',      sound:'ee in see'},
+  {u:'Θ',l:'θ',name:'Thita',   say:'THEE-ta',    sound:'th in think'},
+  {u:'Ι',l:'ι',name:'Iota',    say:'YO-ta',      sound:'ee in see'},
+  {u:'Κ',l:'κ',name:'Kapa',    say:'KA-pa',      sound:'k in sky'},
+  {u:'Λ',l:'λ',name:'Lamda',   say:'LAM-tha',    sound:'l in lamp'},
+  {u:'Μ',l:'μ',name:'Mi',      say:'mee',        sound:'m in man'},
+  {u:'Ν',l:'ν',name:'Ni',      say:'nee',        sound:'n in net'},
+  {u:'Ξ',l:'ξ',name:'Xi',      say:'ksee',       sound:'x in box'},
+  {u:'Ο',l:'ο',name:'Omikron', say:'O-mee-kron', sound:'o in soft'},
+  {u:'Π',l:'π',name:'Pi',      say:'pee',        sound:'p in spin'},
+  {u:'Ρ',l:'ρ',name:'Ro',      say:'roh',        sound:'rolled r'},
+  {u:'Σ',l:'σ',name:'Sigma',   say:'SEEGH-ma',   sound:'s in sun'},
+  {u:'Τ',l:'τ',name:'Taf',     say:'taf',        sound:'t in stop'},
+  {u:'Υ',l:'υ',name:'Ypsilon', say:'EEP-see-lon',sound:'ee in see'},
+  {u:'Φ',l:'φ',name:'Fi',      say:'fee',        sound:'f in fun'},
+  {u:'Χ',l:'χ',name:'Chi',     say:'khee',       sound:'raspy h in huge'},
+  {u:'Ψ',l:'ψ',name:'Psi',     say:'psee',       sound:'ps in lapse'},
+  {u:'Ω',l:'ω',name:'Omega',   say:'o-MEH-gha',  sound:'o in soft'}
+];
+
+const WORDS = [
+  {k:'Α α',gk:'Αλάτι',      he:'מלח',            en:'Salt',      pron:'a-LA-ti'},
+  {k:'Β β',gk:'Βοήθεια',    he:'הצילו!',          en:'Help!',     pron:'vo-EE-thee-a'},
+  {k:'Γ γ',gk:'Γάλα',       he:'חלב',            en:'Milk',      pron:'GHA-la'},
+  {k:'Δ δ',gk:'Δρόμος',     he:'רחוב / כביש',     en:'Street',    pron:'THRO-mos'},
+  {k:'Ε ε',gk:'Εισιτήριο',  he:'כרטיס',           en:'Ticket',    pron:'ee-see-TEE-ree-o'},
+  {k:'Ζ ζ',gk:'Ζάχαρη',     he:'סוכר',           en:'Sugar',     pron:'ZA-kha-ri'},
+  {k:'Η η',gk:'Ήλιος',      he:'שמש',            en:'Sun',       pron:'EE-lee-os'},
+  {k:'Θ θ',gk:'Θάλασσα',    he:'ים',             en:'Sea',       pron:'THA-la-sa'},
+  {k:'Ι ι',gk:'Ίσια',       he:'ישר (בכיוון)',    en:'Straight',  pron:'EE-sya'},
+  {k:'Κ κ',gk:'Κρασί',      he:'יין',            en:'Wine',      pron:'kra-SEE'},
+  {k:'Λ λ',gk:'Λογαριασμός',he:'החשבון',         en:'The bill',  pron:'lo-gha-ryas-MOS'},
+  {k:'Μ μ',gk:'Μπάνιο',     he:'חדר אמבטיה',      en:'Bathroom',  pron:'BA-nyo'},
+  {k:'Ν ν',gk:'Νησί',       he:'אי',             en:'Island',    pron:'ni-SEE'},
+  {k:'Ξ ξ',gk:'Ξενοδοχείο', he:'מלון',           en:'Hotel',     pron:'kse-no-tho-HEE-o'},
+  {k:'Ο ο',gk:'Ορίστε',     he:'בבקשה / הנה',     en:'Here you go',pron:'o-REE-ste'},
+  {k:'Π π',gk:'Παραλία',    he:'חוף',            en:'Beach',     pron:'pa-ra-LEE-a'},
+  {k:'Ρ ρ',gk:'Ρέστα',      he:'עודף',           en:'Change',    pron:'RE-sta'},
+  {k:'Σ σ',gk:'Σπίτι',      he:'בית',            en:'Home',      pron:'SPEE-tee'},
+  {k:'Τ τ',gk:'Ταβέρνα',    he:'טברנה / מסעדה',   en:'Tavern',    pron:'ta-VER-na'},
+  {k:'Υ υ',gk:'Υγεία',      he:'בריאות / לחיים',  en:'Health',    pron:'ee-YEE-a'},
+  {k:'Φ φ',gk:'Φαγητό',     he:'אוכל',           en:'Food',      pron:'fa-yi-TO'},
+  {k:'Χ χ',gk:'Χάρτης',     he:'מפה',            en:'Map',       pron:'HAR-tis'},
+  {k:'Ψ ψ',gk:'Ψώνια',      he:'קניות',          en:'Shopping',  pron:'PSO-nya'},
+  {k:'Ω ω',gk:'Ωραία',      he:'יופי! נהדר!',     en:'Nice!',     pron:'o-RE-a'}
+];
+
+/* ---------- level 2: everyday words, grouped by situation ---------- */
+const CATS = [
+  {id:'talk',  em:'🙋',  name:'נימוס ותקשורת'},
+  {id:'ask',   em:'❓',  name:'שאלות שימושיות'},
+  {id:'time',  em:'⏰',  name:'זמן'},
+  {id:'num',   em:'🔢',  name:'מספרים'},
+  {id:'food',  em:'🍽️', name:'אוכל ומסעדה'},
+  {id:'out',   em:'🧭',  name:'כיוונים ומקומות'}
+];
+
+const WORDS2 = [
+  {c:'talk', gk:'Παρακαλώ',        he:'בבקשה / על לא דבר', en:'Please',            pron:'pa-ra-ka-LO'},
+  {c:'talk', gk:'Συγγνώμη',        he:'סליחה',             en:'Sorry / excuse me', pron:'si-GHNO-mi'},
+  {c:'talk', gk:'Καλημέρα',        he:'בוקר טוב',          en:'Good morning',      pron:'ka-li-ME-ra'},
+  {c:'talk', gk:'Καλησπέρα',       he:'ערב טוב',           en:'Good evening',      pron:'ka-li-SPE-ra'},
+  {c:'talk', gk:'Δεν καταλαβαίνω', he:'אני לא מבינה',      en:"I don't understand",pron:'then ka-ta-la-VE-no'},
+  {c:'talk', gk:'Μιλάτε αγγλικά;', he:'אתם מדברים אנגלית?',en:'Do you speak English?',pron:'mi-LA-te an-gli-KA'},
+
+  {c:'ask',  gk:'Πόσο κάνει;',     he:'כמה זה עולה?',      en:'How much is it?',   pron:'PO-so KA-ni'},
+  {c:'ask',  gk:'Πού είναι;',      he:'איפה זה?',          en:'Where is it?',      pron:'PU EE-ne'},
+  {c:'ask',  gk:'Θέλω',            he:'אני רוצה',          en:'I want',            pron:'THE-lo'},
+  {c:'ask',  gk:'Έχετε',           he:'יש לכם',            en:'Do you have',       pron:'E-khe-te'},
+  {c:'ask',  gk:'Καλά',            he:'טוב / בסדר',        en:'Good / fine',       pron:'ka-LA'},
+
+  {c:'time', gk:'Σήμερα',          he:'היום',              en:'Today',             pron:'SEE-me-ra'},
+  {c:'time', gk:'Αύριο',           he:'מחר',               en:'Tomorrow',          pron:'AV-ri-o'},
+  {c:'time', gk:'Τώρα',            he:'עכשיו',             en:'Now',               pron:'TO-ra'},
+  {c:'time', gk:'Βράδυ',           he:'ערב',               en:'Evening',           pron:'VRA-thi'},
+
+  {c:'num',  gk:'Ένα',             he:'אחד',               en:'One',               pron:'E-na'},
+  {c:'num',  gk:'Δύο',             he:'שתיים',             en:'Two',               pron:'THEE-o'},
+  {c:'num',  gk:'Τρία',            he:'שלוש',              en:'Three',             pron:'TREE-a'},
+  {c:'num',  gk:'Δέκα',            he:'עשר',               en:'Ten',               pron:'THE-ka'},
+
+  {c:'food', gk:'Μενού',           he:'תפריט',             en:'Menu',              pron:'me-NU'},
+  {c:'food', gk:'Σαλάτα',          he:'סלט',               en:'Salad',             pron:'sa-LA-ta'},
+  {c:'food', gk:'Τυρί',            he:'גבינה',             en:'Cheese',            pron:'ti-REE'},
+  {c:'food', gk:'Παγωτό',          he:'גלידה',             en:'Ice cream',         pron:'pa-gho-TO'},
+  {c:'food', gk:'Χωρίς',           he:'בלי',               en:'Without',           pron:'kho-REES'},
+
+  {c:'out',  gk:'Δεξιά',           he:'ימינה',             en:'Right',             pron:'the-ksi-A'},
+  {c:'out',  gk:'Αριστερά',        he:'שמאלה',             en:'Left',              pron:'a-ri-ste-RA'},
+  {c:'out',  gk:'Λεωφορείο',       he:'אוטובוס',           en:'Bus',               pron:'le-o-fo-REE-o'},
+  {c:'out',  gk:'Φαρμακείο',       he:'בית מרקחת',         en:'Pharmacy',          pron:'far-ma-KEE-o'},
+  {c:'out',  gk:'Τουαλέτα',        he:'שירותים',           en:'Toilet',            pron:'tu-a-LE-ta'},
+  {c:'out',  gk:'Κλειδί',          he:'מפתח',              en:'Key',               pron:'kli-THEE'},
+  {c:'out',  gk:'Ανοιχτά',         he:'פתוח',              en:'Open',              pron:'a-nikh-TA'},
+  {c:'out',  gk:'Κλειστά',         he:'סגור',              en:'Closed',            pron:'kli-STA'}
+];
+
+let roundLen = 12;
+let WPOOL = WORDS;            // which word list the word questions draw from
+const $ = id => document.getElementById(id);
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = (Math.random()*(i+1))|0; [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const pick = a => a[(Math.random()*a.length)|0];
+
+/* distractors: n other items, unique by the field we show */
+function others(pool, item, field, n) {
+  const seen = new Set([item[field]]);
+  const out = [];
+  for (const o of shuffle(pool)) {
+    if (out.length === n) break;
+    if (seen.has(o[field])) continue;
+    seen.add(o[field]); out.push(o);
+  }
+  return out;
+}
+
+/* ---------- question builders ---------- */
+const BUILD = {
+  // which letter is this?
+  letterName(){ const it = pick(LETTERS);
+    return { ask:'איזו אות זו?', prompt:{type:'glyph', text: it.u+' '+it.l}, speak: it.u, pron: it.say,
+      correct: it.name, options: [it, ...others(LETTERS,it,'name',3)].map(o=>o.name),
+      note:`<b class="gk">${it.u} ${it.l}</b> — ${it.name} · ${it.say}`, tag:`${it.u} ${it.l}`, tagNote:`${it.name} — ${it.sound}` }; },
+
+  // what sound does it make?
+  letterSound(){ const it = pick(LETTERS);
+    return { ask:'איזה צליל האות הזאת עושה?', prompt:{type:'glyph', text: it.u+' '+it.l}, speak: it.u, pron: it.say,
+      correct: it.sound, options: [it, ...others(LETTERS,it,'sound',3)].map(o=>o.sound),
+      note:`<b class="gk">${it.u} ${it.l}</b> (${it.name}) נשמעת כמו <b>${it.sound}</b>`, tag:`${it.u} ${it.l}`, tagNote:`${it.name} — ${it.sound}` }; },
+
+  // which letter makes this sound?
+  // distractors must differ by SOUND, not by name — Η, Ι, Υ all say "ee in see",
+  // so picking by name could put two correct answers on screen.
+  soundLetter(){ const it = pick(LETTERS);
+    const twins = LETTERS.filter(o => o.sound === it.sound && o.u !== it.u).map(o => o.u+' '+o.l);
+    return { ask:'איזו אות עושה את הצליל הזה?', prompt:{type:'plain', text: it.sound, hint:'האות שנשמעת ככה'},
+      correct: it.u+' '+it.l, options: [it, ...others(LETTERS,it,'sound',3)].map(o=>o.u+' '+o.l), greekOpts:true,
+      note:`<b>${it.sound}</b> = <b class="gk">${it.u} ${it.l}</b> (${it.name})` +
+           (twins.length ? ` · אותו צליל גם ב־<b class="gk">${twins.join(' ')}</b>` : ''),
+      tag:`${it.u} ${it.l}`, tagNote:`${it.name} — ${it.sound}` }; },
+
+  // greek word -> meaning
+  wordMean(){ const it = pick(WPOOL);
+    return { ask:'מה המילה הזאת אומרת?', prompt:{type:'word', text: it.gk, hint: it.pron}, speak: it.gk, pron: it.pron,
+      correct: it.he, options: [it, ...others(WPOOL,it,'he',3)].map(o=>o.he),
+      note:`<b class="gk">${it.gk}</b> = ${it.he} · ${it.pron}`, tag:it.gk, tagNote:`${it.he} — ${it.pron}` }; },
+
+  // meaning -> greek word
+  meanWord(){ const it = pick(WPOOL);
+    return { ask:'איך אומרים את זה ביוונית?', prompt:{type:'plain', text: it.he},
+      correct: it.gk, options: [it, ...others(WPOOL,it,'gk',3)].map(o=>o.gk), greekOpts:true, speak: it.gk, pron: it.pron,
+      note:`${it.he} = <b class="gk">${it.gk}</b> · ${it.pron}`, tag:it.gk, tagNote:`${it.he} — ${it.pron}` }; },
+
+  // greek word -> how to say it
+  wordPron(){ const it = pick(WPOOL);
+    return { ask:'איך הוגים את המילה?', prompt:{type:'word', text: it.gk, hint: it.he}, speak: it.gk, pron: it.pron,
+      correct: it.pron, options: [it, ...others(WPOOL,it,'pron',3)].map(o=>o.pron),
+      note:`<b class="gk">${it.gk}</b> נהגית <b>${it.pron}</b> (${it.he})`, tag:it.gk, tagNote:`${it.he} — ${it.pron}` }; }
+};
+
+const WORD_KINDS = ['wordMean','meanWord','wordPron'];
+const POOLS = {
+  letters: ['letterName','letterSound','soundLetter'],
+  words:   WORD_KINDS,
+  mixed:   ['letterName','letterSound','soundLetter', ...WORD_KINDS],
+  lvl2:    WORD_KINDS
+};
+const MODE_LABEL = { letters:'· אותיות', words:'· מילים', mixed:'· מעורבב' };
+
+/* ---------- state ---------- */
+let mode='mixed', qs=[], idx=0, score=0, streak=0, best=0, misses=[], locked=false, timer=null;
+
+function makeRound(m){
+  const kinds = POOLS[m], out = [];
+  // a small category can't fill 12 distinct questions — shorten the round instead of repeating
+  const ceiling = kinds.every(k => WORD_KINDS.includes(k)) ? WPOOL.length * kinds.length : 99;
+  roundLen = Math.min(12, ceiling);
+  let guard = 0;
+  while (out.length < roundLen && guard++ < 3000) {
+    const q = BUILD[kinds[out.length % kinds.length]]();
+    // avoid asking the exact same thing twice in a round
+    if (out.some(p => p.tag === q.tag && p.ask === q.ask)) continue;
+    q.options = shuffle(q.options);
+    out.push(q);
+  }
+  roundLen = out.length;
+  return shuffle(out);
+}
+
+/* ---------- speech ----------
+   Chrome only allows speech that follows a real click, and a blocked call leaves the
+   queue stuck (speaking === true forever) which kills every later call too.
+   So: speak ONLY from the 🔊 button, never automatically. */
+const canSpeak = 'speechSynthesis' in window;
+let elVoice = null, primed = false;
+function findVoice(){
+  if (!canSpeak) return;
+  const v = speechSynthesis.getVoices().find(v => /^el/i.test(v.lang));
+  if (v) elVoice = v;
+}
+if (canSpeak) { findVoice(); speechSynthesis.onvoiceschanged = findVoice; }
+
+function sayHint(msg){ const h = $('sayHint'); if (h) { h.textContent = msg; h.classList.remove('hide'); } }
+
+/* text: the Greek word · fallback: the phonetic spelling, for devices with no Greek voice */
+function speak(text, fallback){
+  if (!canSpeak) return;
+  const s = speechSynthesis;
+  try {
+    if (!primed) { primed = true; s.speak(new SpeechSynthesisUtterance('')); } // unlock on first click
+    s.cancel();                                   // clear anything stuck in the queue
+    findVoice();
+    const greek = !!elVoice;
+    const u = new SpeechSynthesisUtterance(greek ? text : (fallback || text).replace(/-/g, ' '));
+    if (greek) { u.voice = elVoice; u.lang = elVoice.lang; }
+    u.rate = 0.8;
+    let started = false;
+    u.onstart = () => { started = true; };
+    u.onerror = () => sayHint('הדפדפן חוסם הקראה — נסי בספארי');
+    s.speak(u);
+    // if it never actually starts, say so instead of failing silently
+    setTimeout(() => { if (!started && !s.speaking) s.cancel(); }, 400);
+    setTimeout(() => { if (!started) sayHint(elVoice
+      ? 'לא הצלחתי להשמיע — נסי בספארי'
+      : 'אין קול יווני במחשב · הגדרות ▸ נגישות ▸ תוכן מדובר'); }, 1600);
+  } catch(e){ sayHint('הדפדפן חוסם הקראה'); }
+}
+
+/* ---------- screens ---------- */
+function show(which){
+  ['screenStart','screenQuiz','screenEnd','screenStudy'].forEach(s => $(s).classList.toggle('hide', s !== which));
+  const playing = which === 'screenQuiz';
+  $('track').classList.toggle('hide', !playing);
+  $('chipScore').classList.toggle('hide', !playing);
+  $('chipStreak').classList.toggle('hide', !playing || streak < 2);
+  $('btnQuit').classList.toggle('hide', which === 'screenStart');
+}
+
+/* pool: which words the word-questions draw from · label: what the top bar shows */
+function start(m, pool, label){
+  WPOOL = pool || WORDS;
+  mode = m; lastPool = WPOOL; lastLabel = label;
+  qs = makeRound(m); idx = 0; score = 0; streak = 0; best = 0; misses = [];
+  $('modeLabel').textContent = label || MODE_LABEL[m] || '';
+  show('screenQuiz'); render();
+}
+let lastPool = WORDS, lastLabel = '';
+
+function render(){
+  const q = qs[idx];
+  locked = false;
+  clearTimeout(timer);
+  $('chipScore').textContent = score + '/' + roundLen;
+  $('chipStreak').textContent = '🔥 ' + streak;
+  $('chipStreak').classList.toggle('hide', streak < 2);
+  $('fill').style.width = (idx / roundLen * 100) + '%';
+  $('ask').textContent = q.ask;
+
+  const p = q.prompt;
+  let html = '';
+  if (p.type === 'glyph') html = `<div class="glyph gk">${p.text}</div>`;
+  if (p.type === 'word')  html = `<div class="word gk">${p.text}</div>`;
+  if (p.type === 'plain') html = `<div class="plain">${p.text}</div>`;
+  if (p.hint) html += `<div class="hint" id="hint"></div>`;
+  if (q.speak && canSpeak) html += `<button class="say" id="btnSay">🔊 להשמיע</button><div class="sayhint hide" id="sayHint"></div>`;
+  $('prompt').innerHTML = html;
+  if (q.speak && canSpeak) $('btnSay').onclick = () => speak(q.speak, q.pron);
+
+  $('feedback').className = 'feedback';
+  $('feedback').innerHTML = '';
+  $('btnNext').classList.add('hide');
+  $('btnNext').textContent = (idx === roundLen - 1) ? 'לסיכום' : 'המשך';
+
+  $('opts').innerHTML = q.options.map((o,i) =>
+    `<button class="opt${q.greekOpts ? ' gk' : ''}" data-i="${i}"><span class="n">${i+1}</span><span class="txt">${o}</span></button>`
+  ).join('');
+  [...$('opts').children].forEach(b => b.onclick = () => answer(+b.dataset.i));
+}
+
+function answer(i){
+  if (locked) return;
+  locked = true;
+  const q = qs[idx];
+  const chosen = q.options[i];
+  const ok = chosen === q.correct;
+
+  if (ok) { score++; streak++; best = Math.max(best, streak); }
+  else { streak = 0; if (!misses.some(m => m.tag === q.tag)) misses.push({tag:q.tag, note:q.tagNote}); }
+
+  [...$('opts').children].forEach(b => {
+    const t = q.options[+b.dataset.i];
+    b.disabled = true;
+    if (t === q.correct) b.classList.add('right');
+    else if (+b.dataset.i === i) b.classList.add('wrong');
+    else b.classList.add('dim');
+  });
+
+  // reveal the hint (pronunciation / meaning) only after answering
+  if (q.prompt.hint && $('hint')) $('hint').textContent = q.prompt.hint;
+
+  const fb = $('feedback');
+  fb.className = 'feedback on ' + (ok ? 'ok' : 'no');
+  fb.innerHTML = (ok ? '✓ ' : '✗ ') + q.note;
+
+  $('chipScore').textContent = score + '/' + roundLen;
+  $('chipStreak').textContent = '🔥 ' + streak;
+  $('chipStreak').classList.toggle('hide', streak < 2);
+
+  $('btnNext').classList.remove('hide');
+  $('btnNext').focus({preventScroll:true});
+}
+
+function next(){
+  clearTimeout(timer);
+  idx++;
+  if (idx >= qs.length) finish(); else render();
+}
+
+function finish(){
+  $('fill').style.width = '100%';
+  const pct = Math.round(score / roundLen * 100);
+  $('endNum').textContent = score + '/' + roundLen;
+  $('endPct').textContent = pct + '% · רצף הכי ארוך: ' + best;
+  $('endMsg').innerHTML =
+    pct === 100 ? 'מושלם! 🇬🇷 את מוכנה לתפריט בטברנה.' :
+    pct >= 75  ? 'יפה מאוד — האותיות מתחילות להיכנס.' :
+    pct >= 50  ? 'התקדמות טובה. עוד סיבוב או שניים וזה יישב.' :
+                 'זה רק ההתחלה — כדאי להציץ בטבלה ולנסות שוב.';
+  const has = misses.length > 0;
+  $('review').classList.toggle('hide', !has);
+  if (has) $('reviewRows').innerHTML = misses.map(m =>
+    `<div class="row"><span class="k">${m.tag}</span><span class="v"><b>${m.note}</b></span></div>`).join('');
+  show('screenEnd');
+}
+
+/* ---------- study screen ---------- */
+const head = t => `<div class="ask" style="margin:18px 0 10px">${t}</div>`;
+const wordRows = list => `<div class="tbl">` + list.map(w =>
+  `<div class="e">${w.k ? `<span class="g">${w.k}</span>` : ''}<span class="d"><b>${w.gk}</b><i>${w.pron}</i><s>${w.he}</s></span></div>`
+).join('') + `</div>`;
+
+function buildStudy(level){
+  if (level === 2) {
+    $('studyBody').innerHTML = CATS.map(c =>
+      head(c.em + ' ' + c.name) + wordRows(WORDS2.filter(w => w.c === c.id))).join('');
+  } else {
+    $('studyBody').innerHTML =
+      head('האותיות והצליל שלהן') +
+      `<div class="tbl">` + LETTERS.map(l =>
+        `<div class="e"><span class="g">${l.u} ${l.l}</span><span class="d"><b>${l.name}</b><i>${l.sound}</i></span></div>`).join('') + `</div>` +
+      head('24 מילים שימושיות') + wordRows(WORDS);
+  }
+}
+
+/* ---------- wiring ---------- */
+let level = 1;
+$('cats').innerHTML = CATS.map(c => {
+  const n = WORDS2.filter(w => w.c === c.id).length;
+  return `<button class="mode" data-cat="${c.id}"><span class="em">${c.em}</span><span><b>${c.name}</b><small>${n} מילים</small></span></button>`;
+}).join('');
+
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
+  level = +t.dataset.lvl;
+  document.querySelectorAll('.tab').forEach(x => x.classList.toggle('on', x === t));
+  $('lvl1').classList.toggle('hide', level !== 1);
+  $('lvl2').classList.toggle('hide', level !== 2);
+});
+
+// level 1 modes
+document.querySelectorAll('#lvl1 .mode').forEach(b => b.onclick = () => {
+  const m = b.dataset.mode;
+  if (m === 'study') { buildStudy(1); show('screenStudy'); $('modeLabel').textContent = '· ללמוד'; }
+  else start(m, WORDS);
+});
+
+// level 2: all words, or one category
+$('lvl2').addEventListener('click', e => {
+  const b = e.target.closest('[data-cat]'); if (!b) return;
+  const c = b.dataset.cat;
+  if (c === 'study') { buildStudy(2); show('screenStudy'); $('modeLabel').textContent = '· ללמוד'; return; }
+  const cat = CATS.find(x => x.id === c);
+  start('lvl2', cat ? WORDS2.filter(w => w.c === c) : WORDS2, cat ? '· ' + cat.name : '· יום־יום');
+});
+
+$('btnNext').onclick = next;
+$('btnStudyDone').onclick = () => level === 2 ? start('lvl2', WORDS2, '· יום־יום') : start('mixed', WORDS);
+$('btnAgain').onclick = () => start(mode, lastPool, lastLabel);
+$('btnMenu').onclick = () => { $('modeLabel').textContent=''; show('screenStart'); };
+$('btnQuit').onclick = () => { clearTimeout(timer); $('modeLabel').textContent=''; show('screenStart'); };
+
+document.addEventListener('keydown', e => {
+  if ($('screenQuiz').classList.contains('hide')) return;
+  if (e.key >= '1' && e.key <= '4') { const b = $('opts').children[+e.key - 1]; if (b && !b.disabled) b.click(); }
+  if (e.key === 'Enter' || e.key === ' ') { if (locked) { e.preventDefault(); next(); } }
+});
+
+/* light by default — dark only if she asks for it */
+const root = document.documentElement;
+function setTheme(t){
+  if (t === 'dark') root.setAttribute('data-theme','dark'); else root.removeAttribute('data-theme');
+  $('btnTheme').textContent = t === 'dark' ? '☀️' : '🌙';
+  try { localStorage.setItem('greek-theme', t); } catch(e){}
+}
+let savedTheme = 'light';
+try { savedTheme = localStorage.getItem('greek-theme') || 'light'; } catch(e){}
+setTheme(savedTheme);
+$('btnTheme').onclick = () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+
+show('screenStart');
+</script>
+</body>
+</html>
