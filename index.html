@@ -46,7 +46,9 @@
   }
   .app { width: 100%; max-width: 520px; display: flex; flex-direction: column; }
 
-  .gk { font-family: "Times New Roman", Times, serif; }
+  /* isolate מונע מסימני פיסוק יווניים (;) לקפוץ לצד השני בתוך טקסט עברי */
+  .gk { font-family: "Times New Roman", Times, serif; unicode-bidi: isolate; }
+  .prompt .phrase, .prompt .word, .prompt .glyph, .tgk { direction: ltr; }
 
   /* ---------- top bar ---------- */
   .bar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; min-height: 30px; }
@@ -201,6 +203,135 @@
   }
   @media (max-width: 520px) { .tbl { grid-template-columns: 1fr; } }
 
+  /* ---------- מסך המסלול ---------- */
+  .pathhead { padding: 18px 16px 16px; }
+  .chapnav { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .chapmid { flex: 1; text-align: center; }
+  .chaptitle { font-size: 15.5px; font-weight: 700; letter-spacing: -.01em; }
+  .chapcount { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+  .chapbtn {
+    flex: none; width: 32px; height: 32px; border-radius: 10px; cursor: pointer;
+    border: 1px solid var(--rule); background: var(--card); color: var(--blue);
+    font-size: 19px; line-height: 1; font-family: inherit;
+  }
+  .chapbtn.off { opacity: .3; pointer-events: none; }
+  .chaptrack { height: 5px; background: var(--rule); border-radius: 99px; overflow: hidden; margin-bottom: 16px; }
+  .chapfill { height: 100%; width: 0; background: var(--blue); border-radius: 99px; transition: width .35s ease; }
+
+  .mode.station { gap: 11px; }
+  .stmark {
+    flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+    font-size: 13px; font-weight: 700; background: var(--rule); color: var(--muted);
+  }
+  .stmark.done { background: var(--blue); color: #fff; }
+  .stmark.open { background: var(--blue-s); color: var(--blue); font-size: 10px; }
+  .stbody { flex: 1; min-width: 0; }
+  .stmeta { flex: none; font-size: 12px; font-weight: 700; color: var(--blue); }
+  .station.locked, .station.soon { opacity: .5; }
+  .station.locked:hover, .station.soon:hover { border-color: var(--rule); }
+
+  .tools { margin-top: 12px; padding: 12px 14px; display: grid; gap: 8px; }
+  .tools .mode { border: none; padding: 10px 4px; }
+  .tools .mode:hover b { color: var(--blue); }
+
+  .pathfoot { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding: 0 4px; }
+  .chip.prof { border: none; font-family: inherit; cursor: pointer; font-size: 12.5px; }
+  .linkbtn {
+    border: none; background: none; color: var(--muted); font: inherit; font-size: 13px;
+    cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
+  }
+  .linkbtn:hover { color: var(--blue); }
+
+  /* ---------- שאלות חדשות ---------- */
+  .prompt .phrase { font-size: 25px; font-weight: 700; line-height: 1.3; color: var(--blue); }
+  .prompt .muted-listen { color: var(--rule); letter-spacing: .15em; }
+  .say.big { font-size: 15px; padding: 10px 20px; border-color: var(--blue); color: var(--blue); font-weight: 600; }
+  .opt.gk.sm .txt { font-size: 17px; line-height: 1.35; }
+
+  .unlock {
+    margin-top: 14px; border-radius: 12px; padding: 10px 13px; font-size: 13.5px;
+    background: var(--blue-s); color: var(--blue);
+  }
+  .btn.small { font-size: 13.5px; padding: 9px; margin-top: 10px; }
+
+  /* ---------- מצב שיחה ---------- */
+  .micwrap { text-align: center; padding: 20px 0 8px; }
+  .mic {
+    width: 84px; height: 84px; border-radius: 50%; font-size: 34px; cursor: pointer;
+    border: 2px solid var(--blue); background: var(--blue-s); color: var(--blue);
+    transition: transform .12s, background .2s;
+  }
+  .mic:active { transform: scale(.96); }
+  .mic.rec { background: var(--blue); color: #fff; animation: pulse 1.4s infinite; }
+  .mic.off { opacity: .4; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(13,94,175,.35); } 50% { box-shadow: 0 0 0 14px rgba(13,94,175,0); } }
+  .miclabel { font-size: 13.5px; color: var(--muted); margin-top: 12px; line-height: 1.4; }
+  .miclive { font-size: 17px; color: var(--blue); margin-top: 8px; min-height: 22px; font-family: "Times New Roman", Times, serif; }
+  .talkstatus { font-size: 12.5px; color: var(--muted); margin-top: 6px; min-height: 16px; }
+  .talkstatus.warn { color: var(--bad); }
+  .michint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  .talkinput { display: flex; gap: 8px; margin: 14px 0 4px; }
+  .talkinput input {
+    flex: 1; min-width: 0; border: 1px solid var(--rule); border-radius: 11px;
+    padding: 11px 12px; font: inherit; font-size: 15px; background: var(--card); color: var(--ink);
+  }
+  .talkinput input:focus { outline: none; border-color: var(--blue); }
+  .tbtn {
+    border: 1px solid var(--rule); background: var(--card); color: var(--muted);
+    border-radius: 10px; padding: 8px 13px; font: inherit; font-size: 13px; cursor: pointer;
+  }
+  .tbtn:hover { color: var(--blue); border-color: var(--blue); }
+  .tbtn.done { color: var(--good); border-color: var(--good); }
+
+  .tcard { border: 1px solid var(--rule); border-radius: 13px; padding: 14px; margin-top: 10px; }
+  .tgk { font-size: 24px; font-weight: 700; color: var(--blue); line-height: 1.3; }
+  .tpron { font-size: 14px; color: var(--blue); opacity: .85; margin-top: 4px; direction: ltr; text-align: right; }
+  .the { font-size: 15px; font-weight: 600; color: var(--navy); margin-top: 6px; }
+  .tmiss { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .trow { display: flex; gap: 8px; margin-top: 11px; }
+
+  .suggest { border: 1px solid var(--blue); background: var(--blue-s); border-radius: 13px; padding: 14px; margin-top: 14px; }
+  .sugtitle { font-size: 13.5px; font-weight: 600; color: var(--blue); margin-bottom: 10px; line-height: 1.4; }
+  .sug { display: flex; align-items: center; gap: 9px; padding: 5px 0; font-size: 13.5px; cursor: pointer; }
+  .sug input { width: 16px; height: 16px; accent-color: var(--blue); }
+  .sugrow { display: flex; gap: 8px; margin-top: 8px; }
+  .sugrow .btn { margin-top: 4px; }
+
+  /* ---------- המילים שלי ---------- */
+  .vrow { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  .vrow:last-child { border-bottom: none; }
+  .vsay, .vdel {
+    flex: none; width: 30px; height: 30px; border-radius: 9px; cursor: pointer;
+    border: 1px solid var(--rule); background: var(--card); color: var(--muted); font-size: 13px;
+  }
+  .vsay:hover { color: var(--blue); }
+  .vdel:hover { color: var(--bad); }
+  .vtext { flex: 1; min-width: 0; }
+  .vtext b { display: block; font-size: 19px; color: var(--blue); line-height: 1.2; }
+  .vtext i { display: block; font-style: normal; font-size: 12.5px; color: var(--blue); opacity: .8; direction: ltr; text-align: right; }
+  .vtext s { display: block; text-decoration: none; font-size: 13px; color: var(--muted); margin-top: 1px; }
+  .empty { font-size: 13.5px; color: var(--muted); line-height: 1.6; text-align: center; padding: 26px 10px; }
+
+  /* ---------- השוואה ---------- */
+  .pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pcol { border: 1px solid var(--rule); border-radius: 13px; padding: 13px 10px; text-align: center; }
+  .pcol.me { border-color: var(--blue); background: var(--blue-s); }
+  .phead { font-size: 14.5px; font-weight: 700; margin-bottom: 10px; }
+  .pstat { padding: 5px 0; }
+  .pstat b { display: block; font-size: 21px; font-weight: 700; color: var(--blue); line-height: 1.1; }
+  .pstat span { font-size: 11.5px; color: var(--muted); }
+  .note2 { font-size: 12px; color: var(--muted); line-height: 1.5; margin-top: 14px; }
+
+  /* ---------- הודעה צפה ---------- */
+  .toast {
+    position: fixed; bottom: 22px; left: 50%; transform: translate(-50%, 14px);
+    background: var(--ink); color: var(--paper); font-size: 13.5px; font-weight: 600;
+    padding: 10px 18px; border-radius: 999px; opacity: 0; pointer-events: none;
+    transition: opacity .2s, transform .2s; z-index: 50; max-width: 88vw; text-align: center;
+  }
+  .toast.on { opacity: 1; transform: translate(-50%, 0); }
+
   /* in dark mode the accents are light, so anything sitting on them needs dark text */
   :root[data-theme="dark"] .btn { color: #0b1420; }
   :root[data-theme="dark"] .opt.right .n,
@@ -223,28 +354,43 @@
 
   <div class="track hide" id="track"><div class="fill" id="fill"></div></div>
 
-  <!-- START -->
-  <section class="card hero" id="screenStart">
+  <!-- מי משחק -->
+  <section class="card hero" id="screenProfile">
     <div class="flag"></div>
     <div class="big gk">Α α &nbsp; Ω ω</div>
-    <h2>ללמוד לקרוא יוונית</h2>
-    <p>שלב 1: האותיות ו־24 מילים.<br>שלב 2: 32 מילים ליום־יום ביוון.</p>
-    <div class="tabs">
-      <button class="tab on" data-lvl="1">שלב 1 · אותיות</button>
-      <button class="tab" data-lvl="2">שלב 2 · יום־יום</button>
+    <h2>מי לומד עכשיו?</h2>
+    <p>לכל אחד מסלול, ניקוד ומילים משלו.</p>
+    <div class="modes">
+      <button class="mode" data-profile="roni"><span class="em">🌊</span><span><b>רוני</b><small>להמשיך מאיפה שעצרתי</small></span></button>
+      <button class="mode" data-profile="nir"><span class="em">⛵</span><span><b>ניר</b><small>להמשיך מאיפה שעצרתי</small></span></button>
+    </div>
+  </section>
+
+  <!-- המסלול -->
+  <section id="screenPath" class="hide">
+    <div class="card pathhead">
+      <div class="flag"></div>
+      <div class="chapnav">
+        <button class="chapbtn" id="prevChap" title="פרק קודם">›</button>
+        <div class="chapmid">
+          <div class="chaptitle" id="chapTitle"></div>
+          <div class="chapcount" id="chapCount"></div>
+        </div>
+        <button class="chapbtn" id="nextChap" title="פרק הבא">‹</button>
+      </div>
+      <div class="chaptrack"><div class="chapfill" id="chapFill"></div></div>
+      <div class="modes" id="stationList"></div>
     </div>
 
-    <div class="modes" id="lvl1">
-      <button class="mode" data-mode="letters"><span class="em gk">Δ</span><span><b>אותיות</b><small>לזהות אות, שם וצליל</small></span></button>
-      <button class="mode" data-mode="words"><span class="em">💬</span><span><b>מילים</b><small>24 המילים של האלפבית</small></span></button>
-      <button class="mode" data-mode="mixed"><span class="em">🎲</span><span><b>הכול מעורבב</b><small>אותיות ומילים ביחד</small></span></button>
-      <button class="mode" data-mode="study"><span class="em">📖</span><span><b>ללמוד קודם</b><small>הצצה בכל האותיות והמילים</small></span></button>
+    <div class="card tools">
+      <button class="mode" id="cardTalk"><span class="em">🎙️</span><span><b>מצב שיחה</b><small>להקליט, להבין, ולענות בחזרה</small></span></button>
+      <button class="mode" id="cardVocab"><span class="em">⭐</span><span><b>המילים שלי</b><small><span id="vocabCount">0</span> מילים שאספתם</small></span></button>
+      <button class="mode" id="cardStudy"><span class="em">📖</span><span><b>ללמוד</b><small>כל האותיות, המילים והמשפטים</small></span></button>
     </div>
 
-    <div class="modes hide" id="lvl2">
-      <button class="mode" data-cat="all"><span class="em">🎲</span><span><b>הכול מעורבב</b><small>32 מילים ליום־יום ביוון</small></span></button>
-      <div class="cats" id="cats"></div>
-      <button class="mode" data-cat="study"><span class="em">📖</span><span><b>ללמוד קודם</b><small>כל המילים לפי נושא</small></span></button>
+    <div class="pathfoot">
+      <button class="chip prof" id="profileChip">רוני</button>
+      <button class="linkbtn" id="btnStats">השוואה בינינו</button>
     </div>
   </section>
 
@@ -264,21 +410,79 @@
       <div class="of" id="endPct"></div>
       <div class="msg" id="endMsg"></div>
     </div>
+    <div class="unlock hide" id="endUnlock"></div>
     <div class="review hide" id="review">
       <h3>כדאי לחזור על אלה</h3>
       <div id="reviewRows"></div>
+      <button class="btn ghost small hide" id="btnSaveMisses">⭐ לשמור למילים שלי</button>
     </div>
-    <button class="btn" id="btnAgain">עוד סיבוב</button>
-    <button class="btn ghost" id="btnMenu">חזרה לתפריט</button>
+    <button class="btn hide" id="btnNextStation">לתחנה הבאה</button>
+    <button class="btn ghost" id="btnAgain">עוד סיבוב</button>
+    <button class="btn ghost" id="btnMenu">חזרה למסלול</button>
   </section>
 
   <!-- STUDY -->
   <section class="card hide" id="screenStudy">
     <div id="studyBody"></div>
-    <button class="btn" id="btnStudyDone">יאללה, לשחק</button>
+    <button class="btn" id="btnStudyDone">חזרה למסלול</button>
+  </section>
+
+  <!-- מצב שיחה -->
+  <section class="card hide" id="screenTalk">
+    <div class="tabs">
+      <button class="tab on" id="talkTabHear">🎧 להבין מה אמרו</button>
+      <button class="tab" id="talkTabSay">↩️ לענות בחזרה</button>
+    </div>
+
+    <div class="micwrap">
+      <button class="mic" id="micBtn">🎙️</button>
+      <div class="miclabel" id="micLabel"></div>
+      <div class="miclive" id="micLive"></div>
+      <div class="talkstatus" id="talkStatus"></div>
+      <div class="michint" id="micHint"></div>
+    </div>
+
+    <div class="talkinput">
+      <input id="talkInput" type="text" autocomplete="off">
+      <button class="tbtn" id="talkSend">שליחה</button>
+    </div>
+
+    <div id="talkResults"></div>
+
+    <div class="suggest hide" id="talkSuggest">
+      <div class="sugtitle" id="suggestText"></div>
+      <div id="suggestList"></div>
+      <div class="sugrow">
+        <button class="btn small" id="suggestYes">להוסיף</button>
+        <button class="btn ghost small" id="suggestNo">לא עכשיו</button>
+      </div>
+    </div>
+
+    <button class="btn ghost" data-back>חזרה למסלול</button>
+  </section>
+
+  <!-- המילים שלי -->
+  <section class="card hide" id="screenVocab">
+    <div class="ask" id="vocabTitle"></div>
+    <div id="vocabList"></div>
+    <div class="empty hide" id="vocabEmpty">
+      מילים שתשמרו במצב שיחה או בסוף סיבוב יופיעו כאן,<br>ואפשר יהיה לתרגל אותן כמו כל תחנה.
+    </div>
+    <button class="btn hide" id="btnPractice">לתרגל את המילים שלי</button>
+    <button class="btn ghost" data-back>חזרה למסלול</button>
+  </section>
+
+  <!-- השוואה -->
+  <section class="card hide" id="screenStats">
+    <div class="ask" style="margin-bottom:14px">רוני מול ניר</div>
+    <div class="pgrid" id="statsBody"></div>
+    <div class="note2">כל טלפון שומר את הנתונים אצלו — הנתונים של ניר יופיעו כאן רק אם הוא שיחק במכשיר הזה.</div>
+    <button class="btn" id="btnShareStats">לשלוח את הסיכום שלי</button>
+    <button class="btn ghost" data-back>חזרה למסלול</button>
   </section>
 
 </div>
+<div class="toast" id="toast"></div>
 
 <script>
 const LETTERS = [
@@ -385,6 +589,66 @@ const WORDS2 = [
   {c:'out',  gk:'Κλειστά',         he:'סגור',              en:'Closed',            pron:'kli-STA'}
 ];
 
+/* ---------- משפטים שלמים — תחנות 5, 6, 7 ---------- */
+const PHRASES = [
+  {gk:'Τι κάνεις;',                he:'מה שלומך?',            pron:'ti KA-nis'},
+  {gk:'Καλά, ευχαριστώ',           he:'טוב, תודה',            pron:'ka-LA ef-kha-ri-STO'},
+  {gk:'Πώς σε λένε;',              he:'איך קוראים לך?',        pron:'pos se LE-ne'},
+  {gk:'Με λένε Ρόνι',              he:'קוראים לי רוני',        pron:'me LE-ne RO-ni'},
+  {gk:'Από πού είσαι;',            he:'מאיפה אתה?',           pron:'a-PO pu I-se'},
+  {gk:'Είμαι από το Ισραήλ',       he:'אני מישראל',           pron:'I-me a-PO to is-ra-IL'},
+  {gk:'Δεν μιλάω ελληνικά',        he:'אני לא מדברת יוונית',   pron:'then mi-LA-o e-li-ni-KA'},
+  {gk:'Συγγνώμη, δεν κατάλαβα',    he:'סליחה, לא הבנתי',       pron:'si-GHNO-mi then ka-TA-la-va'},
+  {gk:'Τι ώρα είναι;',             he:'מה השעה?',             pron:'ti O-ra I-ne'},
+  {gk:'Πού είναι η τουαλέτα;',     he:'איפה השירותים?',        pron:'pu I-ne i tu-a-LE-ta'},
+  {gk:'Πού είναι η παραλία;',      he:'איפה החוף?',           pron:'pu I-ne i pa-ra-LI-a'},
+  {gk:'Πόσο κοστίζει;',            he:'כמה זה עולה?',          pron:'PO-so ko-STI-zi'},
+  {gk:'Μπορώ να πληρώσω με κάρτα;',he:'אפשר לשלם בכרטיס?',     pron:'bo-RO na pli-RO-so me KAR-ta'},
+  {gk:'Θα ήθελα έναν καφέ',        he:'הייתי רוצה קפה',        pron:'tha I-the-la E-nan ka-FE'},
+  {gk:'Έχετε τραπέζι για δύο;',    he:'יש לכם שולחן לשניים?',  pron:'E-khe-te tra-PE-zi ya THI-o'},
+  {gk:'Τον λογαριασμό, παρακαλώ',  he:'את החשבון בבקשה',       pron:'ton lo-gha-ryas-MO pa-ra-ka-LO'},
+  {gk:'Καλή όρεξη',                he:'בתיאבון',              pron:'ka-LI O-re-ksi'},
+  {gk:'Στην υγειά μας',            he:'לחיים',                pron:'stin i-YA mas'},
+  {gk:'Ένα λεπτό, παρακαλώ',       he:'רגע אחד בבקשה',         pron:'E-na le-PTO pa-ra-ka-LO'},
+  {gk:'Δεν πειράζει',              he:'לא נורא',              pron:'then pi-RA-zi'},
+  {gk:'Είναι ανοιχτά τώρα;',       he:'פתוח עכשיו?',           pron:'I-ne a-nikh-TA TO-ra'},
+  {gk:'Τα λέμε αύριο',             he:'נתראה מחר',            pron:'ta LE-me AV-ri-o'}
+];
+
+/* מה עונים כשאומרים לך — תחנה 7 */
+const REPLIES = [
+  {ask:'Καλημέρα',          askHe:'בוקר טוב',              gk:'Καλημέρα',            pron:'ka-li-ME-ra',        he:'בוקר טוב'},
+  {ask:'Καληνύχτα',         askHe:'לילה טוב',              gk:'Καληνύχτα',           pron:'ka-li-NIKH-ta',      he:'לילה טוב'},
+  {ask:'Τι κάνεις;',        askHe:'מה שלומך?',             gk:'Καλά, ευχαριστώ',     pron:'ka-LA ef-kha-ri-STO',he:'טוב, תודה'},
+  {ask:'Ευχαριστώ',         askHe:'תודה',                  gk:'Παρακαλώ',            pron:'pa-ra-ka-LO',        he:'בבקשה / על לא דבר'},
+  {ask:'Πώς σε λένε;',      askHe:'איך קוראים לך?',        gk:'Με λένε Ρόνι',        pron:'me LE-ne RO-ni',     he:'קוראים לי רוני'},
+  {ask:'Από πού είσαι;',    askHe:'מאיפה את?',             gk:'Είμαι από το Ισραήλ', pron:'I-me a-PO to is-ra-IL', he:'אני מישראל'},
+  {ask:'Μιλάτε ελληνικά;',  askHe:'את מדברת יוונית?',      gk:'Λίγο',                pron:'LI-gho',             he:'קצת'},
+  {ask:'Καλή όρεξη',        askHe:'בתיאבון',               gk:'Ευχαριστώ, επίσης',   pron:'ef-kha-ri-STO e-PI-sis', he:'תודה, גם לך'},
+  {ask:'Τι θα πάρετε;',     askHe:'מה תיקחו? (במסעדה)',    gk:'Θα ήθελα έναν καφέ',  pron:'tha I-the-la E-nan ka-FE', he:'הייתי רוצה קפה'}
+];
+
+/* ---------- המסלול ---------- */
+const CHAPTERS = [
+  {n:1, name:'מתחילים לקרוא'},
+  {n:2, name:'יוונית שימושית'},
+  {n:3, name:'מתחילים לדבר'}
+];
+
+const STATIONS = [
+  {id:1, ch:1, em:'Δ',  gkEm:true, name:'אותיות',            sub:'לזהות אות, שם וצליל',      kinds:['letterName','letterSound','soundLetter']},
+  {id:2, ch:1, em:'💬', name:'מילים ראשונות',                sub:'24 המילים של האלפבית',      kinds:['wordMean','meanWord'],    pool:'WORDS'},
+  {id:3, ch:1, em:'🔤', name:'לקרוא מילים',                  sub:'לפענח כתיב יווני',          kinds:['wordPron','pronWord'],    pool:'WORDS'},
+  {id:4, ch:2, em:'🧺', name:'מילים מהחיים שלנו',            sub:'32 מילים ליום־יום',         kinds:['wordMean','meanWord','wordPron'], pool:'WORDS2'},
+  {id:5, ch:2, em:'🗣️', name:'משפטים קצרים',                sub:'משפטים שלמים שתשמעו ביוון', kinds:['phraseMean','meanPhrase'], pool:'PHRASES'},
+  {id:6, ch:2, em:'👂', name:'להבין מה אמרו לי',             sub:'לשמוע משפט ולהבין',         kinds:['listenPhrase'],           pool:'PHRASES'},
+  {id:7, ch:3, em:'↩️', name:'לענות ביוונית',                sub:'מה עונים כשפונים אליכם',    kinds:['replyPick'],              pool:'REPLIES'},
+  {id:8, ch:3, em:'🔒', name:'שיחות קצרות',                  sub:'דו־שיח שלם, תור אחרי תור',  soon:true},
+  {id:9, ch:3, em:'🔒', name:'שיחה אמיתית',                  sub:'לנהל שיחה עם דובר יוונית',  soon:true}
+];
+
+const POOL_BY_NAME = () => ({WORDS, WORDS2, PHRASES, REPLIES});
+
 let roundLen = 12;
 let WPOOL = WORDS;            // which word list the word questions draw from
 const $ = id => document.getElementById(id);
@@ -444,30 +708,110 @@ const BUILD = {
   wordPron(){ const it = pick(WPOOL);
     return { ask:'איך הוגים את המילה?', prompt:{type:'word', text: it.gk, hint: it.he}, speak: it.gk, pron: it.pron,
       correct: it.pron, options: [it, ...others(WPOOL,it,'pron',3)].map(o=>o.pron),
-      note:`<b class="gk">${it.gk}</b> נהגית <b>${it.pron}</b> (${it.he})`, tag:it.gk, tagNote:`${it.he} — ${it.pron}` }; }
+      note:`<b class="gk">${it.gk}</b> נהגית <b>${it.pron}</b> (${it.he})`, tag:it.gk, tagNote:`${it.he} — ${it.pron}` }; },
+
+  /* ----- תחנה 3: לקרוא — מהתעתיק אל הכתיב היווני ----- */
+  pronWord(){ const it = pick(WPOOL);
+    return { ask:'איזו מילה נכתבת ככה?', prompt:{type:'plain', text: it.pron, hint: it.he},
+      correct: it.gk, options: [it, ...others(WPOOL,it,'gk',3)].map(o=>o.gk), greekOpts:true, speak: it.gk, pron: it.pron,
+      note:`<b>${it.pron}</b> נכתב <b class="gk">${it.gk}</b> (${it.he})`, tag:it.gk, tagNote:`${it.he} — ${it.pron}` }; },
+
+  /* ----- תחנה 5: משפטים ----- */
+  phraseMean(){ const it = pick(WPOOL);
+    return { ask:'מה המשפט הזה אומר?', prompt:{type:'phrase', text: it.gk, hint: it.pron}, speak: it.gk, pron: it.pron,
+      correct: it.he, options: [it, ...others(WPOOL,it,'he',3)].map(o=>o.he),
+      note:`<b class="gk">${it.gk}</b> · ${it.pron}`, tag:it.gk, tagNote:`${it.he} — ${it.pron}` }; },
+
+  meanPhrase(){ const it = pick(WPOOL);
+    return { ask:'איך אומרים את זה ביוונית?', prompt:{type:'plain', text: it.he},
+      correct: it.gk, options: [it, ...others(WPOOL,it,'gk',3)].map(o=>o.gk), greekOpts:true, longOpts:true,
+      speak: it.gk, pron: it.pron,
+      note:`${it.he} = <b class="gk">${it.gk}</b> · ${it.pron}`, tag:it.gk, tagNote:`${it.he} — ${it.pron}` }; },
+
+  /* ----- תחנה 6: להבין מה אמרו — המשפט מושמע ומוסתר עד שעונים ----- */
+  listenPhrase(){ const it = pick(WPOOL);
+    return { ask:'מה נאמר?', prompt:{type:'listen', text: it.gk, hint: it.pron}, speak: it.gk, pron: it.pron,
+      correct: it.he, options: [it, ...others(WPOOL,it,'he',3)].map(o=>o.he),
+      note:`<b class="gk">${it.gk}</b> · ${it.pron}`, tag:it.gk, tagNote:`${it.he} — ${it.pron}` }; },
+
+  /* ----- תחנה 7: לענות ----- */
+  replyPick(){ const it = pick(WPOOL);
+    return { ask:'אומרים לך את זה — מה עונים?', prompt:{type:'phrase', text: it.ask, hint: it.askHe}, speak: it.ask,
+      correct: it.gk, options: [it, ...others(WPOOL,it,'gk',3)].map(o=>o.gk), greekOpts:true, longOpts:true,
+      note:`${it.ask} ← <b class="gk">${it.gk}</b> · ${it.pron} (${it.he})`, tag:it.gk, tagNote:`${it.he} — ${it.pron}` }; }
 };
 
-const WORD_KINDS = ['wordMean','meanWord','wordPron'];
-const POOLS = {
-  letters: ['letterName','letterSound','soundLetter'],
-  words:   WORD_KINDS,
-  mixed:   ['letterName','letterSound','soundLetter', ...WORD_KINDS],
-  lvl2:    WORD_KINDS
-};
-const MODE_LABEL = { letters:'· אותיות', words:'· מילים', mixed:'· מעורבב' };
+const LETTER_KINDS = ['letterName','letterSound','soundLetter'];
 
-/* ---------- state ---------- */
-let mode='mixed', qs=[], idx=0, score=0, streak=0, best=0, misses=[], locked=false, timer=null;
+/* ---------- פרופילים ומצב שמור ---------- */
+const PROFILES = [
+  {id:'roni', name:'רוני', em:'🌊'},
+  {id:'nir',  name:'ניר',  em:'⛵'}
+];
+const SKEY = id => 'greek:v2:' + id;
+const blankState = () => ({ stations:{}, vocab:[], stats:{correct:0, wrong:0, bestStreak:0, rounds:0} });
 
-function makeRound(m){
-  const kinds = POOLS[m], out = [];
-  // a small category can't fill 12 distinct questions — shorten the round instead of repeating
-  const ceiling = kinds.every(k => WORD_KINDS.includes(k)) ? WPOOL.length * kinds.length : 99;
+let profile = null, S = blankState();
+
+function loadState(id){
+  let raw = {};
+  try { raw = JSON.parse(localStorage.getItem(SKEY(id)) || '{}'); } catch(e){}
+  S = Object.assign(blankState(), raw);
+  S.stations = S.stations || {};
+  S.vocab = S.vocab || [];
+  S.stats = Object.assign(blankState().stats, S.stats || {});
+}
+function saveState(){
+  if (!profile) return;
+  try { localStorage.setItem(SKEY(profile.id), JSON.stringify(S)); } catch(e){}
+}
+function setProfile(id){
+  profile = PROFILES.find(p => p.id === id) || PROFILES[0];
+  loadState(profile.id);
+  try { localStorage.setItem('greek:v2:last', profile.id); } catch(e){}
+}
+function peekState(id){          // לקרוא פרופיל אחר בלי להחליף אליו — למסך ההשוואה
+  try { return Object.assign(blankState(), JSON.parse(localStorage.getItem(SKEY(id)) || '{}')); }
+  catch(e){ return blankState(); }
+}
+
+/* תחנה נחשבת הושלמה מ-75% ומעלה, והיא זו שפותחת את הבאה */
+const stBest = id => (S.stations[id] && S.stations[id].best) || 0;
+const stDone = id => stBest(id) >= 0.75;
+function stStatus(st){
+  if (st.soon) return 'soon';
+  if (stDone(st.id)) return 'done';
+  const prev = STATIONS.find(s => s.id === st.id - 1);
+  return (!prev || stDone(prev.id)) ? 'open' : 'locked';
+}
+
+/* ווקבולרי אישי */
+function addVocab(it){
+  if (!it || !it.gk) return false;
+  if (S.vocab.some(v => v.gk === it.gk)) return false;
+  S.vocab.unshift({ gk: it.gk, he: it.he || '', pron: it.pron || translit(it.gk), at: Date.now() });
+  saveState();
+  return true;
+}
+function removeVocab(gk){
+  S.vocab = S.vocab.filter(v => v.gk !== gk);
+  saveState();
+}
+
+/* ---------- state של הסיבוב הנוכחי ---------- */
+let qs=[], idx=0, score=0, streak=0, best=0, misses=[], locked=false, timer=null;
+let round = null;   // {kinds, pool, label, stationId}
+
+function makeRound(kinds){
+  const out = [];
+  // מאגר קטן לא יכול למלא 12 שאלות שונות — מקצרים את הסיבוב במקום לחזור על שאלות
+  const fromPool = kinds.every(k => !LETTER_KINDS.includes(k));
+  const ceiling = fromPool ? WPOOL.length * kinds.length : 99;
   roundLen = Math.min(12, ceiling);
   let guard = 0;
   while (out.length < roundLen && guard++ < 3000) {
     const q = BUILD[kinds[out.length % kinds.length]]();
-    // avoid asking the exact same thing twice in a round
+    // אף שאלה לא חוזרת פעמיים באותו סיבוב
     if (out.some(p => p.tag === q.tag && p.ask === q.ask)) continue;
     q.options = shuffle(q.options);
     out.push(q);
@@ -516,24 +860,143 @@ function speak(text, fallback){
 }
 
 /* ---------- screens ---------- */
+/* ---------- תעתיק הגייה: עובד על כל טקסט יווני, בלי שום שירות חיצוני ----------
+   הכתיב היווני עקבי, אז אפשר להמיר אותו בחוקים: קודם צמדי אותיות (μπ, ου, ευ...),
+   אחר כך אותיות בודדות לפי מה שבא אחריהן, ולבסוף הדגשת ההברה שנושאת את סימן ההטעמה. */
+const UNACCENT = {'ά':'α','έ':'ε','ή':'η','ί':'ι','ό':'ο','ύ':'υ','ώ':'ω','ϊ':'ι','ϋ':'υ','ΐ':'ι','ΰ':'υ'};
+const FRONT = 'εέηήιίϊΐειοι';                    // תנועות שהופכות γ ל-y ו-χ ל-h
+const VOICELESS = 'θκξπστφχψ';                   // אחריהן αυ/ευ נשמעות af/ef
+const VOICED_AFTER_S = 'βγδμνρλ';                // σ לפני אלה נשמעת z
+const VOWELS = 'αεηιουω';
+
+function translit(text){
+  return String(text).split(/(\s+)/).map(tok =>
+    /^\s+$/.test(tok) ? tok : translitWord(tok)).join('');
+}
+
+function translitWord(word){
+  const punct = word.match(/[.,!;·?]+$/);
+  let w = word.replace(/[.,!;·?]+$/, '');
+  if (!/[α-ωΑ-Ω]/i.test(w)) return word;
+
+  // עיצור כפול נהגה ביוונית כמו עיצור אחד (θάλασσα = THA-la-sa). γγ יוצא מן הכלל — הוא צמד בפני עצמו.
+  const src = w.toLowerCase().replace(/ς/g, 'σ').replace(/([λμνπρστφκβδζθξψ])\1/g, '$1');
+  let stressAt = -1;                     // אינדקס התנועה המוטעמת ברשימת היחידות
+  const units = [];                      // {t: latin, v: isVowel}
+  const push = (t, v) => units.push({t, v});
+  const isVowelAt = j => { const ch = src[j]; return ch && VOWELS.includes(UNACCENT[ch] || ch); };
+
+  for (let i = 0; i < src.length; i++) {
+    const c = src[i], n = src[i + 1] || '', base = UNACCENT[c] || c;
+    const accented = !!UNACCENT[c];
+    const nBase = UNACCENT[n] || n;
+    const after = UNACCENT[src[i + 2]] || src[i + 2] || '';
+    const two = base + nBase;
+    const stressed = accented || !!UNACCENT[n];
+
+    // צמדי תנועות
+    if (two === 'ου') { if (stressed) stressAt = units.length; push('u', 1); i++; continue; }
+    if (two === 'αι') { if (stressed) stressAt = units.length; push('e', 1); i++; continue; }
+    if (two === 'ει' || two === 'οι' || two === 'υι') {
+      // ει לא מוטעמת לפני תנועה נשמעת כמו y (παλιά, μπάνιο)
+      if (!stressed && isVowelAt(i + 2)) { push('y', 0); i++; continue; }
+      if (stressed) stressAt = units.length;
+      push('ee', 1); i++; continue;
+    }
+    if (two === 'αυ' || two === 'ευ') {
+      if (stressed) stressAt = units.length;
+      const f = VOICELESS.includes(after) || after === '';
+      push((two === 'αυ' ? 'a' : 'e') + (f ? 'f' : 'v'), 1); i++; continue;
+    }
+    // צמדי עיצורים
+    if (two === 'μπ') { push('b', 0); i++; continue; }
+    if (two === 'ντ') { push('d', 0); i++; continue; }
+    if (two === 'γκ' || two === 'γγ') { push('g', 0); i++; continue; }
+    if (two === 'τσ') { push('ts', 0); i++; continue; }
+    if (two === 'τζ') { push('dz', 0); i++; continue; }
+
+    // אותיות בודדות
+    if (VOWELS.includes(base)) {
+      // ι/η/υ לא מוטעמות לפני תנועה נבלעות ל-y (μπάνιο = BA-nyo, ίσια = EE-sya)
+      if ('ιηυ'.includes(base) && !accented && isVowelAt(i + 1) && units.length) { push('y', 0); continue; }
+      if (accented) stressAt = units.length;
+      push({α:'a', ε:'e', η:'ee', ι:'ee', ο:'o', υ:'ee', ω:'o'}[base], 1);
+      continue;
+    }
+    const front = FRONT.includes(n);
+    const map = {
+      β:'v', γ: front ? 'y' : 'gh', δ:'th', ζ:'z', θ:'th', κ:'k', λ:'l', μ:'m', ν:'n',
+      ξ:'ks', π:'p', ρ:'r', σ: (nBase && VOICED_AFTER_S.includes(nBase)) ? 'z' : 's',
+      τ:'t', φ:'f', χ: front ? 'h' : 'kh', ψ:'ps'
+    };
+    push(map[base] !== undefined ? map[base] : base, 0);
+  }
+
+  // חלוקה להברות: עיצור בודד הולך עם התנועה שאחריו; באשכול של שניים
+  // הראשון סוגר את ההברה הקודמת — אלא אם האשכול יכול לפתוח מילה ביוונית.
+  // γ+ει לפני תנועה מייצרים שני y רצופים (γεια) — מאחדים, ומזיזים בהתאם את סימון ההטעמה
+  for (let i = units.length - 1; i > 0; i--)
+    if (!units[i].v && units[i].t === units[i - 1].t) {
+      units.splice(i, 1);
+      if (stressAt > i) stressAt--;
+    }
+
+  const OPENERS = ['st','sp','sk','sf','sh','tr','pr','kr','vr','thr','hr','ghr','dr','fr',
+                   'pl','kl','vl','ghl','thl','fl','ps','ks','br','bl','gr','gl','dz','ts'];
+  const syl = [];
+  let buf = [];
+  for (let i = 0; i < units.length; i++) {
+    const u = units[i];
+    if (u.v) {
+      const cons = [];
+      while (buf.length) cons.unshift(buf.pop());
+      // מאשכול עיצורים נשארים עם התנועה רק אלה שיכולים לפתוח מילה; השאר סוגרים את ההברה הקודמת
+      if (cons.length > 1 && syl.length) {
+        const keep = OPENERS.includes(cons.slice(-2).map(c => c.t).join('')) ? 2 : 1;
+        while (cons.length > keep) syl[syl.length - 1].t += cons.shift().t;
+      }
+      syl.push({ t: cons.map(c => c.t).join('') + u.t, stress: i === stressAt });
+    } else {
+      buf.push(u);
+    }
+  }
+  if (buf.length) {                      // עיצורים בסוף המילה
+    const tail = buf.map(c => c.t).join('');
+    if (syl.length) syl[syl.length - 1].t += tail; else syl.push({ t: tail, stress: false });
+  }
+  if (!syl.length) return word;
+  // מילה בלי סימן הטעמה (τον, μας, δεν) היא מילית — לא מדגישים אותה
+
+  const out = syl.map(s => s.stress ? s.t.toUpperCase() : s.t).join('-');
+  return out + (punct ? punct[0] : '');
+}
+
+/* ---------- מסכים ---------- */
+const SCREENS = ['screenProfile','screenPath','screenQuiz','screenEnd','screenStudy',
+                 'screenTalk','screenVocab','screenStats'];
 function show(which){
-  ['screenStart','screenQuiz','screenEnd','screenStudy'].forEach(s => $(s).classList.toggle('hide', s !== which));
+  SCREENS.forEach(s => $(s).classList.toggle('hide', s !== which));
   const playing = which === 'screenQuiz';
   $('track').classList.toggle('hide', !playing);
   $('chipScore').classList.toggle('hide', !playing);
   $('chipStreak').classList.toggle('hide', !playing || streak < 2);
-  $('btnQuit').classList.toggle('hide', which === 'screenStart');
+  $('btnQuit').classList.toggle('hide', which === 'screenPath' || which === 'screenProfile');
+  if (which === 'screenPath') $('modeLabel').textContent = '';
 }
 
-/* pool: which words the word-questions draw from · label: what the top bar shows */
-function start(m, pool, label){
-  WPOOL = pool || WORDS;
-  mode = m; lastPool = WPOOL; lastLabel = label;
-  qs = makeRound(m); idx = 0; score = 0; streak = 0; best = 0; misses = [];
-  $('modeLabel').textContent = label || MODE_LABEL[m] || '';
+/* cfg: {kinds, pool, label, stationId} */
+function startRound(cfg){
+  round = cfg;
+  WPOOL = cfg.pool || WORDS;
+  qs = makeRound(cfg.kinds); idx = 0; score = 0; streak = 0; best = 0; misses = [];
+  $('modeLabel').textContent = cfg.label ? '· ' + cfg.label : '';
   show('screenQuiz'); render();
 }
-let lastPool = WORDS, lastLabel = '';
+
+function startStation(st){
+  const pools = { WORDS, WORDS2, PHRASES, REPLIES };
+  startRound({ kinds: st.kinds, pool: st.pool ? pools[st.pool] : null, label: st.name, stationId: st.id });
+}
 
 function render(){
   const q = qs[idx];
@@ -547,11 +1010,16 @@ function render(){
 
   const p = q.prompt;
   let html = '';
-  if (p.type === 'glyph') html = `<div class="glyph gk">${p.text}</div>`;
-  if (p.type === 'word')  html = `<div class="word gk">${p.text}</div>`;
-  if (p.type === 'plain') html = `<div class="plain">${p.text}</div>`;
+  if (p.type === 'glyph')  html = `<div class="glyph gk">${p.text}</div>`;
+  if (p.type === 'word')   html = `<div class="word gk">${p.text}</div>`;
+  if (p.type === 'plain')  html = `<div class="plain">${p.text}</div>`;
+  if (p.type === 'phrase') html = `<div class="phrase gk">${p.text}</div>`;
+  // בתחנת ההאזנה המשפט מוסתר עד שעונים — ואם אין הקראה במכשיר, הוא פשוט מוצג
+  if (p.type === 'listen') html = canSpeak
+    ? `<div class="phrase gk muted-listen" id="listenText">···</div>`
+    : `<div class="phrase gk">${p.text}</div>`;
   if (p.hint) html += `<div class="hint" id="hint"></div>`;
-  if (q.speak && canSpeak) html += `<button class="say" id="btnSay">🔊 להשמיע</button><div class="sayhint hide" id="sayHint"></div>`;
+  if (q.speak && canSpeak) html += `<button class="say${p.type === 'listen' ? ' big' : ''}" id="btnSay">🔊 ${p.type === 'listen' ? 'להשמיע שוב' : 'להשמיע'}</button><div class="sayhint hide" id="sayHint"></div>`;
   $('prompt').innerHTML = html;
   if (q.speak && canSpeak) $('btnSay').onclick = () => speak(q.speak, q.pron);
 
@@ -561,7 +1029,7 @@ function render(){
   $('btnNext').textContent = (idx === roundLen - 1) ? 'לסיכום' : 'המשך';
 
   $('opts').innerHTML = q.options.map((o,i) =>
-    `<button class="opt${q.greekOpts ? ' gk' : ''}" data-i="${i}"><span class="n">${i+1}</span><span class="txt">${o}</span></button>`
+    `<button class="opt${q.greekOpts ? ' gk' : ''}${q.longOpts ? ' sm' : ''}" data-i="${i}"><span class="n">${i+1}</span><span class="txt">${o}</span></button>`
   ).join('');
   [...$('opts').children].forEach(b => b.onclick = () => answer(+b.dataset.i));
 }
@@ -586,6 +1054,11 @@ function answer(i){
 
   // reveal the hint (pronunciation / meaning) only after answering
   if (q.prompt.hint && $('hint')) $('hint').textContent = q.prompt.hint;
+  // in the listening station the sentence itself is revealed too
+  if ($('listenText')) { $('listenText').textContent = q.prompt.text; $('listenText').classList.remove('muted-listen'); }
+
+  S.stats[ok ? 'correct' : 'wrong']++;
+  if (streak > S.stats.bestStreak) S.stats.bestStreak = streak;
 
   const fb = $('feedback');
   fb.className = 'feedback on ' + (ok ? 'ok' : 'no');
@@ -607,19 +1080,128 @@ function next(){
 
 function finish(){
   $('fill').style.width = '100%';
-  const pct = Math.round(score / roundLen * 100);
+  const frac = roundLen ? score / roundLen : 0;
+  const pct = Math.round(frac * 100);
+  S.stats.rounds++;
+
+  // רישום התוצאה בתחנה, ופתיחת הבאה אם עברה את הרף
+  let unlocked = null, nextSt = null;
+  if (round && round.stationId) {
+    const rec = S.stations[round.stationId] || { best: 0, plays: 0 };
+    const wasDone = rec.best >= 0.75;
+    rec.plays++;
+    rec.best = Math.max(rec.best, frac);
+    rec.last = score + '/' + roundLen;
+    S.stations[round.stationId] = rec;
+    nextSt = STATIONS.find(s => s.id === round.stationId + 1) || null;
+    if (!wasDone && rec.best >= 0.75 && nextSt && !nextSt.soon) unlocked = nextSt;
+  }
+  saveState();
+
   $('endNum').textContent = score + '/' + roundLen;
   $('endPct').textContent = pct + '% · רצף הכי ארוך: ' + best;
   $('endMsg').innerHTML =
-    pct === 100 ? 'מושלם! 🇬🇷 את מוכנה לתפריט בטברנה.' :
-    pct >= 75  ? 'יפה מאוד — האותיות מתחילות להיכנס.' :
-    pct >= 50  ? 'התקדמות טובה. עוד סיבוב או שניים וזה יישב.' :
-                 'זה רק ההתחלה — כדאי להציץ בטבלה ולנסות שוב.';
+    pct === 100 ? 'מושלם! 🇬🇷' :
+    pct >= 75  ? 'יפה מאוד — התחנה הושלמה.' :
+    pct >= 50  ? 'התקדמות טובה. עוד סיבוב וזה יישב.' :
+                 'זו רק ההתחלה — כדאי להציץ בטבלה ולנסות שוב.';
+
+  $('endUnlock').classList.toggle('hide', !unlocked);
+  if (unlocked) $('endUnlock').innerHTML = `🔓 נפתחה תחנה חדשה — <b>${unlocked.name}</b>`;
+
   const has = misses.length > 0;
   $('review').classList.toggle('hide', !has);
   if (has) $('reviewRows').innerHTML = misses.map(m =>
     `<div class="row"><span class="k">${m.tag}</span><span class="v"><b>${m.note}</b></span></div>`).join('');
+  $('btnSaveMisses').classList.toggle('hide', !has);
+  $('btnSaveMisses').textContent = `⭐ לשמור את ${misses.length} אלה למילים שלי`;
+  $('btnSaveMisses').disabled = false;
+
+  const goNext = nextSt && !nextSt.soon && stStatus(nextSt) !== 'locked';
+  $('btnNextStation').classList.toggle('hide', !goNext);
+  if (goNext) $('btnNextStation').textContent = 'לתחנה הבאה — ' + nextSt.name;
+  $('btnNextStation').onclick = () => goNext && startStation(nextSt);
+
   show('screenEnd');
+}
+
+/* ---------- מסך המסלול ---------- */
+let chapterView = 1;
+
+function renderPath(){
+  const ch = CHAPTERS[chapterView - 1];
+  const list = STATIONS.filter(s => s.ch === ch.n);
+  const done = list.filter(s => stDone(s.id)).length;
+
+  $('chapTitle').textContent = `פרק ${ch.n} מתוך ${CHAPTERS.length} — ${ch.name}`;
+  $('chapCount').textContent = `${done} מתוך ${list.length} תחנות הושלמו`;
+  $('chapFill').style.width = (done / list.length * 100) + '%';
+  $('prevChap').classList.toggle('off', chapterView === 1);
+  $('nextChap').classList.toggle('off', chapterView === CHAPTERS.length);
+
+  $('stationList').innerHTML = list.map(st => {
+    const s = stStatus(st);
+    const mark = s === 'done' ? '✓' : s === 'open' ? '●' : '🔒';
+    const meta = s === 'done' ? `<span class="stmeta">${Math.round(stBest(st.id) * 100)}%</span>`
+               : s === 'soon' ? `<span class="stmeta">בקרוב</span>` : '';
+    return `<button class="mode station ${s}" data-st="${st.id}">
+        <span class="stmark ${s}">${mark}</span>
+        <span class="stbody"><b>${st.id}. ${st.name}</b><small>${st.sub}</small></span>
+        ${meta}</button>`;
+  }).join('');
+
+  $('vocabCount').textContent = S.vocab.length;
+  $('profileChip').textContent = profile.em + ' ' + profile.name;
+}
+
+/* ---------- המילים שלי ---------- */
+function renderVocab(){
+  const n = S.vocab.length;
+  $('vocabTitle').textContent = n ? `${n} מילים וביטויים שאספת` : 'עוד לא שמרת מילים';
+  $('vocabEmpty').classList.toggle('hide', n > 0);
+  $('btnPractice').classList.toggle('hide', n === 0);
+  $('vocabList').innerHTML = S.vocab.map(v => `
+    <div class="vrow">
+      <button class="vsay" data-say="${esc(v.gk)}" title="להשמיע">🔊</button>
+      <span class="vtext"><b class="gk">${esc(v.gk)}</b><i>${esc(v.pron)}</i><s>${esc(v.he)}</s></span>
+      <button class="vdel" data-del="${esc(v.gk)}" title="למחוק">✕</button>
+    </div>`).join('');
+}
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function practiceVocab(){
+  let pool = S.vocab.map(v => ({gk:v.gk, he:v.he, pron:v.pron}));
+  // צריך 4 אפשרויות לכל שאלה — משלימים ממילים של תחנה 4 אם אין מספיק
+  if (pool.length < 4) {
+    const fill = WORDS2.filter(w => !pool.some(v => v.gk === w.gk)).slice(0, 4 - pool.length);
+    pool = pool.concat(fill.map(w => ({gk:w.gk, he:w.he, pron:w.pron})));
+  }
+  startRound({ kinds:['wordMean','meanWord','wordPron'], pool, label:'המילים שלי' });
+}
+
+/* ---------- השוואה ---------- */
+function renderStats(){
+  $('statsBody').innerHTML = PROFILES.map(p => {
+    const st = p.id === profile.id ? S : peekState(p.id);
+    const total = st.stats.correct + st.stats.wrong;
+    const acc = total ? Math.round(st.stats.correct / total * 100) : 0;
+    const dn = STATIONS.filter(s => !s.soon && st.stations[s.id] && st.stations[s.id].best >= 0.75).length;
+    return `<div class="pcol${p.id === profile.id ? ' me' : ''}">
+      <div class="phead">${p.em} ${p.name}</div>
+      <div class="pstat"><b>${dn}</b><span>תחנות הושלמו</span></div>
+      <div class="pstat"><b>${st.stats.correct}</b><span>תשובות נכונות</span></div>
+      <div class="pstat"><b>${acc}%</b><span>דיוק</span></div>
+      <div class="pstat"><b>${st.stats.bestStreak}</b><span>רצף שיא</span></div>
+      <div class="pstat"><b>${st.vocab.length}</b><span>מילים שנשמרו</span></div>
+    </div>`;
+  }).join('');
+}
+
+function statsSummary(){
+  const total = S.stats.correct + S.stats.wrong;
+  const acc = total ? Math.round(S.stats.correct / total * 100) : 0;
+  const dn = STATIONS.filter(s => !s.soon && stDone(s.id)).length;
+  return `יוונית · ${profile.name}\n${dn} תחנות הושלמו · ${S.stats.correct} תשובות נכונות · ${acc}% דיוק · רצף שיא ${S.stats.bestStreak} · ${S.vocab.length} מילים\n${location.href}`;
 }
 
 /* ---------- study screen ---------- */
@@ -628,54 +1210,226 @@ const wordRows = list => `<div class="tbl">` + list.map(w =>
   `<div class="e">${w.k ? `<span class="g">${w.k}</span>` : ''}<span class="d"><b>${w.gk}</b><i>${w.pron}</i><s>${w.he}</s></span></div>`
 ).join('') + `</div>`;
 
-function buildStudy(level){
-  if (level === 2) {
-    $('studyBody').innerHTML = CATS.map(c =>
-      head(c.em + ' ' + c.name) + wordRows(WORDS2.filter(w => w.c === c.id))).join('');
+function buildStudy(){
+  $('studyBody').innerHTML =
+    head('האותיות והצליל שלהן') +
+    `<div class="tbl">` + LETTERS.map(l =>
+      `<div class="e"><span class="g">${l.u} ${l.l}</span><span class="d"><b>${l.name}</b><i>${l.sound}</i></span></div>`).join('') + `</div>` +
+    head('24 מילים לפי האלפבית') + wordRows(WORDS) +
+    CATS.map(c => head(c.em + ' ' + c.name) + wordRows(WORDS2.filter(w => w.c === c.id))).join('') +
+    head('🗣️ משפטים שלמים') + wordRows(PHRASES);
+}
+
+/* ================= מצב שיחה ================= */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const canHear = !!SR;
+let talkTab = 'hear', talkItems = [], recog = null, listening = false;
+
+const norm = s => String(s || '').toLowerCase().replace(/[.,!;·?"']/g, '').replace(/ς/g, 'σ').trim();
+
+function localPairs(){
+  const out = [];
+  [...WORDS, ...WORDS2, ...PHRASES].forEach(x => out.push({gk:x.gk, he:x.he, pron:x.pron}));
+  REPLIES.forEach(r => out.push({gk:r.gk, he:r.he, pron:r.pron}));
+  S.vocab.forEach(v => out.push({gk:v.gk, he:v.he, pron:v.pron}));
+  return out;
+}
+
+/* קודם המאגר שלנו (מיידי ומדויק), ואם אין — שירות תרגום ציבורי חינמי */
+async function translateText(text, dir){
+  const t = norm(text), pairs = localPairs();
+  if (dir === 'el2he') {
+    const hit = pairs.find(p => norm(p.gk) === t);
+    if (hit) return { text: hit.he, pron: hit.pron, src: 'bank' };
   } else {
-    $('studyBody').innerHTML =
-      head('האותיות והצליל שלהן') +
-      `<div class="tbl">` + LETTERS.map(l =>
-        `<div class="e"><span class="g">${l.u} ${l.l}</span><span class="d"><b>${l.name}</b><i>${l.sound}</i></span></div>`).join('') + `</div>` +
-      head('24 מילים שימושיות') + wordRows(WORDS);
+    const hit = pairs.find(p => norm(p.he) === t);
+    if (hit) return { text: hit.gk, pron: hit.pron, src: 'bank' };
+  }
+  try {
+    const pair = dir === 'el2he' ? 'el|he' : 'he|el';
+    const r = await fetch('https://api.mymemory.translated.net/get?q=' +
+      encodeURIComponent(text) + '&langpair=' + pair);
+    if (!r.ok) throw 0;
+    const j = await r.json();
+    const out = j && j.responseData && j.responseData.translatedText;
+    if (!out || /MYMEMORY WARNING|INVALID|QUERY LENGTH/i.test(out)) throw 0;
+    return { text: out, src: 'web' };
+  } catch (e) {
+    return null;                     // לא ממציאים תרגום
   }
 }
 
-/* ---------- wiring ---------- */
-let level = 1;
-$('cats').innerHTML = CATS.map(c => {
-  const n = WORDS2.filter(w => w.c === c.id).length;
-  return `<button class="mode" data-cat="${c.id}"><span class="em">${c.em}</span><span><b>${c.name}</b><small>${n} מילים</small></span></button>`;
-}).join('');
+function talkStatus(msg, cls){
+  $('talkStatus').textContent = msg || '';
+  $('talkStatus').className = 'talkstatus' + (cls ? ' ' + cls : '');
+}
 
-document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
-  level = +t.dataset.lvl;
-  document.querySelectorAll('.tab').forEach(x => x.classList.toggle('on', x === t));
-  $('lvl1').classList.toggle('hide', level !== 1);
-  $('lvl2').classList.toggle('hide', level !== 2);
+function startListen(){
+  if (listening) { try { recog.stop(); } catch(e){} return; }
+  if (!canHear) { talkStatus('הדפדפן הזה לא תומך בזיהוי קולי — אפשר להקליד למטה', 'warn'); return; }
+  const lang = talkTab === 'hear' ? 'el-GR' : 'he-IL';
+  try {
+    recog = new SR();
+    recog.lang = lang; recog.interimResults = true; recog.maxAlternatives = 1; recog.continuous = false;
+    recog.onstart = () => { listening = true; $('micBtn').classList.add('rec'); talkStatus(talkTab === 'hear' ? 'מקשיב ליוונית…' : 'מקשיב לעברית…'); };
+    recog.onresult = e => {
+      let txt = '';
+      for (let i = 0; i < e.results.length; i++) txt += e.results[i][0].transcript;
+      $('micLive').textContent = txt;
+      if (e.results[e.results.length - 1].isFinal) handleHeard(txt.trim());
+    };
+    recog.onerror = ev => {
+      listening = false; $('micBtn').classList.remove('rec');
+      talkStatus(ev.error === 'not-allowed'
+        ? 'אין הרשאת מיקרופון — צריך לאשר בדפדפן'
+        : 'לא הצלחתי לשמוע. אפשר לנסות שוב או להקליד', 'warn');
+    };
+    recog.onend = () => { listening = false; $('micBtn').classList.remove('rec'); };
+    recog.start();
+  } catch (e) {
+    talkStatus('לא הצלחתי להפעיל את המיקרופון — אפשר להקליד למטה', 'warn');
+  }
+}
+
+async function handleHeard(text){
+  if (!text) return;
+  $('micLive').textContent = '';
+  talkStatus('מתרגם…');
+  const dir = talkTab === 'hear' ? 'el2he' : 'he2el';
+  const res = await translateText(text, dir);
+  const item = dir === 'el2he'
+    ? { gk: text, pron: translit(text), he: res ? res.text : null }
+    : { gk: res ? res.text : null, pron: res ? (res.pron || translit(res.text)) : null, he: text };
+  item.at = Date.now();
+  talkItems.unshift(item);
+  talkStatus('');
+  renderTalk();
+}
+
+function renderTalk(){
+  $('talkTabHear').classList.toggle('on', talkTab === 'hear');
+  $('talkTabSay').classList.toggle('on', talkTab === 'say');
+  $('micLabel').textContent = talkTab === 'hear' ? 'לחצי והקשיבי למישהו מדבר יוונית' : 'לחצי ואמרי בעברית מה את רוצה להגיד';
+  $('talkInput').placeholder = talkTab === 'hear' ? 'או להקליד מה שמעתי ביוונית…' : 'או להקליד בעברית…';
+  $('micBtn').classList.toggle('off', !canHear);
+  $('micHint').textContent = canHear ? '' : 'המיקרופון לא נתמך בדפדפן הזה — אפשר להקליד';
+
+  $('talkResults').innerHTML = talkItems.map((it, i) => {
+    const saved = it.gk && S.vocab.some(v => v.gk === it.gk);
+    return `<div class="tcard">
+      ${it.gk ? `<div class="tgk gk">${esc(it.gk)}</div>` : `<div class="tmiss">לא הצלחתי לתרגם את זה</div>`}
+      ${it.pron ? `<div class="tpron">${esc(it.pron)}</div>` : ''}
+      ${it.he ? `<div class="the">${esc(it.he)}</div>` : (it.gk ? `<div class="tmiss">אין תרגום — אבל ההגייה למעלה נכונה</div>` : '')}
+      <div class="trow">
+        ${it.gk && canSpeak ? `<button class="tbtn" data-say="${esc(it.gk)}">🔊 להשמיע</button>` : ''}
+        ${it.gk ? `<button class="tbtn ${saved ? 'done' : ''}" data-save="${i}">${saved ? '✓ נשמר' : '⭐ לשמור'}</button>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  // הצעה לשמור אחרי שנצברו כמה ביטויים
+  const cands = talkItems.filter(it => it.gk && it.he && !S.vocab.some(v => v.gk === it.gk));
+  const show3 = cands.slice(0, 3);
+  $('talkSuggest').classList.toggle('hide', show3.length < 2);
+  if (show3.length >= 2) {
+    $('suggestText').textContent = `מצאתי ${show3.length} ביטויים שיכולים להיות שימושיים לכם שוב. להוסיף למילים שלי?`;
+    $('suggestList').innerHTML = show3.map(it =>
+      `<label class="sug"><input type="checkbox" checked data-sug="${esc(it.gk)}"><span><b class="gk">${esc(it.gk)}</b> — ${esc(it.he)}</span></label>`).join('');
+  }
+}
+
+/* ================= חיווט ================= */
+function goPath(){ clearTimeout(timer); renderPath(); show('screenPath'); }
+
+// פרופילים
+$('screenProfile').addEventListener('click', e => {
+  const b = e.target.closest('[data-profile]'); if (!b) return;
+  setProfile(b.dataset.profile);
+  goPath();
 });
 
-// level 1 modes
-document.querySelectorAll('#lvl1 .mode').forEach(b => b.onclick = () => {
-  const m = b.dataset.mode;
-  if (m === 'study') { buildStudy(1); show('screenStudy'); $('modeLabel').textContent = '· ללמוד'; }
-  else start(m, WORDS);
+// פרקים
+$('prevChap').onclick = () => { if (chapterView > 1) { chapterView--; renderPath(); } };
+$('nextChap').onclick = () => { if (chapterView < CHAPTERS.length) { chapterView++; renderPath(); } };
+
+// תחנות
+$('stationList').addEventListener('click', e => {
+  const b = e.target.closest('[data-st]'); if (!b) return;
+  const st = STATIONS.find(s => s.id === +b.dataset.st);
+  const s = stStatus(st);
+  if (s === 'soon') { toast('התחנה הזאת עוד בבנייה — ' + st.sub); return; }
+  if (s === 'locked') {
+    const prev = STATIONS.find(x => x.id === st.id - 1);
+    toast('קודם צריך לסיים את "' + prev.name + '" עם 75% ומעלה');
+    return;
+  }
+  startStation(st);
 });
 
-// level 2: all words, or one category
-$('lvl2').addEventListener('click', e => {
-  const b = e.target.closest('[data-cat]'); if (!b) return;
-  const c = b.dataset.cat;
-  if (c === 'study') { buildStudy(2); show('screenStudy'); $('modeLabel').textContent = '· ללמוד'; return; }
-  const cat = CATS.find(x => x.id === c);
-  start('lvl2', cat ? WORDS2.filter(w => w.c === c) : WORDS2, cat ? '· ' + cat.name : '· יום־יום');
-});
+// כלים
+$('cardTalk').onclick = () => { talkItems = []; renderTalk(); show('screenTalk'); $('modeLabel').textContent = '· מצב שיחה'; };
+$('cardVocab').onclick = () => { renderVocab(); show('screenVocab'); $('modeLabel').textContent = '· המילים שלי'; };
+$('cardStudy').onclick = () => { buildStudy(); show('screenStudy'); $('modeLabel').textContent = '· ללמוד'; };
+$('btnStats').onclick = () => { renderStats(); show('screenStats'); $('modeLabel').textContent = '· השוואה'; };
+$('profileChip').onclick = () => show('screenProfile');
 
+// מצב שיחה
+$('talkTabHear').onclick = () => { talkTab = 'hear'; renderTalk(); };
+$('talkTabSay').onclick  = () => { talkTab = 'say';  renderTalk(); };
+$('micBtn').onclick = startListen;
+$('talkSend').onclick = () => { const v = $('talkInput').value.trim(); if (v) { $('talkInput').value = ''; handleHeard(v); } };
+$('talkInput').addEventListener('keydown', e => { if (e.key === 'Enter') $('talkSend').click(); });
+$('talkResults').addEventListener('click', e => {
+  const say = e.target.closest('[data-say]');
+  if (say) { speak(say.dataset.say, translit(say.dataset.say)); return; }
+  const sv = e.target.closest('[data-save]');
+  if (sv) { const it = talkItems[+sv.dataset.save]; if (addVocab(it)) toast('נשמר למילים שלי'); renderTalk(); }
+});
+$('suggestYes').onclick = () => {
+  let n = 0;
+  $('suggestList').querySelectorAll('input[data-sug]:checked').forEach(cb => {
+    const it = talkItems.find(x => x.gk === cb.dataset.sug);
+    if (it && addVocab(it)) n++;
+  });
+  toast(n ? `נוספו ${n} למילים שלי` : 'כבר היו שמורים');
+  renderTalk();
+};
+$('suggestNo').onclick = () => { $('talkSuggest').classList.add('hide'); };
+
+// המילים שלי
+$('vocabList').addEventListener('click', e => {
+  const s = e.target.closest('[data-say]');
+  if (s) { speak(s.dataset.say, translit(s.dataset.say)); return; }
+  const d = e.target.closest('[data-del]');
+  if (d) { removeVocab(d.dataset.del); renderVocab(); }
+});
+$('btnPractice').onclick = practiceVocab;
+$('btnShareStats').onclick = async () => {
+  const txt = statsSummary();
+  try {
+    if (navigator.share) { await navigator.share({ text: txt }); return; }
+    await navigator.clipboard.writeText(txt);
+    toast('הסיכום הועתק — אפשר להדביק לניר');
+  } catch (e) { toast('לא הצלחתי להעתיק'); }
+};
+
+// מסך סיום
 $('btnNext').onclick = next;
-$('btnStudyDone').onclick = () => level === 2 ? start('lvl2', WORDS2, '· יום־יום') : start('mixed', WORDS);
-$('btnAgain').onclick = () => start(mode, lastPool, lastLabel);
-$('btnMenu').onclick = () => { $('modeLabel').textContent=''; show('screenStart'); };
-$('btnQuit').onclick = () => { clearTimeout(timer); $('modeLabel').textContent=''; show('screenStart'); };
+$('btnStudyDone').onclick = goPath;
+$('btnAgain').onclick = () => round && startRound(round);
+$('btnMenu').onclick = goPath;
+$('btnQuit').onclick = goPath;
+document.querySelectorAll('[data-back]').forEach(b => b.onclick = goPath);
+$('btnSaveMisses').onclick = () => {
+  let n = 0;
+  misses.forEach(m => {
+    const all = [...WORDS, ...WORDS2, ...PHRASES];
+    const hit = all.find(x => x.gk === m.tag) || REPLIES.find(r => r.gk === m.tag);
+    if (hit && addVocab({gk:hit.gk, he:hit.he, pron:hit.pron})) n++;
+  });
+  $('btnSaveMisses').textContent = n ? `✓ ${n} נוספו למילים שלי` : 'כבר שמורים';
+  $('btnSaveMisses').disabled = true;
+};
 
 document.addEventListener('keydown', e => {
   if ($('screenQuiz').classList.contains('hide')) return;
@@ -683,7 +1437,16 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Enter' || e.key === ' ') { if (locked) { e.preventDefault(); next(); } }
 });
 
-/* light by default — dark only if she asks for it */
+/* הודעה קצרה שנעלמת */
+let toastT = null;
+function toast(msg){
+  $('toast').textContent = msg;
+  $('toast').classList.add('on');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => $('toast').classList.remove('on'), 2600);
+}
+
+/* בהיר כברירת מחדל — כהה רק אם ביקשו */
 const root = document.documentElement;
 function setTheme(t){
   if (t === 'dark') root.setAttribute('data-theme','dark'); else root.removeAttribute('data-theme');
@@ -695,7 +1458,11 @@ try { savedTheme = localStorage.getItem('greek-theme') || 'light'; } catch(e){}
 setTheme(savedTheme);
 $('btnTheme').onclick = () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 
-show('screenStart');
+/* עלייה: מי שכבר בחר פרופיל נכנס ישר למסלול */
+let lastProfile = null;
+try { lastProfile = localStorage.getItem('greek:v2:last'); } catch(e){}
+if (lastProfile && PROFILES.some(p => p.id === lastProfile)) { setProfile(lastProfile); goPath(); }
+else show('screenProfile');
 </script>
 </body>
 </html>
