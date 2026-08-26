@@ -527,7 +527,7 @@
    ובמסך הבית של האייפון זה יכול להיתקע להרבה יותר. הבדיקה הזאת מוודאת שתמיד רצה
    הגרסה האחרונה: מושכים את הדף מהשרת בלי מטמון, ואם מספר הגרסה שם שונה — טוענים אותה.
    כתובת עם ?v= היא כתובת אחרת מבחינת המטמון, ולכן הטעינה הזאת תמיד מביאה קובץ טרי. */
-const APP_VERSION = '2026-08-26-1413';
+const APP_VERSION = '2026-08-26-1418';
 (function checkForUpdate(){
   if (location.protocol === 'file:') return;
   fetch(location.pathname + '?bust=' + Date.now(), { cache: 'no-store' })
@@ -857,8 +857,18 @@ async function pushState(){
         try { localStorage.setItem(SKEY(profile.id), JSON.stringify(S)); } catch(e){} }
       setSyncStatus('ok'); lastSync = Date.now(); return;
     }
+    if (r.ok) {
+      // השרת ממזג ומחזיר את התוצאה — מאמצים אותה כדי ששני המכשירים יהיו זהים
+      try {
+        const j = await r.json();
+        if (j && j.state) {
+          S = Object.assign(blankState(), j.state);
+          try { localStorage.setItem(SKEY(profile.id), JSON.stringify(S)); } catch(e){}
+        }
+      } catch(e){}
+      lastSync = Date.now();
+    }
     setSyncStatus(r.ok ? 'ok' : 'err');
-    if (r.ok) lastSync = Date.now();
   } catch(e){ setSyncStatus('err'); }
 }
 
