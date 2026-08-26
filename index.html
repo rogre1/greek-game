@@ -527,7 +527,7 @@
    ובמסך הבית של האייפון זה יכול להיתקע להרבה יותר. הבדיקה הזאת מוודאת שתמיד רצה
    הגרסה האחרונה: מושכים את הדף מהשרת בלי מטמון, ואם מספר הגרסה שם שונה — טוענים אותה.
    כתובת עם ?v= היא כתובת אחרת מבחינת המטמון, ולכן הטעינה הזאת תמיד מביאה קובץ טרי. */
-const APP_VERSION = '2026-08-25-1727';
+const APP_VERSION = '2026-08-26-1413';
 (function checkForUpdate(){
   if (location.protocol === 'file:') return;
   fetch(location.pathname + '?bust=' + Date.now(), { cache: 'no-store' })
@@ -827,7 +827,7 @@ function saveState(){
 /* ---------- סנכרון בין הטלפונים ----------
    הכתובת נשמרת במכשיר ולא בקוד, כך שהיא לא מתפרסמת ב-repo הציבורי.
    כל מכשיר דוחף את המצב שלו ומושך את של השני; הגרסה (rev) קובעת מי מנצח. */
-const SYNC_URL = '';                 // נכתב אוטומטית על ידי greek-sync/deploy.sh
+const SYNC_URL = 'https://greek-sync.ronigreen.workers.dev';                 // נכתב אוטומטית על ידי greek-sync/deploy.sh
 const SYNC_KEY = 'greek:sync-url';
 const syncUrl = () => {
   let saved = '';
