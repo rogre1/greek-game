@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head><body>
+<title>Μαθαίνω ελληνικά</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;800&family=Commissioner:wght@400;600;800&display=swap">
+<style>
+/* Layout: one centered column like a phone card deck; a Greek-key band crowns the page. Deliberately light only. */
+:root{
+  --bg:#F3F7FA;        /* whitewashed wall, cool */
+  --card:#FFFFFF;
+  --ink:#0E2A47;       /* navy */
+  --muted:#5B7088;
+  --line:#D9E3EC;
+  --sea:#13A1A6;       /* turquoise */
+  --sea-soft:#E1F4F4;
+  --deep:#1D4E89;      /* Aegean blue */
+  --good:#1E9E62; --good-soft:#E3F5EC;
+  --bad:#D2483B;  --bad-soft:#FBE9E7;
+  --gold:#E8A33A;
+  --f-he:"Assistant", "Arial Hebrew", system-ui, sans-serif;
+  --f-gr:"Commissioner", "Noto Sans", "Helvetica Neue", system-ui, sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-he);font-size:17px;line-height:1.5;margin:0}
+.key{height:14px;background-color:var(--deep);
+  background-image:
+   linear-gradient(90deg,transparent 0 2px,var(--bg) 2px 4px,transparent 4px 14px,var(--bg) 14px 16px,transparent 16px),
+   linear-gradient(var(--bg),var(--bg));
+  background-size:28px 14px,28px 2px;background-position:0 0,0 6px;background-repeat:repeat-x;opacity:.9}
+.wrap{max-width:560px;margin:0 auto;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+.gr{direction:ltr;unicode-bidi:isolate;font-family:var(--f-gr)}
+h1{margin:0;font-weight:800;font-size:clamp(28px,7vw,38px);line-height:1.1;text-wrap:balance}
+h1 .gr{display:block;color:var(--deep);font-weight:800}
+.sub{color:var(--muted);margin:4px 0 0;font-size:16px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.label{font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--muted)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 15px var(--f-he);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip:focus-visible,.opt:focus-visible,.btn:focus-visible,.tile:focus-visible,.icon:focus-visible{outline:3px solid var(--sea);outline-offset:2px}
+.players{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.player{border:2px solid var(--line);border-radius:14px;padding:12px;background:var(--card);cursor:pointer;text-align:right;font-family:var(--f-he);color:var(--ink);display:flex;flex-direction:column;gap:2px}
+.player[aria-pressed="true"]{border-color:var(--sea);background:var(--sea-soft)}
+.player b{font-size:19px}
+.player span{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.btn{border:0;border-radius:14px;padding:15px 18px;font:800 18px var(--f-he);cursor:pointer;background:var(--sea);color:#fff;width:100%}
+.btn.dark{background:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:default}
+.lessons{display:flex;flex-direction:column;gap:10px}
+.les{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
+.les .n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:var(--sea-soft);color:var(--deep);font-size:15px}
+.les.hot .n{background:var(--deep);color:#fff}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--sea);border-radius:3px}
+.les small{color:var(--muted);font-variant-numeric:tabular-nums}
+.toggle{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--muted)}
+/* quiz */
+.top{display:flex;align-items:center;gap:12px}
+.icon{border:0;background:transparent;font-size:22px;cursor:pointer;color:var(--muted);padding:4px;line-height:1}
+.prog{flex:1;height:10px;background:var(--line);border-radius:5px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--sea);transition:width .3s}
+.streak{font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;min-width:44px;text-align:left}
+.tag{font-size:13px;font-weight:600;color:var(--deep);background:var(--sea-soft);border-radius:999px;padding:3px 10px;align-self:flex-start}
+.ask{font-size:17px;color:var(--muted);margin:0}
+.prompt{display:flex;align-items:center;justify-content:center;gap:12px;min-height:110px;padding:18px 12px;text-align:center;flex-wrap:wrap}
+.prompt .big{font-size:clamp(28px,8vw,40px);font-weight:600;line-height:1.2}
+.prompt .he{font-size:clamp(24px,6.5vw,32px);font-weight:800}
+.prompt .emoji{font-size:64px}
+.speak{border:1.5px solid var(--line);background:var(--card);border-radius:50%;width:44px;height:44px;font-size:20px;cursor:pointer;flex:none}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opts.one{grid-template-columns:1fr}
+.opt{min-height:64px;border:2px solid var(--line);border-bottom-width:4px;border-radius:14px;background:var(--card);color:var(--ink);padding:10px 12px;font:600 18px var(--f-he);cursor:pointer;text-align:center}
+.opt.grk{font-family:var(--f-gr);font-size:19px}
+.opt:hover:not(:disabled){border-color:var(--sea)}
+.opt.ok{background:var(--good-soft);border-color:var(--good)}
+.opt.no{background:var(--bad-soft);border-color:var(--bad)}
+.opt:disabled{cursor:default}
+.slot{min-height:64px;border-bottom:2px dashed var(--line);display:flex;flex-wrap:wrap;gap:8px;padding:8px 0;direction:ltr;justify-content:flex-start}
+.bank{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;direction:ltr}
+.tile{border:2px solid var(--line);border-bottom-width:4px;border-radius:12px;background:var(--card);padding:8px 14px;font:600 19px var(--f-gr);color:var(--ink);cursor:pointer}
+.tile.used{visibility:hidden}
+.fb{border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.fb.good{background:var(--good-soft)}
+.fb.bad{background:var(--bad-soft)}
+.fb h3{margin:0;font-size:19px}
+.fb.good h3{color:var(--good)} .fb.bad h3{color:var(--bad)}
+.fb .ans{font-size:21px;font-weight:600}
+.fb .tr{color:var(--muted);font-size:15px}
+.fb .note{font-size:15px}
+/* end */
+.score{font-size:64px;font-weight:800;text-align:center;line-height:1;font-variant-numeric:tabular-nums}
+.score small{font-size:24px;color:var(--muted)}
+.miss{display:flex;flex-direction:column;gap:8px}
+.miss div{display:flex;flex-direction:column;border-bottom:1px solid var(--line);padding-bottom:8px}
+.miss .gr{font-size:19px;font-weight:600}
+.miss span{color:var(--muted);font-size:15px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@keyframes pop{0%{transform:scale(.97)}60%{transform:scale(1.02)}100%{transform:scale(1)}}
+.pop{animation:pop .25s ease}
+</style>
+
+<div class="key" aria-hidden="true"></div>
+<main class="wrap" id="app" dir="rtl"></main>
+
+<script>
+/* ============ DATA (from lessons 1–5 sent to Nir) ============ */
+const LESSONS={1:"אותיות",2:"היכרות",3:"מזג אוויר ונימוס",4:"ימים והפועל είμαι",5:"מאיפה ואיפה גרים"};
+const LW={1:1.6,2:2.2,3:6,4:3,5:2.2};   // emphasis on lessons 3–5
+const ITEMS=[];let _id=0;
+const add=(o)=>{o.id=o.id||("i"+(_id++));ITEMS.push(o);};
+
+// Lesson 1 – letters
+[["Β β","ו (v)"],["Γ γ","ג רכה / י"],["Δ δ","ד׳ – th כמו this"],["Θ θ","ת׳ – th כמו think"],["Η η","אִי (i)"],["Ξ ξ","קס (ks)"],["Φ φ","פ (f)"],["Χ χ","ח (ch)"],["Ψ ψ","פס (ps)"],["Ω ω","אוֹ (o)"],["ου","אוּ (u)"],["αι","אֶ (e)"],["μπ","ב (b)"],["ντ","ד (d)"],["Ρ ρ","ר (r)"],["Λ λ","ל (l)"],["Σ σ ς","ס (s)"],["Π π","פּ (p)"]]
+ .forEach(([g,a])=>add({l:1,k:"letter",g,a}));
+
+const V=(l,grp,g,h,t,e)=>add({l,k:"v",grp,g,h,t,e});
+// Lesson 2 – introductions
+V(2,"greet","Πώς σε λένε;","איך קוראים לך?","pos se LE-ne");
+V(2,"greet","Με λένε Ρόνι.","קוראים לי רוני.","me LE-ne RO-ni");
+V(2,"greet","Είμαι ο Νιρ.","אני ניר.","I-me o nir");
+V(2,"greet","Γειά σου!","שלום! (לאדם אחד)","YA su");
+V(2,"greet","Τι κάνεις;","מה שלומך?","ti KA-nis");
+V(2,"greet","Χάρηκα!","נעים מאוד!","HA-ri-ka");
+V(2,"greet","Κι εσύ;","ואתה? / ואת?","ki e-SI");
+V(2,"greet","Εσένα;","ואותך? (איך קוראים לך)","e-SE-na");
+V(2,"greet","Μια χαρά","מצוין, בסדר גמור","mia ha-RA");
+V(2,"greet","Έτσι κι έτσι","ככה ככה","E-tsi ki E-tsi");
+V(2,"greet","Τα ίδια","אותו דבר","ta I-dhia");
+V(2,"greet","Τα λέμε!","נתראה!","ta LE-me");
+// Lesson 3 – weather & politeness
+V(3,"weather","Τι καιρό έχει;","מה מזג האוויר?","ti ke-RO E-hi","🌤️");
+V(3,"weather","Κάνει ζέστη","חם","KA-ni ZE-sti","🥵");
+V(3,"weather","Κάνει κρύο","קר","KA-ni KRI-o","🥶");
+V(3,"weather","Έχει ήλιο","יש שמש","E-hi I-lio","☀️");
+V(3,"weather","Έχει συννεφιά","מעונן","E-hi si-ne-FIA","☁️");
+V(3,"weather","Βρέχει","יורד גשם","VRE-hi","🌧️");
+V(3,"weather","Φυσάει","נושבת רוח","fi-SA-i","💨");
+V(3,"wish","Καλή εβδομάδα!","שבוע טוב!","ka-LI ev-dho-MA-dha");
+V(3,"wish","Καλό μήνα!","חודש טוב!","ka-LO MI-na");
+V(3,"wish","Παρακαλώ","בבקשה / על לא דבר","pa-ra-ka-LO");
+V(3,"wish","Χάλια","גרוע, זוועה","HA-lia");
+V(3,"wish","Όλα καλά;","הכל טוב?","O-la ka-LA");
+V(3,"polite","Πώς είστε;","מה שלומכם? / מה שלומך (בנימוס)","pos I-ste");
+V(3,"polite","Τι κάνετε;","מה שלומכם?","ti KA-ne-te");
+V(3,"polite","Πώς τον λένε;","איך קוראים לו?","pos ton LE-ne");
+V(3,"polite","Πώς την λένε;","איך קוראים לה?","pos tin LE-ne");
+V(3,"polite","Τον λένε Νιρ.","קוראים לו ניר.","ton LE-ne nir");
+V(3,"polite","Από 'δω η Ρόνι.","זאת רוני. (כשמציגים מישהו)","a-PO dho i RO-ni");
+// Lesson 4 – days, είμαι
+V(4,"misc4","Γείτσες!","לבריאות! (אחרי עיטוש)","YI-tses");
+V(4,"misc4","Επίσης","גם / גם לך","e-PI-sis");
+V(4,"misc4","Τι μέρα είναι σήμερα;","איזה יום היום?","ti ME-ra I-ne SI-me-ra");
+V(4,"misc4","η μέρα","היום (יממה)","i ME-ra");
+V(4,"misc4","σήμερα","היום (today)","SI-me-ra");
+V(4,"misc4","το Σαββατοκύριακο","סוף השבוע","to sa-va-to-KI-ria-ko");
+V(4,"misc4","Ναι","כן","ne");
+V(4,"misc4","δεν","לא (לפני פועל)","dhen");
+const DAYS=[["Δευτέρα","שני","dhef-TE-ra"],["Τρίτη","שלישי","TRI-ti"],["Τετάρτη","רביעי","te-TAR-ti"],["Πέμπτη","חמישי","PEM-bti"],["Παρασκευή","שישי","pa-ra-ske-VI"],["Σάββατο","שבת","SA-va-to"],["Κυριακή","ראשון","ki-ria-KI"]];
+DAYS.forEach(([g,h,t])=>V(4,"day",g,"יום "+h,t));
+[["εγώ","אני","e-GHO"],["εσύ","אתה / את","e-SI"],["αυτός","הוא","af-TOS"],["αυτή","היא","af-TI"],["εμείς","אנחנו","e-MIS"],["εσείς","אתם / אתן","e-SIS"],["αυτοί","הם","af-TI"]].forEach(([g,h,t])=>V(4,"pron",g,h,t));
+// Lesson 5 – where from / where live
+V(5,"where","Από πού είσαι;","מאיפה את/ה?","a-PO pu I-se");
+V(5,"where","Πού μένεις;","איפה את/ה גר/ה?","pu ME-nis");
+V(5,"where","Είμαι από το Ισραήλ.","אני מישראל.","I-me a-PO to is-ra-IL");
+V(5,"where","Είμαι από το Τελ Αβίβ.","אני מתל אביב.","I-me a-PO to tel a-VIV");
+V(5,"where","Μένω στη Σαλαμίνα.","אני גר/ה בסלמינה.","ME-no sti sa-la-MI-na");
+V(5,"where","Μένω στην Αίγινα.","אני גר/ה באגינה.","ME-no stin E-yi-na");
+V(5,"where","εδώ","כאן","e-DHO");
+V(5,"where","από","מ־ (from)","a-PO");
+V(5,"where","σε","ב־ / ל־ (in, at)","se");
+V(5,"place","η πόλη","העיר","i PO-li");
+V(5,"place","η χώρα","המדינה","i HO-ra");
+V(5,"place","η οδός","הרחוב","i o-DHOS");
+V(5,"place","ο αριθμός","המספר","o a-rith-MOS");
+V(5,"place","το τηλέφωνο","הטלפון","to ti-LE-fo-no");
+V(5,"place","το όνομα","השם","to O-no-ma");
+V(5,"place","το επώνυμο","שם המשפחה","to e-PO-ni-mo");
+V(5,"place","το σπίτι","הבית","to SPI-ti");
+V(5,"place","η πλατεία","הכיכר","i pla-TI-a");
+V(5,"place","το λιμάνι","הנמל","to li-MA-ni");
+V(5,"place","η στάση","התחנה","i STA-si");
+V(5,"place","το ξενοδοχείο","המלון","to kse-no-dho-HI-o");
+V(5,"place","το ταχυδρομείο","הדואר","to ta-hi-dhro-MI-o");
+V(5,"place","η καφετέρια","בית הקפה","i ka-fe-TE-ria");
+V(5,"place","κοντά","קרוב","kon-DA");
+V(5,"place","μακριά","רחוק","ma-KRIA");
+const NUMS=[["μηδέν","mi-DHEN"],["ένα","E-na"],["δύο","DHI-o"],["τρία","TRI-a"],["τέσσερα","TE-se-ra"],["πέντε","PEN-de"],["έξι","E-ksi"],["επτά","ep-TA"],["οκτώ","ok-TO"],["εννιά","e-NIA"],["δέκα","DHE-ka"]];
+NUMS.forEach(([g,t],i)=>V(5,"num",g,String(i),t,null));
+
+// multiple-choice items: p = Greek prompt with ___, a = answer, o = wrong options, h = Hebrew meaning, t = translit, n = note
+const M=(l,p,a,o,h,t,n)=>add({l,k:"mc",p,a,o,h,t,n});
+// lesson 2 grammar
+M(2,"Με λένε ___. (Κώστας)","Κώστα",["Κώστας","Κώστο"],"קוראים לי קוסטה.","me LE-ne KO-sta","אחרי «με λένε» השם מאבד את ה־ς.");
+M(2,"Με λένε ___. (Νίκος)","Νίκο",["Νίκος","Νίκη"],"קוראים לי ניקוס.","me LE-ne NI-ko","אחרי «με λένε» השם מאבד את ה־ς.");
+M(2,"Είμαι ___ Νίκος.","ο",["η","το"],"אני ניקוס.","I-me o NI-kos","זכר: ‎-ος, -ας, -ης ← ο");
+M(2,"Είμαι ___ Μαρία.","η",["ο","το"],"אני מריה.","I-me i ma-RI-a","נקבה: ‎-η, -α ← η");
+// lesson 4 – είμαι
+const EIMAI=["είμαι","είσαι","είναι","είμαστε","είστε"];
+[["Εγώ ___ η Ρόνι.","είμαι","אני רוני."],["Εσύ ___ ο Γιάννης.","είσαι","אתה יאניס."],["Αυτή ___ η Ελένη.","είναι","היא אלני."],["Εμείς ___ φίλοι.","είμαστε","אנחנו חברים."],["Εσείς ___ η κυρία Γιάννα;","είστε","את הגברת יאנה? (בנימוס)"],["Αυτοί ___ ο Άρης και ο Μάρκος.","είναι","הם אריס ומרקוס."],["Εμείς ___ από το Ισραήλ.","είμαστε","אנחנו מישראל."],["Εσύ ___ ο Πέτρος;","είσαι","אתה פטרוס?"],["Εγώ δεν ___ ο Νίκος.","είμαι","אני לא ניקוס."],["Αυτός ___ ο Κώστας.","είναι","הוא קוסטס."],["Εσείς ___ στην Ελλάδα;","είστε","אתם ביוון?"]]
+ .forEach(([p,a,h])=>M(4,p,a,EIMAI.filter(x=>x!==a).sort(()=>Math.random()-.5).slice(0,3),h,"",null));
+M(4,"Είσαι ο Αλέξης; – Όχι, ___ είμαι ο Αλέξης.","δεν",["ναι","και"],"את/ה אלכסיס? – לא, אני לא אלכסיס.","O-hi, dhen I-me o A-le-ksis","שלילה: δεν + פועל");
+M(4,"Είσαι η Ελένη; – ___, είμαι η Ελένη.","Ναι",["Δεν","Επίσης"],"את אלני? – כן, אני אלני.","ne, I-me i e-LE-ni",null);
+// lesson 5 – μένω + articles
+const MENO=["μένω","μένεις","μένει","μένουμε","μένετε","μένουν"];
+[["Εγώ ___ στην Αίγινα.","μένω","אני גר/ה באגינה."],["Πού ___ εσύ;","μένεις","איפה את/ה גר/ה?"],["Ο Νιρ ___ στη Σαλαμίνα.","μένει","ניר גר בסלמינה."],["Εμείς ___ στην Ελλάδα.","μένουμε","אנחנו גרים ביוון."],["Πού ___ εσείς;","μένετε","איפה אתם גרים?"],["Αυτοί ___ στο Τελ Αβίβ.","μένουν","הם גרים בתל אביב."]]
+ .forEach(([p,a,h])=>M(5,p,a,MENO.filter(x=>x!==a).sort(()=>Math.random()-.5).slice(0,3),h,"","הפועל μένω = לגור"));
+const SE="σε + τον/την/το = στον / στην / στο";
+M(5,"Μένω ___ Αθήνα. (η Αθήνα)","στην",["στον","στο"],"אני גר/ה באתונה.","ME-no stin a-THI-na",SE);
+M(5,"Μένω ___ Πειραιά. (ο Πειραιάς)","στον",["στην","στο"],"אני גר/ה בפיראוס.","ME-no ston pi-re-A",SE);
+M(5,"Μένω ___ Ναύπλιο. (το Ναύπλιο)","στο",["στον","στην"],"אני גר/ה בנאפליו.","ME-no sto NAF-pli-o",SE);
+M(5,"Η Ρόνι είναι ___ σπίτι.","στο",["στον","στην"],"רוני בבית.","i RO-ni I-ne sto SPI-ti",SE);
+M(5,"Ο Νιρ είναι ___ πλατεία.","στην",["στον","στο"],"ניר בכיכר.","o nir I-ne stin pla-TI-a",SE);
+M(5,"Είμαι από ___ Ισραήλ.","το",["τον","την"],"אני מישראל.","I-me a-PO to is-ra-IL","από + τον / την / το");
+M(5,"Είμαι από ___ Θεσσαλονίκη.","την",["τον","το"],"אני מסלוניקי.","I-me a-PO ti the-sa-lo-NI-ki","από + τον / την / το");
+M(5,"Είμαι από ___ Βόλο. (ο Βόλος)","τον",["την","το"],"אני מוולוס.","I-me a-PO ton VO-lo","από + τον / την / το");
+[["πόλη","η","העיר"],["σπίτι","το","הבית"],["λιμάνι","το","הנמל"],["όνομα","το","השם"],["τηλέφωνο","το","הטלפון"],["Σαββατοκύριακο","το","סוף השבוע"],["μέρα","η","היום"],["αριθμός","ο","המספר"],["πλατεία","η","הכיכר"],["ξενοδοχείο","το","המלון"]]
+ .forEach(([w,a,h])=>M(5,"___ "+w,a,["ο","η","το"].filter(x=>x!==a),h,"",a==="το"?"מילים שנגמרות ב־‎-ο, -ι, -μα הן בדרך כלל το (סתמי)":null));
+
+// dialogs – choose the fitting answer
+const D=(l,p,a,o,h)=>add({l,k:"mc",dlg:1,p,a,o,h});
+D(5,"Πού μένεις;","Μένω στη Σαλαμίνα.",["Είμαι από το Ισραήλ.","Με λένε Νιρ.","Σήμερα είναι Δευτέρα."],"איפה את/ה גר/ה? – אני גר/ה בסלמינה.");
+D(5,"Από πού είσαι;","Είμαι από το Τελ Αβίβ.",["Μένω στην Αίγινα.","Κάνει κρύο.","Μια χαρά!"],"מאיפה את/ה? – אני מתל אביב.");
+D(5,"Πού μένει ο Νιρ;","Μένει εδώ, στη Σαλαμίνα.",["Είναι από το Ισραήλ.","Τον λένε Νιρ.","Είμαστε φίλοι."],"איפה ניר גר? – הוא גר כאן, בסלמינה.");
+D(4,"Τι μέρα είναι σήμερα;","Σήμερα είναι Κυριακή.",["Σήμερα βρέχει.","Είμαι η Ρόνι.","Μένω εδώ."],"איזה יום היום? – היום יום ראשון.");
+D(4,"Γείτσες!","Ευχαριστώ!",["Χάλια!","Τα ίδια.","Από 'δω η Ρόνι."],"לבריאות! – תודה!");
+D(4,"Είσαι ο Νίκος;","Όχι, δεν είμαι ο Νίκος.",["Ναι, είσαι ο Νίκος.","Όχι, είμαι ο Νίκος.","Επίσης."],"אתה ניקוס? – לא, אני לא ניקוס.");
+D(3,"Τι καιρό έχει;","Βρέχει και φυσάει.",["Καλό μήνα!","Με λένε Ρόνι.","Είμαι από εδώ."],"מה מזג האוויר? – יורד גשם ונושבת רוח.");
+D(3,"Καλή εβδομάδα!","Επίσης!",["Χάλια!","Γείτσες!","Πού μένεις;"],"שבוע טוב! – גם לך!");
+D(3,"Πώς τον λένε;","Τον λένε Κώστα.",["Την λένε Μαρία.","Με λένε Κώστα.","Είμαι από τον Βόλο."],"איך קוראים לו? – קוראים לו קוסטה.");
+D(2,"Πώς σε λένε;","Με λένε Ρόνι. Εσένα;",["Μια χαρά, κι εσύ;","Τα λέμε!","Κάνει ζέστη."],"איך קוראים לך? – קוראים לי רוני. ולך?");
+D(2,"Τι κάνεις;","Μια χαρά, κι εσύ;",["Με λένε Νιρ.","Χάρηκα!","Τρίτη."],"מה שלומך? – מצוין, ואת/ה?");
+
+// build-a-sentence
+const O=(l,h,g,t)=>add({l,k:"order",h,g,t});
+O(5,"אני גר/ה באגינה.","Μένω στην Αίγινα.","ME-no stin E-yi-na");
+O(5,"אני מתל אביב.","Είμαι από το Τελ Αβίβ.","I-me a-PO to tel a-VIV");
+O(5,"איפה את/ה גר/ה?","Πού μένεις εσύ;","pu ME-nis e-SI");
+O(5,"אנחנו גרים כאן, בסלמינה.","Μένουμε εδώ, στη Σαλαμίνα.","ME-nu-me e-DHO, sti sa-la-MI-na");
+O(4,"היום יום שישי.","Σήμερα είναι Παρασκευή.","SI-me-ra I-ne pa-ra-ske-VI");
+O(4,"אנחנו חברים.","Εμείς είμαστε φίλοι.","e-MIS I-ma-ste FI-li");
+O(4,"אני לא ניקוס.","Δεν είμαι ο Νίκος.","dhen I-me o NI-kos");
+O(3,"מה מזג האוויר היום?","Τι καιρό έχει σήμερα;","ti ke-RO E-hi SI-me-ra");
+O(3,"קר ויורד גשם.","Κάνει κρύο και βρέχει.","KA-ni KRI-o ke VRE-hi");
+O(2,"איך קוראים לך?","Πώς σε λένε;","pos se LE-ne");
+
+// generated: day after / maths
+DAYS.forEach((d,i)=>add({l:4,k:"mc",id:"next"+i,p:"Ποια μέρα είναι μετά τη "+d[0]+";",ask:"איזה יום בא אחרי "+d[0]+"?",a:DAYS[(i+1)%7][0],o:[DAYS[(i+3)%7][0],DAYS[(i+5)%7][0],DAYS[(i+6)%7][0]],h:"אחרי יום "+d[1]+" בא יום "+DAYS[(i+1)%7][1]+".",n:i===0?"Δευτέρα=שני, Τρίτη=שלישי, Τετάρτη=רביעי, Πέμπτη=חמישי – כמו בעברית!":null}));
+for(let i=0;i<8;i++){add({l:5,k:"math",id:"math"+i});}
+
+/* ============ STATE ============ */
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let S=store.get("gr-lessons",{player:"רוני",p:{"רוני":{xp:0,box:{}},"ניר":{xp:0,box:{}}},lesson:0,auto:true});
+// box entries are [level, time]; older saves kept a bare number
+for(const n of Object.keys(S.p)){const b=S.p[n].box||{};for(const k in b)if(!Array.isArray(b[k]))b[k]=[b[k],0];S.p[n].rounds=S.p[n].rounds||0}
+const save=()=>store.set("gr-lessons",S);
+const me=()=>S.p[S.player];
+const lvl=(p,id)=>{const r=p.box[id];return r?r[0]:0};
+
+/* ============ SYNC (same server as the letters game) ============ */
+const SYNC_URL="https://greek-sync.ronigreen.workers.dev";
+const PID={"רוני":"roni","ניר":"nir"};
+let syncState="off",pushTimer=null;
+function mergeP(a,b){a=a||{};b=b||{};const box={};const ba=a.box||{},bb=b.box||{};
+  for(const id of new Set([...Object.keys(ba),...Object.keys(bb)])){const ra=ba[id],rb=bb[id];box[id]=!Array.isArray(ra)?rb:!Array.isArray(rb)?ra:((rb[1]||0)>=(ra[1]||0)?rb:ra)}
+  return{xp:Math.max(a.xp||0,b.xp||0),rounds:Math.max(a.rounds||0,b.rounds||0),box}}
+function setSync(s){syncState=s;const e=document.getElementById("sync");if(e)e.replaceWith(syncLine())}
+async function pullAll(){
+  try{for(const name of Object.keys(PID)){const r=await fetch(SYNC_URL+"/lessons/"+PID[name]+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw 0;const remote=await r.json();if(remote)S.p[name]=mergeP(S.p[name],remote)}
+    save();setSync("ok")}catch(e){setSync("err")}
+}
+function schedulePush(){clearTimeout(pushTimer);pushTimer=setTimeout(pushMe,1200)}
+async function pushMe(){
+  const name=S.player;
+  try{const r=await fetch(SYNC_URL+"/lessons/"+PID[name],{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(S.p[name])});
+    if(!r.ok)throw 0;const j=await r.json();if(j&&j.state){S.p[name]=mergeP(S.p[name],j.state);save()}setSync("ok")}catch(e){setSync("err")}
+}
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const pick=a=>a[Math.random()*a.length|0];
+
+/* ============ SPEECH ============ */
+let elVoice=null;
+function loadVoice(){try{const vs=speechSynthesis.getVoices();elVoice=vs.find(v=>/^el/i.test(v.lang))||null}catch(e){}}
+try{loadVoice();speechSynthesis.onvoiceschanged=loadVoice}catch(e){}
+function say(txt){try{const u=new SpeechSynthesisUtterance(txt.replace(/___/g,"…").replace(/\(.*?\)/g,""));u.lang="el-GR";if(elVoice)u.voice=elVoice;u.rate=.85;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+
+/* ============ QUESTION BUILDING ============ */
+function weightOf(it){return LW[it.l]*(5-lvl(me(),it.id))}
+function chooseRound(n){
+  let pool=ITEMS.filter(it=>!S.lesson||it.l===S.lesson);
+  const out=[];const used=new Set();
+  while(out.length<n&&used.size<pool.length){
+    const ws=pool.map(it=>used.has(it.id)?0:weightOf(it));const tot=ws.reduce((a,b)=>a+b,0);
+    let r=Math.random()*tot,i=0;for(;i<ws.length;i++){r-=ws[i];if(r<=0)break}
+    i=Math.min(i,pool.length-1);if(used.has(pool[i].id))continue;used.add(pool[i].id);out.push(pool[i]);
+  }
+  return shuffle(out);
+}
+function distract(it,field,n){
+  const same=ITEMS.filter(x=>x.k==="v"&&x.id!==it.id&&x.grp===it.grp);
+  const near=ITEMS.filter(x=>x.k==="v"&&x.id!==it.id&&x.l===it.l);
+  const any=ITEMS.filter(x=>x.k==="v"&&x.id!==it.id);
+  const res=[];const seen=new Set([it[field]]);
+  for(const src of [shuffle(same),shuffle(near),shuffle(any)])for(const x of src){if(res.length>=n)break;if(!seen.has(x[field])){seen.add(x[field]);res.push(x[field])}}
+  return res;
+}
+function build(it){
+  const q={it,l:it.l};
+  if(it.k==="letter"){
+    const others=shuffle(ITEMS.filter(x=>x.k==="letter"&&x.a!==it.a)).slice(0,3).map(x=>x.a);
+    Object.assign(q,{type:"mc",ask:"איך הוגים את האות?",promptGr:it.g,speakTxt:null,options:shuffle([it.a,...others]),answer:it.a,optGreek:false,fbMain:it.g+" = "+it.a});
+  }else if(it.k==="v"&&it.grp==="num"){
+    const dir=Math.random()<.5;
+    const others=shuffle(NUMS.map((x,i)=>i).filter(i=>String(i)!==it.h)).slice(0,3);
+    if(dir)Object.assign(q,{type:"mc",ask:"איזה מספר זה?",promptGr:it.g,speakTxt:it.g,options:shuffle([it.h,...others.map(String)]),answer:it.h,optGreek:false});
+    else Object.assign(q,{type:"mc",ask:"איך אומרים ביוונית?",promptHe:it.h,options:shuffle([it.g,...others.map(i=>NUMS[i][0])]),answer:it.g,optGreek:true,speakAns:true});
+    q.fbMain=it.g+" = "+it.h;q.fbTr=it.t;
+  }else if(it.k==="v"){
+    const r=Math.random();
+    if(it.e&&r<.35){Object.assign(q,{type:"mc",ask:"מה מזג האוויר בתמונה?",emoji:it.e,options:shuffle([it.g,...distract(it,"g",3)]),answer:it.g,optGreek:true,speakAns:true})}
+    else if(r<.55){Object.assign(q,{type:"mc",ask:"מה זה אומר?",promptGr:it.g,speakTxt:it.g,options:shuffle([it.h,...distract(it,"h",3)]),answer:it.h,optGreek:false})}
+    else if(r<.7&&elVoice){Object.assign(q,{type:"mc",ask:"הקשיבו ובחרו מה שמעתם",listen:it.g,speakTxt:it.g,options:shuffle([it.g,...distract(it,"g",3)]),answer:it.g,optGreek:true})}
+    else{Object.assign(q,{type:"mc",ask:"איך אומרים ביוונית?",promptHe:it.h,options:shuffle([it.g,...distract(it,"g",3)]),answer:it.g,optGreek:true,speakAns:true})}
+    q.fbMain=it.g;q.fbTr=it.t;q.fbHe=it.h;
+  }else if(it.k==="mc"){
+    Object.assign(q,{type:"mc",ask:it.ask||(it.dlg?"מה עונים?":"השלימו את החסר"),promptGr:it.p,speakTxt:it.dlg?it.p:null,options:shuffle([it.a,...it.o]),answer:it.a,optGreek:true,one:!!it.dlg||it.a.length>14,speakAns:true});
+    q.fbMain=it.dlg?it.a:it.p.replace("___",it.a).replace(/\s*\(.*?\)\s*$/,"");q.fbTr=it.t;q.fbHe=it.h;q.note=it.n;
+  }else if(it.k==="order"){
+    const words=it.g.split(" ");
+    Object.assign(q,{type:"order",ask:"סדרו את המשפט ביוונית",promptHe:it.h,words,answer:it.g,fbMain:it.g,fbTr:it.t,speakAns:true});
+  }else if(it.k==="math"){
+    let a,b;do{a=Math.random()*7|0;b=1+(Math.random()*5|0)}while(a+b>10);
+    const sum=a+b;const others=shuffle([...Array(11).keys()].filter(x=>x!==sum)).slice(0,3);
+    Object.assign(q,{type:"mc",ask:"כמה זה?",promptGr:NUMS[a][0]+" + "+NUMS[b][0]+" = ;",speakTxt:NUMS[a][0]+" και "+NUMS[b][0],options:shuffle([sum,...others].map(x=>NUMS[x][0])),answer:NUMS[sum][0],optGreek:true,speakAns:true,fbMain:NUMS[a][0]+" + "+NUMS[b][0]+" = "+NUMS[sum][0],fbHe:a+" + "+b+" = "+sum});
+  }
+  return q;
+}
+
+/* ============ RENDER ============ */
+const app=document.getElementById("app");
+const el=(tag,attrs={},...kids)=>{const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==="class")e.className=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else if(v!==null&&v!==undefined&&v!==false)e.setAttribute(k,v)}for(const c of kids.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(String(c)))}return e};
+const gr=(t,cls="")=>el("span",{class:"gr "+cls,lang:"el"},t);
+
+function mastery(player,l){const its=ITEMS.filter(i=>i.l===l&&i.k!=="math");const p=S.p[player];return Math.round(its.reduce((s,i)=>s+lvl(p,i.id),0)/(its.length*4)*100)}
+function syncLine(){
+  const t=syncState==="ok"?"✓ ההתקדמות מסונכרנת בין הטלפונים":syncState==="err"?"אין חיבור לשרת כרגע. ההתקדמות נשמרת בטלפון ותסונכרן כשיחזור החיבור":"מתחבר לסנכרון…";
+  return el("p",{id:"sync",class:"sub",style:"font-size:14px;margin:0;color:"+(syncState==="ok"?"var(--good)":"var(--muted)")},t);
+}
+
+function home(){
+  let R=null;
+  app.replaceChildren(
+    el("header",{},el("h1",{},gr("Μαθαίνω ελληνικά"),"משחק השיעורים של רוני וניר"),el("p",{class:"sub"},"כל המילים והמשפטים מחמשת השיעורים, עם דגש על שיעורים 3–5.")),
+    el("section",{class:"panel"},el("div",{class:"label"},"מי משחק/ת?"),
+      el("div",{class:"players"},...Object.keys(S.p).map(name=>el("button",{class:"player","aria-pressed":String(S.player===name),onclick:()=>{S.player=name;save();home()}},el("b",{},name),el("span",{},S.p[name].xp+" נקודות · "+(S.p[name].rounds||0)+" סבבים")))),
+      syncLine()),
+    el("section",{class:"panel"},el("div",{class:"label"},"מה מתרגלים?"),
+      el("div",{class:"row"},
+        el("button",{class:"chip","aria-pressed":String(!S.lesson),onclick:()=>{S.lesson=0;save();home()}},"הכל מעורבב"),
+        ...[1,2,3,4,5].map(n=>el("button",{class:"chip","aria-pressed":String(S.lesson===n),onclick:()=>{S.lesson=n;save();home()}},"שיעור "+n))),
+      el("button",{class:"btn",id:"start",onclick:()=>startRound()},"יאללה, סבב של 12 שאלות"),
+      el("label",{class:"toggle"},el("input",{type:"checkbox",id:"auto",checked:S.auto?"":null,onchange:e=>{S.auto=e.target.checked;save()}}),"להשמיע אוטומטית את היוונית")),
+    el("section",{class:"panel"},el("div",{class:"label"},"ההתקדמות של "+S.player),
+      el("div",{class:"lessons"},...[1,2,3,4,5].map(n=>{const m=mastery(S.player,n);return el("div",{class:"les"+(n>=3?" hot":"")},el("span",{class:"n"},n),el("div",{},el("div",{},LESSONS[n].replace("είμαι",""),n===4?gr("είμαι"):null),el("div",{class:"bar"},el("i",{style:"width:"+m+"%"}))),el("small",{},m+"%"))})))
+  );
+}
+
+let round=null;
+function startRound(){
+  const items=chooseRound(12);
+  round={qs:items.map(build),i:0,first:items.length,correct:0,streak:0,missed:[],retried:new Set()};
+  showQ();
+}
+function bump(it,ok){const p=me();p.box[it.id]=[ok?Math.min(4,lvl(p,it.id)+1):0,Date.now()];save();schedulePush()}
+
+function showQ(){
+  const q=round.qs[round.i];
+  const pct=Math.round(round.i/round.qs.length*100);
+  const top=el("div",{class:"top"},el("button",{class:"icon","aria-label":"חזרה למסך הבית",onclick:home},"✕"),el("div",{class:"prog"},el("i",{style:"width:"+pct+"%"})),el("div",{class:"streak",title:"רצף תשובות נכונות"},round.streak?"🔥"+round.streak:""));
+  const card=el("section",{class:"panel pop"});
+  card.append(el("span",{class:"tag"},"שיעור "+q.l+" · "+LESSONS[q.l]),el("p",{class:"ask"},q.ask));
+  const prompt=el("div",{class:"prompt"});
+  if(q.emoji)prompt.append(el("span",{class:"emoji",role:"img","aria-label":"מזג אוויר"},q.emoji));
+  if(q.promptGr)prompt.append(gr(q.promptGr,"big"));
+  if(q.promptHe)prompt.append(el("span",{class:"he"},q.promptHe));
+  if(q.listen)prompt.append(el("span",{class:"he"},"🎧"));
+  if(q.speakTxt)prompt.append(el("button",{class:"speak","aria-label":"השמעה",onclick:()=>say(q.speakTxt)},"🔊"));
+  card.append(prompt);
+  const fbBox=el("div");
+  if(q.type==="mc"){
+    const opts=el("div",{class:"opts"+(q.one?" one":"")});
+    q.options.forEach((o,k)=>{const b=el("button",{class:"opt"+(q.optGreek?" grk":""),"data-k":k+1,onclick:()=>answer(o,b,opts)},q.optGreek?gr(o):o);opts.append(b)});
+    card.append(opts);
+  }else{
+    const slot=el("div",{class:"slot","aria-label":"המשפט שלך"});const bank=el("div",{class:"bank"});
+    const chosen=[];
+    const check=el("button",{class:"btn dark",disabled:"",onclick:()=>{answerOrder(chosen.map(c=>c.w).join(" "),slot,bank,check)}},"בדיקה");
+    shuffle(q.words.map((w,i)=>({w,i}))).forEach(t=>{const tb=el("button",{class:"tile",lang:"el",onclick:()=>{if(tb.classList.contains("used"))return;tb.classList.add("used");const st=el("button",{class:"tile",lang:"el",onclick:()=>{st.remove();tb.classList.remove("used");chosen.splice(chosen.indexOf(entry),1);check.disabled=chosen.length!==q.words.length}},t.w);const entry={w:t.w,st};chosen.push(entry);slot.append(st);check.disabled=chosen.length!==q.words.length}},t.w);bank.append(tb)});
+    card.append(slot,bank,check);
+  }
+  app.replaceChildren(top,card,fbBox);
+  if(S.auto&&q.speakTxt)setTimeout(()=>say(q.speakTxt),150);
+}
+
+function feedback(ok,q){
+  const fb=el("div",{class:"fb "+(ok?"good":"bad")+" pop"},
+    el("h3",{},...(ok?(([g,h])=>[gr(g)," ",h])(pick([["Μπράβο!","כל הכבוד"],["Τέλεια!","מושלם"],["Σωστά!","נכון"]])):["לא נורא, הנה התשובה:"])),
+    el("div",{class:"ans"},/[α-ωΑ-Ω]/.test(q.fbMain)?gr(q.fbMain):q.fbMain),
+    q.fbTr?el("div",{class:"tr"},"הגייה: ",el("span",{dir:"ltr"},q.fbTr)):null,
+    q.fbHe?el("div",{},q.fbHe):null,
+    q.note?el("div",{class:"note"},"💡 ",q.note):null,
+    el("div",{class:"row"},
+      /[α-ωΑ-Ω]/.test(q.fbMain)?el("button",{class:"btn ghost",style:"width:auto",onclick:()=>say(q.fbMain)},"🔊 השמעה"):null,
+      el("button",{class:"btn",id:"next",style:"flex:1;width:auto",onclick:next},"המשך")));
+  app.lastChild.replaceWith(fb);
+  if(S.auto&&q.speakAns&&/[α-ωΑ-Ω]/.test(q.fbMain))say(q.fbMain);
+  document.getElementById("next").focus({preventScroll:true});
+  fb.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function score(ok,q){
+  const isRetry=round.retried.has(q.it.id);
+  if(ok){round.streak++;me().xp+=10+Math.min(round.streak,5)*2;if(!isRetry)round.correct++}
+  else{round.streak=0;if(!isRetry){round.missed.push(q);round.retried.add(q.it.id);round.qs.push(build(q.it))}}
+  bump(q.it,ok);save();
+  const s=document.querySelector(".streak");if(s)s.textContent=round.streak?"🔥"+round.streak:"";
+}
+function answer(o,btn,opts){
+  const q=round.qs[round.i];if(opts.dataset.done)return;opts.dataset.done="1";
+  const ok=String(o)===String(q.answer);
+  [...opts.children].forEach(b=>{b.disabled=true;if(b.textContent===String(q.answer))b.classList.add("ok")});
+  if(!ok)btn.classList.add("no");
+  score(ok,q);feedback(ok,q);
+}
+function answerOrder(txt,slot,bank,check){
+  const q=round.qs[round.i];const norm=s=>s.replace(/[.;,!]/g,"").trim();
+  const ok=norm(txt)===norm(q.answer);
+  [...slot.children,...bank.children].forEach(b=>b.disabled=true);check.remove();
+  slot.style.borderColor=ok?"var(--good)":"var(--bad)";
+  score(ok,q);feedback(ok,q);
+}
+function next(){round.i++;if(round.i>=round.qs.length)end();else showQ()}
+function end(){
+  const c=round.correct,n=round.first;
+  me().rounds=(me().rounds||0)+1;save();schedulePush();
+  const [mg,mh]=c===n?["Τέλεια!","סבב מושלם"]:c>=n*.75?["Πολύ καλά!","מעולה"]:c>=n/2?["Καλά!","ממשיכים להתאמן"]:["Σιγά σιγά","לאט לאט, זה בא"];
+  const msg=el("span",{},gr(mg)," ",mh);
+  app.replaceChildren(
+    el("section",{class:"panel pop"},el("div",{class:"score"},c,el("small",{}," / "+n)),el("p",{style:"text-align:center;margin:0;font-size:20px;font-weight:800"},msg),el("p",{class:"sub",style:"text-align:center"},S.player+" · "+me().xp+" נקודות בסך הכל")),
+    round.missed.length?el("section",{class:"panel"},el("div",{class:"label"},"לחזור על אלה"),el("div",{class:"miss"},...round.missed.map(q=>el("div",{},/[α-ωΑ-Ω]/.test(q.fbMain)?gr(q.fbMain):el("b",{},q.fbMain),q.fbTr?el("span",{dir:"ltr",style:"text-align:right"},q.fbTr):null,q.fbHe?el("span",{},q.fbHe):null)))):null,
+    el("button",{class:"btn",onclick:startRound},"עוד סבב"),
+    el("button",{class:"btn ghost",onclick:home},"למסך הבית"));
+}
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Enter"){const n=document.getElementById("next");if(n){e.preventDefault();n.click()}}
+  if(/^[1-4]$/.test(e.key)){const b=document.querySelector('.opt[data-k="'+e.key+'"]:not(:disabled)');if(b)b.click()}
+});
+home();
+pullAll().then(()=>{if(document.getElementById("start"))home()});
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&document.getElementById("start"))pullAll().then(()=>{if(document.getElementById("start"))home()})});
+</script>
+</body></html>
