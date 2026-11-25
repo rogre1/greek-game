@@ -64,12 +64,12 @@ details{font-size:.95rem}summary{cursor:pointer;color:var(--blue);font-weight:80
 .who{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:480px}.pl{border:2px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:#fff;border-radius:18px;padding:12px 16px;text-align:right;display:flex;flex-direction:column;font-variant-numeric:tabular-nums}.pl b{font-size:1.25rem;line-height:1.3}.pl span{color:var(--pale);font-size:.9rem;line-height:1.45}.pl[aria-pressed="true"]{border-color:var(--turq);background:rgba(127,227,216,.16)}.pl[aria-pressed="true"] b{color:var(--turq)}
 .sk{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.sk .btn{padding:9px 18px;font-size:.95rem;font-weight:400}.auto{display:flex;gap:8px;align-items:center;color:var(--pale);font-size:.98rem;cursor:pointer}.auto input{width:20px;height:20px;accent-color:#7FE3D8;flex:none}
 .gw{font-family:var(--gr);font-weight:600;color:var(--deep);white-space:normal}
-.w{cursor:pointer;border-radius:5px;-webkit-tap-highlight-color:transparent}.w:hover{background:rgba(127,227,216,.28)}.w.sel{background:var(--turq);color:var(--deep)}
+.w{cursor:pointer;border-radius:5px;-webkit-tap-highlight-color:transparent}@media(hover:hover){.w:hover{background:rgba(127,227,216,.28)}}.w.sel{background:var(--turq);color:var(--deep)}
 .o:not(.off2) .w{cursor:inherit;background:none}
 .tip{position:absolute;z-index:30;max-width:min(260px,calc(100vw - 24px));background:var(--deep);color:#fff;border-radius:14px;padding:9px 14px;font-size:1.02rem;line-height:1.35;box-shadow:0 10px 28px rgba(31,53,80,.3);direction:rtl;text-align:right;cursor:pointer}
 .tip b{display:block;font-family:var(--gr);direction:ltr;text-align:right;color:var(--turq);font-weight:600}.tip::after{content:"";position:absolute;left:var(--ax,50%);width:12px;height:12px;margin-left:-6px;background:var(--deep);transform:rotate(45deg);bottom:-5px}.tip.below::after{bottom:auto;top:-5px}
 .hint{display:flex;justify-content:space-between;gap:4px 16px;flex-wrap:wrap}.hint em{font-style:normal}.hint>span{color:#2B7F78}
-.fb.b{display:grid;gap:14px}.fb.b .btn{justify-self:start}.why{display:grid;gap:3px;margin-top:8px;color:var(--ink2);line-height:1.5}.why p{margin:0}.fb .btn{justify-content:center}
+.fb.b{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}.fb.b .btn{justify-self:start}.why{display:grid;gap:3px;margin-top:8px;color:var(--ink2);line-height:1.5}.why p{margin:0}.fb .btn{justify-content:center}
 .two{display:grid;gap:8px}.gl{font-size:.98rem;font-weight:800;color:var(--navy);padding:4px 6px 0}.o.ch:not(.off2){border-color:#2FA89B;background:var(--mint)}
 @media(max-width:560px){.opts.pair:not(.tri){grid-template-columns:1fr 1fr!important}.pair .o{padding:10px;gap:8px}.hero{padding:30px 22px 26px}.card{padding:18px}.opts:not(.tri){grid-template-columns:1fr}.opts.tri .o{padding:12px 10px;gap:8px;justify-content:center}.opts.tri kbd{display:none}.hring{width:150px}.conj .off{display:none}.nm{display:none}
 .wrap{gap:12px;padding-block:10px 32px}.card{border-radius:20px;padding:16px}.sheet{gap:10px}.q{padding-top:10px}.task .gr{font-size:1.1rem}.txt{font-size:1rem;line-height:1.6;padding:12px 14px}
@@ -202,64 +202,69 @@ const G=s=>s.replace(/\{(.*?)\}/g,(m,x)=>`<bdi class="gw" dir="ltr" lang="el">${
 const EIM=["είμαι","είσαι","είναι","είμαστε","είστε","είναι"],HV={μέν:["גר/ה","גרים"],διαβάζ:["קורא/ת","קוראים"],γράφ:["כותב/ת","כותבים"],παίζ:["משחק/ת","משחקים"],πίν:["שותה","שותים"],τρέχ:["רץ/ה","רצים"],φωνάζ:["צועק/ת","צועקים"],ζωγραφίζ:["מצייר/ת","מציירים"],χορεύ:["רוקד/ת","רוקדים"]};
 const HP=["אני","את/ה","הוא/היא","אנחנו","אתם","הם/הן"],base=w=>w.toLowerCase().replace("(ε)","").replace(/[.,;]/g,"");
 function verb(w){w=base(w);const p=EIM.map((f,i)=>f===w?i:-1).filter(i=>i>=0);if(p.length)return{p,be:1};for(const st in HV){const i=END.findIndex(e=>w===st+e);if(i>=0)return{p:[i],st}}return null}
-const sp=(p,gr)=>[p,`{${gr}} (${HP[p]})`],sm=gr=>[2,`{${gr}} = הוא`],sf=gr=>[2,`{${gr}} = היא`],pm=gr=>[5,`{${gr}} = הם`],pf=gr=>[5,`{${gr}} = הן`],pn=(gr,he)=>[5,`{${gr}} = ${he}, הם`],we=(gr,he)=>[3,`{${gr}} = ${he}, אנחנו`],pol=gr=>[4,`{${gr}} = פנייה מנומסת, כמו אתם`],kids=[4,"{παιδιά} = ילדים, אתם"];
+const sp=(p,gr)=>[p,`{${gr}} זה ${HP[p]}`],sm=gr=>[2,`{${gr}} זה הוא`],sf=gr=>[2,`{${gr}} זה היא`],pm=gr=>[5,`{${gr}} זה הם`],pf=gr=>[5,`{${gr}} זה הן`],pn=(gr,he)=>[5,`{${gr}} (${he}) זה הם`],we=(gr,he)=>[3,`{${gr}} (${he}) זה אנחנו`],pol=gr=>[4,`פונים אל {${gr}} בנימוס, בלשון אתם`],kids=[4,"פונים אל {παιδιά} (ילדים), בלשון אתם"];
 const SUBJ={"1.1":[sp(0,"Εγώ"),sm("Ο Πέτρος"),sp(1,"Εσύ"),sp(3,"Εμείς"),pf("Η Ιρένε και η Βίβιαν"),pol("κύριε Αλέκο"),we("Εγώ και ο Νίκος","אני וניקוס"),kids],
 "1.2":[sf("Η Αντιγόνη"),sp(0,"Εγώ"),sp(1,"Εσύ"),sp(3,"Εμείς"),pn("Οι γονείς μου","ההורים שלי"),sp(4,"Εσείς")],
 "1.4":[sp(0,"Εγώ"),sm("Ο Γιώργος"),sp(3,"Εμείς"),sm("Ο Νίκος"),sp(1,"Εσύ"),pf("Η Ελένη και η Σοφία"),sf("Η Φατίμ")],
 "1.8":[sm("Ο Σταύρος"),sf("Η Μαρίνα"),sm("Ο Αλέκος"),sf("Η Μαρία"),sm("Ο Ανδρέας")],
-"2.2":[sp(1,"Εσύ"),sf("Η Μαρία"),sp(3,"Εμείς"),sp(4,"Εσείς"),pm("Ο Νίκος και ο Κώστας"),[2,"{Αυτή} (היא)"],sp(0,"Εγώ")],
+"2.2":[sp(1,"Εσύ"),sf("Η Μαρία"),sp(3,"Εμείς"),sp(4,"Εσείς"),pm("Ο Νίκος και ο Κώστας"),[2,"{Αυτή} זה היא"],sp(0,"Εγώ")],
 "2.3":[sp(3,"Εμείς"),sp(1,"Εσύ"),pn("Τα παιδιά","הילדים"),sp(0,"Εγώ"),pol("κύριε Βασίλη"),sf("Η Ελένη"),kids],
 "2.4":[sp(3,"Εμείς"),pol("κυρία Ελένη"),sm("Ο Άρης"),pf("Η Βίκυ και η Δέσποινα"),sp(1,"Εσύ"),sp(0,"Εγώ"),pn("Τα παιδιά","הילדים")],
-"2.5":[sf("Η Πόπη"),sp(1,"Εσύ"),pm("Ο Νίκος και ο Στέλιος"),sp(0,"Εγώ"),sp(4,"Εσείς"),[5,"{Τα κορίτσια} = הבנות, הן"]],
-"2.6":[[3,"{εγώ και η οικογένειά μου} = אנחנו"],sm("Ο φίλος μου ο Πέτρος"),sf("Η φίλη μου η Ναντιά"),sp(0,"Εγώ"),sp(3,"εμείς"),sp(3,"εμείς")],
-"2.7":[,,,,[3,"{Εγώ και η οικογένειά μου} = אנחנו"]]};
+"2.5":[sf("Η Πόπη"),sp(1,"Εσύ"),pm("Ο Νίκος και ο Στέλιος"),sp(0,"Εγώ"),sp(4,"Εσείς"),[5,"{Τα κορίτσια} (הבנות) זה הן"]],
+"2.6":[[3,"{εγώ και η οικογένειά μου} (אני והמשפחה) זה אנחנו"],sm("Ο φίλος μου ο Πέτρος"),sf("Η φίλη μου η Ναντιά"),sp(0,"Εγώ"),sp(3,"εμείς"),sp(3,"εμείς")],
+"2.7":[,,,,[3,"{Εγώ και η οικογένειά μου} (אני והמשפחה) זה אנחנו"]]};
 /* מקומות: צורה אחרי από/σε → [שם, מין] */
 const PLACE={};for(const x of "η Καστοριά,το Σουφλί,η Λάρισα,το Αργοστόλι,η Ιταλία,η Ρωσία,η Κομοτηνή,το Βερολίνο,η Αθήνα,το Μεξικό,το Ναύπλιο,η Ξάνθη,η Θεσσαλονίκη,η Ουκρανία,η Κατερίνη,η Αίγινα,η Καβάλα,το Πακιστάν,το πάρκο".split(",")){const[a,n]=x.split(" ");PLACE[n]=[x,a]}
 for(const x of "ο Λαγκαδάς,ο Καναδάς,ο Πειραιάς,ο Βόλος,η Κύπρος,η Αίγυπτος".split(",")){const[a,n]=x.split(" ");PLACE[n.slice(0,-1)]=[x,a]}
 const NU=/^(μπ|ντ|γκ|[αεηιουωάέήίόύώκπτξψ])/,VOW=/^[αεηιουωάέήίόύώ]/;
-function artWhy(pl,w,got,both){const[nom,g]=PLACE[pl],lo=pl.toLowerCase(),nu=NU.test(lo),st=/^στ/.test(w),two=x=>both?`{τ${x} / στ${x}}`:`{${st?"σ":""}τ${x}}`;
- const x=w.replace(/^σ?τ/,""),gx=base(got).replace(/^σ?τ/,""),gen=x=>({ον:"זכר",ο:"סתמי"}[x]||"נקבה"),f=g==="η";
- if(f&&gen(gx)==="נקבה")return[nu?`{${pl}} מתחילה ${VOW.test(lo)?"בתנועה":`ב-{${pl.slice(0,/^(μπ|ντ|γκ)/i.test(pl)?2:1)}}`}, עם {ν}: ${two(x)}.`:`{${pl}} מתחילה ב-{${pl[0]}}, בלי {ν}: ${two(x)}.`,`{ν} רק לפני תנועה או {κ π τ μπ ντ γκ ξ ψ}.`];
- return[`{${nom}} = ${gen(x)}: ${two(x)}. ${two(gx)} = ${gen(gx)}.`]}
+const noAcc=x=>x.normalize("NFD").replace(/\u0301/g,"").normalize("NFC"),endOf=n=>{const x=noAcc(n);return x.match(/(ος|ας|ης|.)$/)[1]};
+const GEN={ον:["זכר","-ος, -ας, -ης"],ο:["סתמי","-ο, -ι"],ην:["נקבה","-α, -η"],η:["נקבה","-α, -η"]};
+function artWhy(pl,w,got,both){const[nom,g]=PLACE[pl],n=nom.split(" ")[1],lo=pl.toLowerCase(),nu=NU.test(lo),st=/^στ/.test(w),two=x=>both?`{τ${x} / στ${x}}`:`{${st?"σ":""}τ${x}}`,e=endOf(n),odd=g==="η"&&e==="ος";
+ const x=w.replace(/^σ?τ/,""),gx=base(got).replace(/^σ?τ/,""),f=g==="η",l=pl.slice(0,/^(μπ|ντ|γκ)/i.test(pl)?2:1);
+ const fem=odd?`{${n}} יוצאת דופן: נקבה למרות {-ος}`:`{${n}} נגמרת ב-{${e}}, לכן נקבה`,begin=VOW.test(lo)?"מתחילה בתנועה":`מתחילה ב-{${l}}`;
+ if(f&&GEN[gx][0]==="נקבה")return[`{${n}} ${begin}, לכן ${nu?"עם":"בלי"} {ν}: ${two(x)}.`,`{ν} נשארת רק לפני תנועה או {κ π τ μπ ντ γκ ξ ψ}.`];
+ return[f?`${fem}. ${begin}, לכן ${nu?"עם":"בלי"} {ν}: ${two(x)}.`:`{${n}} נגמר ב-{${e}}, לכן ${GEN[x][0]}: ${two(x)}.`,`${two(gx)} רק ל${GEN[gx][0]} ({${GEN[gx][1]}}).`]}
 const ppl=g=>g.p.map(i=>HP[i]).join(" או ");
-function vWhy(s,prs){const p=s[0],rt=prs.map(([a])=>{const v=verb(a);return v.be?`{${base(a)}}`:`{${v.st+END[p]}}`}).join(", "),reg=prs.length===1&&verb(prs[0][0]).st,gs=prs.map(x=>x[1]).filter(g=>!verb(g).p.includes(p)),gr=new Map();
- for(const g of gs){const k=ppl(verb(g));gr.set(k,[...(gr.get(k)||[]),`{${base(g)}}`])}
- return[`${s[1]}: ${reg?`סיומת {-${END[p]}}, `:""}${rt}. `+[...gr].map(([k,a])=>`${a.join(", ")} = ${k}.`).join(" ")]}
-const W16=[["עונים איפה: {Μένω στη…}",{"Από πού είσαι;":"מאיפה את/ה?","Πού μένει;":"איפה הוא/היא גר/ה?","Από πού μένεις;":0}],
-["עונים מאיפה הוא: {είναι από…}",{"Πού μένει ο Δημήτρης;":"איפה דימיטריס גר?","Από πού είσαι;":"מאיפה את/ה?","Πού είναι ο Δημήτρης;":"איפה דימיטריס?"}],
-["עונים {Μένουμε} (אנחנו), שואלים אתכם.",{"Πού μένεις;":"איפה את/ה גר/ה?","Πού μένουν;":"איפה הם גרים?","Από πού είστε;":"מאיפה אתם?"}],
-["עונים מאיפה אנחנו: {Είμαστε από…}",{"Από πού είσαι;":"מאיפה את/ה?","Από πού είναι;":"מאיפה הוא/היא/הם?","Πού μένετε;":"איפה אתם גרים?"}],
-["עונים איפה היא גרה: {μένει στο…}",{"Από πού είναι η Άννα;":"מאיפה אנה?","Πού μένεις;":"איפה את/ה גר/ה?","Πού μένουν;":"איפה הם גרים?"}]];
-const W15=["{Από πού} = מאיפה. בטקסט: {Είμαι από το Πακιστάν}.","{Πού μένει} = איפה גר. בטקסט: {τώρα μένω στην Αθήνα}.","{Από πού} = מאיפה. בטקסט: {είναι από την Καβάλα}.","{Πού μένει τώρα} = איפה גרה עכשיו. בטקסט: {Τώρα μένει στη Θεσσαλονίκη}.","{Οι γονείς} = ההורים. בטקסט: {μένουν ακόμα στην Καβάλα} (עדיין גרים בקוואלה).","בטקסט: {είναι από την Ιταλία. Μένει στον Πειραιά}."];
-const W17=["הסדר: מי, פועל, איפה. {η} צמודה לשם ו-{στην} צמודה למקום.","{Από πού} (מאיפה) באות יחד, ואחריהן הפועל.","הסדר: מי, פועל, איפה. {στον} צמודה למקום.","{ο} צמודה לשם, ואחרי {από} באים {την Κρήτη}.","{πού} (איפה) בהתחלה, ומיד אחריה הפועל."];
-const W26=["{στον Βόλο} = בוולוס, לכן גרים.","{βιβλία} = ספרים, לכן קורא.","{ωραία} = יפה, לכן מציירת.","{γρήγορα} = מהר, לכן רץ/ה.","{μπάλα} = כדור, לכן משחקים.","{νερό} = מים, לכן שותים."];
+function vWhy(s,prs){const p=s[0],st=prs.map(([a])=>verb(a)).find(v=>v.st),rt=prs.map(([a])=>{const v=verb(a);return `{${v.be?base(a):v.st+END[p]}}`}).join(" ו-"),reg=prs.length===1&&st,gr=new Map();
+ for(const[,g]of prs){const v=verb(g);if(!v.p.includes(p)){const k=ppl(v);gr.set(k,[...(gr.get(k)||[]),g])}}
+ return[`${s[1]}, לכן ${reg?`הסיומת {-${END[p]}}: `:""}${rt}.`,[...gr].map(([k,a])=>reg?`{${base(a[0])}} עם {-${END[verb(a[0]).p[0]]}} מתאים ל"${k}".`:a.map(g=>`{${base(g)}}`).join(" ו-")+` ${a.length>1?"מתאימים":"מתאים"} ל"${k}".`).join(" ")]}
+const W16=[{"Από πού είσαι;":"{Από πού} שואל מאיפה. התשובה ({Μένω στη…}) אומרת איפה גרים, לכן {Πού μένεις}.","Πού μένει;":"{μένει} זה הוא/היא. עונים {Μένω} (אני), אז שואלים אותך: {μένεις}.","Από πού μένεις;":"על {μένω} (לגור) שואלים {πού} (איפה). {από πού} (מאיפה) הולך עם {είμαι}."},
+{"Πού μένει ο Δημήτρης;":"{Πού μένει} שואל איפה גר. התשובה ({είναι από…}) אומרת מאיפה הוא, לכן {Από πού είναι}.","Από πού είσαι;":"{είσαι} זה את/ה. התשובה היא על {ο Δημήτρης} (הוא), לכן {είναι}.","Πού είναι ο Δημήτρης;":"{Πού} שואל איפה. התשובה ({από τον Βόλο}) אומרת מאיפה, לכן {Από πού}."},
+{"Πού μένεις;":"{μένεις} זה את/ה ביחיד. עונים {Μένουμε} (אנחנו), אז שואלים אתכם: {μένετε}.","Πού μένουν;":"{μένουν} זה הם. עונים {Μένουμε} (אנחנו), אז שואלים אתכם: {μένετε}.","Από πού είστε;":"{Από πού} שואל מאיפה. התשובה ({Μένουμε στο…}) אומרת איפה גרים, לכן {Πού μένετε}."},
+{"Από πού είσαι;":"{είσαι} זה את/ה ביחיד. עונים {Είμαστε} (אנחנו), אז שואלים אתכם: {είστε}.","Από πού είναι;":"{είναι} זה הוא/היא/הם. עונים {Είμαστε} (אנחנו), אז שואלים אתכם: {είστε}.","Πού μένετε;":"{Πού μένετε} שואל איפה גרים. התשובה ({Είμαστε από…}) אומרת מאיפה, לכן {Από πού είστε}."},
+{"Από πού είναι η Άννα;":"{Από πού} שואל מאיפה. התשובה ({μένει στο…}) אומרת איפה היא גרה, לכן {Πού μένει}.","Πού μένεις;":"{μένεις} זה את/ה. התשובה היא על {η Άννα} (היא), לכן {μένει}.","Πού μένουν;":"{μένουν} זה הם. התשובה היא על {η Άννα} (היא), לכן {μένει}."}];
+const W15=["{Από πού} שואל מאיפה. בטקסט סמיר אומר: {Είμαι από το Πακιστάν}.","{Πού μένει} שואל איפה גר עכשיו. בטקסט: {τώρα μένω στην Αθήνα}.","{Από πού} שואל מאיפה היא. בטקסט: {είναι από την Καβάλα}.","{Πού μένει τώρα} שואל איפה גרה עכשיו. בטקסט: {Τώρα μένει στη Θεσσαλονίκη}.","{Οι γονείς} אלה ההורים. בטקסט: {μένουν ακόμα στην Καβάλα} (עדיין גרים בקוואלה).","בטקסט: {είναι από την Ιταλία} (מאיטליה), {Μένει στον Πειραιά} (גר בפיראוס)."];
+const W17=["{η} באה צמוד לפני השם ({η Ελένη}), ו-{στην} (ב...) צמוד לפני המקום.","{Από πού} זה ביטוי אחד: מאיפה (מ + איפה). לכן {από} קודם, ואחריהן הפועל.","{στον} פירושו \"ב...\", ולכן הוא בא צמוד לפני המקום: {στον Πειραιά}.","{ο} באה צמוד לפני השם, ו-{από την} (מ...) צמוד לפני המקום: {από την Κρήτη}.","מילת השאלה {πού} (איפה) באה קודם, ומיד אחריה הפועל."];
+const W26=["{στον Βόλο} פירושו בוולוס, ובמקום גרים: {μένουμε}.","{βιβλία} פירושו ספרים, וספרים קוראים: {διαβάζει}.","{ωραία} פירושו יפה. היא מציירת יפה: {ζωγραφίζει}.","{γρήγορα} פירושו מהר. אני רץ/ה מהר: {τρέχω}.","{μπάλα} פירושו כדור, ובכדור משחקים: {παίζουμε}.","{νερό} פירושו מים, ומים שותים: {πίνουμε}."];
 const heV=w=>{const v=verb(w);return v&&v.st?`${HP[v.p[0]]} ${HV[v.st][v.p[0]>2?1:0]}`:""};
-const W27={1:["{βιβλίο} = סתמי, לכן {ένα}.",{"ένας βιβλίο.":"{ένας} = זכר.","μία βιβλίο.":"{μία} = נקבה.","τον βιβλίο.":"{τον} = זכר."}],
-2:["{παίζω μπάλα} = משחק/ת בכדור.",{"νερό.":"{νερό} = מים, שותים.","γάλα.":"{γάλα} = חלב, שותים.","γράμμα.":"{γράμμα} = מכתב, כותבים."}]};
+const W27={1:["{βιβλίο} נגמר ב-{ο} ולכן הוא סתמי: {ένα}.",{"ένας βιβλίο.":"{ένας} מתאים רק לזכר.","μία βιβλίο.":"{μία} מתאים רק לנקבה.","τον βιβλίο.":"{τον} מתאים רק לזכר."}],
+2:["{παίζω} פירושו משחק/ת, ומשחקים בכדור: {μπάλα}.",{"νερό.":"{νερό} זה מים, ואותם שותים.","γάλα.":"{γάλα} זה חלב, ואותו שותים.","γράμμα.":"{γράμμα} זה מכתב, ואותו כותבים."}]};
 const toks=s=>s.replace(/[.;,]/g,"").split(" ");
 function why(Q,c){
- const id=Q.e.sh+"."+Q.e.n,s=SUBJ[id]&&SUBJ[id][Q.i],L=[],add=a=>{for(const t of a){if(!t||L.includes(t))continue;const h=t.split(". ")[0]+". ",j=t.startsWith("{")&&/= (זכר|נקבה|סתמי): /.test(t)?L.findIndex(x=>x.startsWith(h)):-1;if(j>=0)L[j]+=" "+t.slice(h.length);else L.push(t)}};
+ const id=Q.e.sh+"."+Q.e.n,s=SUBJ[id]&&SUBJ[id][Q.i],L=[],add=a=>{for(const t of a)if(t&&!L.includes(t))L.push(t)};
  const diff=(a,b)=>{const A=toks(a),B=toks(b),pa=A.filter(w=>PLACE[w]),pb=B.filter(w=>PLACE[w]);
-  if(pa.join()!==pb.join())return add(["המקומות התחלפו: {από} = מאיפה, {σε} = איפה."]);
+  if(pa.join()!==pb.join())return add(["המקומות התחלפו: {από} = מאיפה באים, {σε} = איפה גרים."]);
   A.forEach((w,i)=>{const g=B[i];if(g===w||g===undefined)return;
-   if(i===0&&/^[ΟΗ]$/.test(w))add([w==="Η"?`{${A[1]}} = אישה, לכן {Η}.`:`{${A[1]}} = גבר, לכן {Ο}.`]);
+   if(i===0&&/^[ΟΗ]$/.test(w))add([w==="Η"?`{${A[1]}} נגמר ב-{${endOf(A[1])}}, שם של אישה, ולכן {Η}.`:`{${A[1]}} נגמר ב-{${endOf(A[1])}}, שם של גבר, ולכן {Ο}.`]);
    else if(verb(w)&&verb(g))add(vWhy(s,[[w,g]]));
-   else if(g==="από")add(["{μένω} + {σε} = גר/ה ב־. {από} = מ־, והולך עם {είμαι}."]);
+   else if(g==="από")add(["{μένω} (לגור) בא עם {σε} (ב...). {από} (מ...) בא עם {είμαι}."]);
    else if(PLACE[A[i+1]])add(artWhy(A[i+1],w,g))})};
  if(id==="1.1"||id==="2.3"||id==="2.4")add(vWhy(s,[[Q.a,c]]));
  else if(id==="1.2")add(vWhy(s,Q.p.map((p,k)=>[p.a,c[k]]).filter(x=>x[0]!==x[1])))
- else if(id==="1.3")Q.p.forEach((p,k)=>{if(p.a===c[k])return;const A=toks(p.a),B=toks(c[k]),n=A.length;if(B[n-1]!==A[n-1])add([`בזכר ה-{ς} נופלת: {${B[n-1]}} → {${A[n-1]}}.`]);else add(artWhy(A[n-1],A[n-2],B[n-2],1))});
+ else if(id==="1.3")Q.p.forEach((p,k)=>{if(p.a===c[k])return;const A=toks(p.a),B=toks(c[k]),n=A.length;if(B[n-1]!==A[n-1])add([`{${B[n-1]}} זכר, ואחרי {από} ו-{σε} ה-{ς} שבסוף נופלת: {${A[n-1]}}.`]);else add(artWhy(A[n-1],A[n-2],B[n-2],1))});
  else if(id==="1.8")Q.p.forEach((p,k)=>{if(p.a!==c[k])diff(p.a,c[k])});
  else if(id==="1.5")add([W15[Q.i]]);
- else if(id==="1.6"){const[t,m]=W16[Q.i];add([t,m[c]?`{${c.replace(";","")}} = ${m[c]}`:"{από} הולך עם {είμαι}, לא עם {μένω}."])}
+ else if(id==="1.6")add([W16[Q.i][c]]);
  else if(id==="1.7")add([W17[Q.i]]);
  else if(id==="2.1")add(vWhy(sp(Q.q[0],PERS[Q.q[0]]),[[Q.a,c]]));
  else if(id==="2.2"){const st=Q.q.match(/(\p{Script=Greek}+)____/u)[1];add(vWhy(s,[[st+Q.a.slice(1),st+c.slice(1)]]))}
  else if(id==="2.5"){const ok=Q.a===S_;diff(ok?Q.q:Q.a.slice(4),c===S_?Q.q:c.slice(4));if(ok)L[0]="המשפט נכון. "+L[0]}
- else if(id==="2.6"){if(!verb(c).p.includes(s[0]))add(vWhy(s,[[Q.a,c]]));else add([W26[Q.i],`{${c}} = ${heV(c)}.`])}
+ else if(id==="2.6"){if(!verb(c).p.includes(s[0]))add(vWhy(s,[[Q.a,c]]));else add([W26[Q.i],Q.i===2&&c==="διαβάζει"?"{διαβάζει} (קורא/ת) שייך לספרים במשפט הקודם.":`{${c}} פירושו ${heV(c)}.`])}
  else if(W27[Q.i]&&id==="2.7")add([W27[Q.i][0]+" "+W27[Q.i][1][c]]);
  else diff(Q.a,c);
- return L.length>2?L.filter(t=>!t.startsWith("{ν} רק")):L}
+ const drop=f=>{for(let i=L.length-1;i>=0&&L.length>2;i--)if(f(L[i]))L.splice(i,1)};
+ drop(t=>t.startsWith("{ν} נשארת"));drop(t=>/^\{\S+\} מתחילה/.test(t)&&L.some(x=>x!==t&&x.startsWith(t.split(" ")[0])));drop(t=>/^\{.*\} רק ל(זכר|נקבה|סתמי) \(/.test(t));
+ return L}
 const whyHtml=(Q,c)=>why(Q,c).map(t=>`<p>${G(t)}</p>`).join("");
 
 /* מילון לחיצה: מילה באותיות קטנות = תרגום */
