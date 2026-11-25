@@ -52,22 +52,30 @@ details{font-size:.95rem}summary{cursor:pointer;color:var(--blue);font-weight:80
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}.opts.one{grid-template-columns:1fr}.opts.tri{grid-template-columns:repeat(3,1fr)}
 .o{background:#fff;border:2px solid var(--line);border-radius:18px;padding:13px 16px;font-family:var(--gr);font-size:1.12rem;color:var(--deep);direction:ltr;text-align:left;display:flex;gap:12px;align-items:center;line-height:1.35;min-width:0;min-height:56px;overflow-wrap:anywhere}
 .o kbd{flex:none;width:26px;height:26px;border-radius:50%;background:var(--bg);color:var(--ink3);display:grid;place-items:center;font:800 .82rem var(--he)}
-.o:hover:not(:disabled){border-color:var(--blue)}.o:disabled{cursor:default;color:var(--ink3)}
+.o:hover:not(.off2){border-color:var(--blue)}.o.off2{cursor:default;color:var(--ink3)}
 .o.ok{border-color:var(--good);background:var(--goodbg);color:var(--good);font-weight:600}.o.ok kbd{background:var(--good);color:#fff}
 .o.no{border-color:var(--bad);background:var(--badbg);color:var(--bad)}.o.no kbd{background:var(--bad);color:#fff}
 .o.used:not(.ok):not(.no){opacity:.5;text-decoration:line-through}
-#fb{scroll-margin-bottom:16px}.fb{border-radius:24px;padding:18px 22px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+#fb{scroll-margin:100px 0 16px}.fb{border-radius:24px;padding:18px 22px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .fb.g{background:var(--goodbg);color:var(--good)}.fb.b{background:var(--badbg);color:var(--bad)}.fb>div{flex:1 1 260px;min-width:0}.fb h2{font-size:1.2rem}.fb .ans{font-size:1.15rem;font-weight:800;color:var(--good);text-align:right}.fb small{color:var(--ink2);font-size:.92rem}
 .final{background:radial-gradient(120% 120% at 85% 0%,#3A5E87 0%,var(--navy) 62%);color:#fff;border-radius:30px;padding:40px 28px;text-align:center;display:grid;gap:12px;justify-items:center}.final .big{font-size:4.2rem;font-weight:800;line-height:1;color:var(--turq);font-variant-numeric:tabular-nums}.final p{color:var(--pale)}.final .row{justify-content:center;margin-top:8px}
 .ex{display:grid;gap:8px;margin-top:10px}.ex div{display:grid;grid-template-columns:1fr auto;gap:12px;border-top:1px solid var(--line);padding-top:8px;font-variant-numeric:tabular-nums}
 .miss{display:grid;gap:10px;margin-top:10px}.miss>div{border-top:1px solid var(--line);padding-top:10px}.miss .a{color:var(--good);font-weight:800}
 .who{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:480px}.pl{border:2px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:#fff;border-radius:18px;padding:12px 16px;text-align:right;display:flex;flex-direction:column;font-variant-numeric:tabular-nums}.pl b{font-size:1.25rem;line-height:1.3}.pl span{color:var(--pale);font-size:.9rem;line-height:1.45}.pl[aria-pressed="true"]{border-color:var(--turq);background:rgba(127,227,216,.16)}.pl[aria-pressed="true"] b{color:var(--turq)}
 .sk{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.sk .btn{padding:9px 18px;font-size:.95rem;font-weight:400}.auto{display:flex;gap:8px;align-items:center;color:var(--pale);font-size:.98rem;cursor:pointer}.auto input{width:20px;height:20px;accent-color:#7FE3D8;flex:none}
-@media(max-width:560px){.hero{padding:30px 22px 26px}.card{padding:18px}.opts:not(.tri){grid-template-columns:1fr}.opts.tri .o{padding:12px 10px;gap:8px;justify-content:center}.opts.tri kbd{display:none}.hring{width:150px}.conj .off{display:none}.nm{display:none}
+.gw{font-family:var(--gr);font-weight:600;color:var(--deep);white-space:normal}
+.w{cursor:pointer;border-radius:5px;-webkit-tap-highlight-color:transparent}.w:hover{background:rgba(127,227,216,.28)}.w.sel{background:var(--turq);color:var(--deep)}
+.o:not(.off2) .w{cursor:inherit;background:none}
+.tip{position:absolute;z-index:30;max-width:min(260px,calc(100vw - 24px));background:var(--deep);color:#fff;border-radius:14px;padding:9px 14px;font-size:1.02rem;line-height:1.35;box-shadow:0 10px 28px rgba(31,53,80,.3);direction:rtl;text-align:right;cursor:pointer}
+.tip b{display:block;font-family:var(--gr);direction:ltr;text-align:right;color:var(--turq);font-weight:600}.tip::after{content:"";position:absolute;left:var(--ax,50%);width:12px;height:12px;margin-left:-6px;background:var(--deep);transform:rotate(45deg);bottom:-5px}.tip.below::after{bottom:auto;top:-5px}
+.hint{display:flex;justify-content:space-between;gap:4px 16px;flex-wrap:wrap}.hint em{font-style:normal}.hint>span{color:#2B7F78}
+.fb.b{display:grid;gap:14px}.fb.b .btn{justify-self:start}.why{display:grid;gap:3px;margin-top:8px;color:var(--ink2);line-height:1.5}.why p{margin:0}.fb .btn{justify-content:center}
+.two{display:grid;gap:8px}.gl{font-size:.98rem;font-weight:800;color:var(--navy);padding:4px 6px 0}.o.ch:not(.off2){border-color:#2FA89B;background:var(--mint)}
+@media(max-width:560px){.opts.pair:not(.tri){grid-template-columns:1fr 1fr!important}.pair .o{padding:10px;gap:8px}.hero{padding:30px 22px 26px}.card{padding:18px}.opts:not(.tri){grid-template-columns:1fr}.opts.tri .o{padding:12px 10px;gap:8px;justify-content:center}.opts.tri kbd{display:none}.hring{width:150px}.conj .off{display:none}.nm{display:none}
 .wrap{gap:12px;padding-block:10px 32px}.card{border-radius:20px;padding:16px}.sheet{gap:10px}.q{padding-top:10px}.task .gr{font-size:1.1rem}.txt{font-size:1rem;line-height:1.6;padding:12px 14px}
 .o{min-height:50px;padding:10px 14px;font-size:1.05rem}.opts{gap:8px}td,th{padding:6px 8px;font-size:.95rem}.hero{border-radius:26px}
 details table td,details table th{padding:5px 4px;font-size:.76rem}
-.stk .hd,.stk .old{display:none}.stk,.stk tbody{display:block}.stk tr{display:block;border:1px solid var(--line);border-radius:14px;padding:8px 12px;margin-bottom:8px}.stk tr.now{border:2px solid #2FA89B}.stk td{display:grid;grid-template-columns:96px 1fr;gap:10px;border:0;padding:3px 0;font-weight:400}.stk td::before{content:attr(data-l);color:var(--ink3);font-weight:400;font-size:.85rem}.stk td.cur{background:none;box-shadow:none}.stk td.cur::after{content:"";border-bottom:2.5px solid var(--blue);width:70px;height:1.1em}.stk tr.now td{font-weight:600}.stk td.f:empty{display:none}.fb{padding:14px 16px;border-radius:20px}.fb .btn{width:100%}}
+.stk .hd,.stk .old{display:none}.stk,.stk tbody{display:block}.stk tr{display:block;border:1px solid var(--line);border-radius:14px;padding:8px 12px;margin-bottom:8px}.stk tr.now{border:2px solid #2FA89B}.stk td{display:block;position:relative;border:0;padding:3px 0 3px 112px;min-height:28px;font-weight:400}.stk td::before{content:attr(data-l);position:absolute;left:0;top:4px;width:106px;color:var(--ink3);font-weight:400;font-size:.85rem}.stk td.cur{background:none;box-shadow:none}.stk td.cur:empty::after{content:"";display:inline-block;border-bottom:2.5px solid var(--blue);width:70px;height:1.1em}.stk tr.now td{font-weight:600}.stk td.f:empty{display:none}.fb{padding:14px 16px;border-radius:20px}.fb .btn{width:100%}}
 @media(max-width:350px){td,th{padding:5px;font-size:.86rem}details table td,details table th{padding:3px 2px;font-size:.66rem;overflow-wrap:anywhere}.opts.tri{grid-template-columns:1fr 1fr}.top .l{flex-wrap:wrap;gap:4px 10px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -189,6 +197,98 @@ ex(2,7,"Γράφεις για σένα.","כתבו על עצמכם. בדף זו 
 ["Εγώ και η οικογένειά μου ____",["μένουμε στην Αίγινα.","μένω στην Αίγινα.","μένει στην Αίγινα.","μένετε στην Αίγινα."]]]);
 const QS=[];EX.forEach((e,ei)=>e.items.forEach((it,i)=>{const x=it[2]||{};QS.push({e,ei,i,q:it[0],o:it[1],a:x.a||it[1][0],fix:x.fix,note:x.note})}));
 
+/* הסבר לטעויות: {…} = יוונית */
+const G=s=>s.replace(/\{(.*?)\}/g,(m,x)=>`<bdi class="gw" dir="ltr" lang="el">${esc(x)}</bdi>`);
+const EIM=["είμαι","είσαι","είναι","είμαστε","είστε","είναι"],HV={μέν:["גר/ה","גרים"],διαβάζ:["קורא/ת","קוראים"],γράφ:["כותב/ת","כותבים"],παίζ:["משחק/ת","משחקים"],πίν:["שותה","שותים"],τρέχ:["רץ/ה","רצים"],φωνάζ:["צועק/ת","צועקים"],ζωγραφίζ:["מצייר/ת","מציירים"],χορεύ:["רוקד/ת","רוקדים"]};
+const HP=["אני","את/ה","הוא/היא","אנחנו","אתם","הם/הן"],base=w=>w.toLowerCase().replace("(ε)","").replace(/[.,;]/g,"");
+function verb(w){w=base(w);const p=EIM.map((f,i)=>f===w?i:-1).filter(i=>i>=0);if(p.length)return{p,be:1};for(const st in HV){const i=END.findIndex(e=>w===st+e);if(i>=0)return{p:[i],st}}return null}
+const sp=(p,gr)=>[p,`{${gr}} (${HP[p]})`],sm=gr=>[2,`{${gr}} = הוא`],sf=gr=>[2,`{${gr}} = היא`],pm=gr=>[5,`{${gr}} = הם`],pf=gr=>[5,`{${gr}} = הן`],pn=(gr,he)=>[5,`{${gr}} = ${he}, הם`],we=(gr,he)=>[3,`{${gr}} = ${he}, אנחנו`],pol=gr=>[4,`{${gr}} = פנייה מנומסת, כמו אתם`],kids=[4,"{παιδιά} = ילדים, אתם"];
+const SUBJ={"1.1":[sp(0,"Εγώ"),sm("Ο Πέτρος"),sp(1,"Εσύ"),sp(3,"Εμείς"),pf("Η Ιρένε και η Βίβιαν"),pol("κύριε Αλέκο"),we("Εγώ και ο Νίκος","אני וניקוס"),kids],
+"1.2":[sf("Η Αντιγόνη"),sp(0,"Εγώ"),sp(1,"Εσύ"),sp(3,"Εμείς"),pn("Οι γονείς μου","ההורים שלי"),sp(4,"Εσείς")],
+"1.4":[sp(0,"Εγώ"),sm("Ο Γιώργος"),sp(3,"Εμείς"),sm("Ο Νίκος"),sp(1,"Εσύ"),pf("Η Ελένη και η Σοφία"),sf("Η Φατίμ")],
+"1.8":[sm("Ο Σταύρος"),sf("Η Μαρίνα"),sm("Ο Αλέκος"),sf("Η Μαρία"),sm("Ο Ανδρέας")],
+"2.2":[sp(1,"Εσύ"),sf("Η Μαρία"),sp(3,"Εμείς"),sp(4,"Εσείς"),pm("Ο Νίκος και ο Κώστας"),[2,"{Αυτή} (היא)"],sp(0,"Εγώ")],
+"2.3":[sp(3,"Εμείς"),sp(1,"Εσύ"),pn("Τα παιδιά","הילדים"),sp(0,"Εγώ"),pol("κύριε Βασίλη"),sf("Η Ελένη"),kids],
+"2.4":[sp(3,"Εμείς"),pol("κυρία Ελένη"),sm("Ο Άρης"),pf("Η Βίκυ και η Δέσποινα"),sp(1,"Εσύ"),sp(0,"Εγώ"),pn("Τα παιδιά","הילדים")],
+"2.5":[sf("Η Πόπη"),sp(1,"Εσύ"),pm("Ο Νίκος και ο Στέλιος"),sp(0,"Εγώ"),sp(4,"Εσείς"),[5,"{Τα κορίτσια} = הבנות, הן"]],
+"2.6":[[3,"{εγώ και η οικογένειά μου} = אנחנו"],sm("Ο φίλος μου ο Πέτρος"),sf("Η φίλη μου η Ναντιά"),sp(0,"Εγώ"),sp(3,"εμείς"),sp(3,"εμείς")],
+"2.7":[,,,,[3,"{Εγώ και η οικογένειά μου} = אנחנו"]]};
+/* מקומות: צורה אחרי από/σε → [שם, מין] */
+const PLACE={};for(const x of "η Καστοριά,το Σουφλί,η Λάρισα,το Αργοστόλι,η Ιταλία,η Ρωσία,η Κομοτηνή,το Βερολίνο,η Αθήνα,το Μεξικό,το Ναύπλιο,η Ξάνθη,η Θεσσαλονίκη,η Ουκρανία,η Κατερίνη,η Αίγινα,η Καβάλα,το Πακιστάν,το πάρκο".split(",")){const[a,n]=x.split(" ");PLACE[n]=[x,a]}
+for(const x of "ο Λαγκαδάς,ο Καναδάς,ο Πειραιάς,ο Βόλος,η Κύπρος,η Αίγυπτος".split(",")){const[a,n]=x.split(" ");PLACE[n.slice(0,-1)]=[x,a]}
+const NU=/^(μπ|ντ|γκ|[αεηιουωάέήίόύώκπτξψ])/,VOW=/^[αεηιουωάέήίόύώ]/;
+function artWhy(pl,w,got,both){const[nom,g]=PLACE[pl],lo=pl.toLowerCase(),nu=NU.test(lo),st=/^στ/.test(w),two=x=>both?`{τ${x} / στ${x}}`:`{${st?"σ":""}τ${x}}`;
+ const x=w.replace(/^σ?τ/,""),gx=base(got).replace(/^σ?τ/,""),gen=x=>({ον:"זכר",ο:"סתמי"}[x]||"נקבה"),f=g==="η";
+ if(f&&gen(gx)==="נקבה")return[nu?`{${pl}} מתחילה ${VOW.test(lo)?"בתנועה":`ב-{${pl.slice(0,/^(μπ|ντ|γκ)/i.test(pl)?2:1)}}`}, עם {ν}: ${two(x)}.`:`{${pl}} מתחילה ב-{${pl[0]}}, בלי {ν}: ${two(x)}.`,`{ν} רק לפני תנועה או {κ π τ μπ ντ γκ ξ ψ}.`];
+ return[`{${nom}} = ${gen(x)}: ${two(x)}. ${two(gx)} = ${gen(gx)}.`]}
+const ppl=g=>g.p.map(i=>HP[i]).join(" או ");
+function vWhy(s,prs){const p=s[0],rt=prs.map(([a])=>{const v=verb(a);return v.be?`{${base(a)}}`:`{${v.st+END[p]}}`}).join(", "),reg=prs.length===1&&verb(prs[0][0]).st,gs=prs.map(x=>x[1]).filter(g=>!verb(g).p.includes(p)),gr=new Map();
+ for(const g of gs){const k=ppl(verb(g));gr.set(k,[...(gr.get(k)||[]),`{${base(g)}}`])}
+ return[`${s[1]}: ${reg?`סיומת {-${END[p]}}, `:""}${rt}. `+[...gr].map(([k,a])=>`${a.join(", ")} = ${k}.`).join(" ")]}
+const W16=[["עונים איפה: {Μένω στη…}",{"Από πού είσαι;":"מאיפה את/ה?","Πού μένει;":"איפה הוא/היא גר/ה?","Από πού μένεις;":0}],
+["עונים מאיפה הוא: {είναι από…}",{"Πού μένει ο Δημήτρης;":"איפה דימיטריס גר?","Από πού είσαι;":"מאיפה את/ה?","Πού είναι ο Δημήτρης;":"איפה דימיטריס?"}],
+["עונים {Μένουμε} (אנחנו), שואלים אתכם.",{"Πού μένεις;":"איפה את/ה גר/ה?","Πού μένουν;":"איפה הם גרים?","Από πού είστε;":"מאיפה אתם?"}],
+["עונים מאיפה אנחנו: {Είμαστε από…}",{"Από πού είσαι;":"מאיפה את/ה?","Από πού είναι;":"מאיפה הוא/היא/הם?","Πού μένετε;":"איפה אתם גרים?"}],
+["עונים איפה היא גרה: {μένει στο…}",{"Από πού είναι η Άννα;":"מאיפה אנה?","Πού μένεις;":"איפה את/ה גר/ה?","Πού μένουν;":"איפה הם גרים?"}]];
+const W15=["{Από πού} = מאיפה. בטקסט: {Είμαι από το Πακιστάν}.","{Πού μένει} = איפה גר. בטקסט: {τώρα μένω στην Αθήνα}.","{Από πού} = מאיפה. בטקסט: {είναι από την Καβάλα}.","{Πού μένει τώρα} = איפה גרה עכשיו. בטקסט: {Τώρα μένει στη Θεσσαλονίκη}.","{Οι γονείς} = ההורים. בטקסט: {μένουν ακόμα στην Καβάλα} (עדיין גרים בקוואלה).","בטקסט: {είναι από την Ιταλία. Μένει στον Πειραιά}."];
+const W17=["הסדר: מי, פועל, איפה. {η} צמודה לשם ו-{στην} צמודה למקום.","{Από πού} (מאיפה) באות יחד, ואחריהן הפועל.","הסדר: מי, פועל, איפה. {στον} צמודה למקום.","{ο} צמודה לשם, ואחרי {από} באים {την Κρήτη}.","{πού} (איפה) בהתחלה, ומיד אחריה הפועל."];
+const W26=["{στον Βόλο} = בוולוס, לכן גרים.","{βιβλία} = ספרים, לכן קורא.","{ωραία} = יפה, לכן מציירת.","{γρήγορα} = מהר, לכן רץ/ה.","{μπάλα} = כדור, לכן משחקים.","{νερό} = מים, לכן שותים."];
+const heV=w=>{const v=verb(w);return v&&v.st?`${HP[v.p[0]]} ${HV[v.st][v.p[0]>2?1:0]}`:""};
+const W27={1:["{βιβλίο} = סתמי, לכן {ένα}.",{"ένας βιβλίο.":"{ένας} = זכר.","μία βιβλίο.":"{μία} = נקבה.","τον βιβλίο.":"{τον} = זכר."}],
+2:["{παίζω μπάλα} = משחק/ת בכדור.",{"νερό.":"{νερό} = מים, שותים.","γάλα.":"{γάλα} = חלב, שותים.","γράμμα.":"{γράμμα} = מכתב, כותבים."}]};
+const toks=s=>s.replace(/[.;,]/g,"").split(" ");
+function why(Q,c){
+ const id=Q.e.sh+"."+Q.e.n,s=SUBJ[id]&&SUBJ[id][Q.i],L=[],add=a=>{for(const t of a){if(!t||L.includes(t))continue;const h=t.split(". ")[0]+". ",j=t.startsWith("{")&&/= (זכר|נקבה|סתמי): /.test(t)?L.findIndex(x=>x.startsWith(h)):-1;if(j>=0)L[j]+=" "+t.slice(h.length);else L.push(t)}};
+ const diff=(a,b)=>{const A=toks(a),B=toks(b),pa=A.filter(w=>PLACE[w]),pb=B.filter(w=>PLACE[w]);
+  if(pa.join()!==pb.join())return add(["המקומות התחלפו: {από} = מאיפה, {σε} = איפה."]);
+  A.forEach((w,i)=>{const g=B[i];if(g===w||g===undefined)return;
+   if(i===0&&/^[ΟΗ]$/.test(w))add([w==="Η"?`{${A[1]}} = אישה, לכן {Η}.`:`{${A[1]}} = גבר, לכן {Ο}.`]);
+   else if(verb(w)&&verb(g))add(vWhy(s,[[w,g]]));
+   else if(g==="από")add(["{μένω} + {σε} = גר/ה ב־. {από} = מ־, והולך עם {είμαι}."]);
+   else if(PLACE[A[i+1]])add(artWhy(A[i+1],w,g))})};
+ if(id==="1.1"||id==="2.3"||id==="2.4")add(vWhy(s,[[Q.a,c]]));
+ else if(id==="1.2")add(vWhy(s,Q.p.map((p,k)=>[p.a,c[k]]).filter(x=>x[0]!==x[1])))
+ else if(id==="1.3")Q.p.forEach((p,k)=>{if(p.a===c[k])return;const A=toks(p.a),B=toks(c[k]),n=A.length;if(B[n-1]!==A[n-1])add([`בזכר ה-{ς} נופלת: {${B[n-1]}} → {${A[n-1]}}.`]);else add(artWhy(A[n-1],A[n-2],B[n-2],1))});
+ else if(id==="1.8")Q.p.forEach((p,k)=>{if(p.a!==c[k])diff(p.a,c[k])});
+ else if(id==="1.5")add([W15[Q.i]]);
+ else if(id==="1.6"){const[t,m]=W16[Q.i];add([t,m[c]?`{${c.replace(";","")}} = ${m[c]}`:"{από} הולך עם {είμαι}, לא עם {μένω}."])}
+ else if(id==="1.7")add([W17[Q.i]]);
+ else if(id==="2.1")add(vWhy(sp(Q.q[0],PERS[Q.q[0]]),[[Q.a,c]]));
+ else if(id==="2.2"){const st=Q.q.match(/(\p{Script=Greek}+)____/u)[1];add(vWhy(s,[[st+Q.a.slice(1),st+c.slice(1)]]))}
+ else if(id==="2.5"){const ok=Q.a===S_;diff(ok?Q.q:Q.a.slice(4),c===S_?Q.q:c.slice(4));if(ok)L[0]="המשפט נכון. "+L[0]}
+ else if(id==="2.6"){if(!verb(c).p.includes(s[0]))add(vWhy(s,[[Q.a,c]]));else add([W26[Q.i],`{${c}} = ${heV(c)}.`])}
+ else if(W27[Q.i]&&id==="2.7")add([W27[Q.i][0]+" "+W27[Q.i][1][c]]);
+ else diff(Q.a,c);
+ return L.length>2?L.filter(t=>!t.startsWith("{ν} רק")):L}
+const whyHtml=(Q,c)=>why(Q,c).map(t=>`<p>${G(t)}</p>`).join("");
+
+/* מילון לחיצה: מילה באותיות קטנות = תרגום */
+const DICT={};
+`αγγλία=אנגליה|αλβανία=אלבניה|αίγυπτο=מצרים|αίγυπτος=מצרים|γαλλία=צרפת|γεωργία=גאורגיה|ιταλία=איטליה|καναδά=קנדה|καναδάς=קנדה|κύπρο=קפריסין|κύπρος=קפריסין|μεξικό=מקסיקו|ουκρανία=אוקראינה|πακιστάν=פקיסטן|ρωσία=רוסיה|συρία=סוריה|βερολίνο=ברלין
+αθήνα=אתונה (עיר)|αίγινα=אגינה (אי)|αργοστόλι=ארגוסטולי (עיר)|βόλο=וולוס (עיר)|βόλος=וולוס (עיר)|δράμα=דרמה (עיר)|θεσσαλονίκη=סלוניקי (עיר)|καβάλα=קוואלה (עיר)|καστοριά=קסטוריה (עיר)|κατερίνη=קטריני (עיר)|κομοτηνή=קומוטיני (עיר)|κρήτη=כרתים (אי)|λαγκαδά=לגקדאס (עיירה)|λαγκαδάς=לגקדאס (עיירה)|λαμία=למיה (עיר)|λάρισα=לריסה (עיר)|ναύπλιο=נאפליו (עיר)|ξάνθη=קסנתי (עיר)|πάτρα=פטרס (עיר)|πειραιά=פיראוס (עיר)|πειραιάς=פיראוס (עיר)|πόρο=פורוס (אי)|ρέθυμνο=רתימנו (עיר)|σουφλί=סופלי (עיירה)
+αγίας=קדושה (Αγίας Σοφίας, שם רחוב)|σοφίας=סופיה (Αγίας Σοφίας, שם רחוב)|αργοναυτών=ארגונאוטון (שם רחוב)|βενιζέλου=ונזילו (שם רחוב)|εγνατίας=אגנטיה (שם רחוב)|κρόνου=קרונו (שם רחוב)|μπενάκη=בנאקי (שם רחוב)|πατησίων=פטיסיון (שם רחוב)|ρόδου=רודו (שם רחוב)
+αλέκο=אלקוס (שם)|αλέκος=אלקוס (שם)|αλέξη=אלקסיס (שם)|ανδρέας=אנדראס (שם)|άννα=אנה (שם)|αντιγόνη=אנטיגוני (שם)|άρης=אריס (שם)|βασίλη=וסיליס (שם)|βίβιαν=ויויאן (שם)|βίκυ=ויקי (שם)|γιάννης=יאניס (שם)|γιώργος=יורגוס (שם)|δέσποινα=דספינה (שם)|δημήτρης=דימיטריס (שם)|ελένη=אלני (שם)|ιρένε=אירנה (שם)|καίτη=קטי (שם)|κατερίνα=קטרינה (שם)|κατερίνας=קטרינה (של קטרינה)|κώστας=קוסטס (שם)|μαρία=מריה (שם)|μαρίνα=מרינה (שם)|μάρκο=מרקו (שם)|ναντιά=נדיה (שם)|νίκος=ניקוס (שם)|πέτρος=פטרוס (שם)|πόπη=פופי (שם)|σαμίρ=סמיר (שם)|σοφία=סופיה (שם)|σταύρος=סטברוס (שם)|στέλιος=סטליוס (שם)|φατίμ=פאטים (שם)
+εγώ=אני|εσύ=את/ה|αυτός=הוא|αυτή=היא|αυτό=זה|εμείς=אנחנו|εσείς=אתם (או פנייה מנומסת)|αυτοί=הם|αυτές=הן|αυτά=הם (סתמי)|μου=שלי|της=שלה, של ה־|σας=לכם (Γεια σας = שלום לכם)|σένα=אותך (για σένα = עליך)
+είμαι=אני (הפועל להיות)|είσαι=את/ה (הפועל להיות)|είναι=הוא / היא / הם (הפועל להיות)|είμαστε=אנחנו (הפועל להיות)|είστε=אתם (הפועל להיות)
+ο=ה־ (זכר)|η=ה־ (נקבה)|το=ה־ (סתמי)|οι=ה־ (רבים)|τα=ה־ (סתמי, רבים)|τον=ה־ (זכר, אחרי פועל או מילת יחס)|την=ה־ (נקבה, אחרי פועל או מילת יחס)|τη=ה־ (נקבה, אחרי פועל או מילת יחס)|τις=ה־ (נקבה, רבים)|σε=ב־, ל־|στον=ב־ / ל־ (σε + τον)|στην=ב־ / ל־ (σε + την)|στη=ב־ / ל־ (σε + τη)|στο=ב־ / ל־ (σε + το)|ένα=אחד (סתמי)|έναν=אחד (זכר, אחרי פועל)|ένας=אחד (זכר)|μία=אחת (נקבה)|δύο=שניים, שתיים
+από=מ־, מן|πού=איפה (από πού = מאיפה)|τι=מה|πόσων=כמה (πόσων χρονών = בן/בת כמה)|και=ו־, וגם|αλλά=אבל|ή=או|με=עם (με λένε = קוראים לי)|για=על, בשביל|σαν=כמו|πριν=לפני|μετά=אחר כך|τώρα=עכשיו|ακόμα=עדיין|εκεί=שם|κοντά=קרוב|πολύ=הרבה, מאוד|πολλά=הרבה|γρήγορα=מהר|ωραία=יפה|γεια=שלום
+κύριε=אדוני (פנייה)|κυρία=גברת|γονείς=הורים|φίλος=חבר|φίλη=חברה|οικογένειά=משפחה|παιδιά=ילדים|κορίτσια=בנות, ילדות|γιαγιά=סבתא|χρονών=שנים (בגיל)|κέντρο=מרכז|λιμάνι=נמל|πάρκο=פארק|σχολείο=בית ספר|αυλή=חצר|σπίτι=בית|πόλη=עיר|χώρα=מדינה|απόγευμα=אחר הצהריים|όνομα=שם|όνομά=שם (το όνομά της = השם שלה)|βιβλίο=ספר|βιβλία=ספרים|τετράδιο=מחברת|πίνακα=לוח, טבלה|γράμμα=מכתב, אות|γράμματα=אותיות, מכתבים|νερό=מים|γάλα=חלב|χυμό=מיץ|μπάλα=כדור|σκύλο=כלב|εεεε=קריאה, כמו "הֵיי"
+λέμε=אנחנו אומרים|λένε=קוראים, אומרים (με λένε = קוראים לי)|απαντάς=את/ה עונה|βάζεις=את/ה שם/ה|βρίσκεις=את/ה מוצא/ת|διορθώνεις=את/ה מתקן/ת|κοιτάζεις=את/ה מסתכל/ת|συμπληρώνεις=את/ה משלים/ה|παίρνουν=הם מקבלים
+έξτρα=נוספים|ασκήσεις=תרגילים|ρήμα=פועל|ρήματα=פעלים|κατάληξη=סיומת|καταλήξεις=סיומות|ίδιες=אותן (τις ίδιες = אותן)|λέξεις=מילים|σειρά=סדר|σωστή=נכונה|σωστό=נכון|λάθος=טעות, לא נכון|λάθη=טעויות|πρόταση=משפט|προτάσεις=משפטים|ερώτηση=שאלה|κύκλο=עיגול|κάρτες=כרטיסים|παρένθεση=סוגריים|πρόσωπο=גוף (אני, את/ה, הוא…)|διόρθωση=תיקון|προσοχή=שימו לב|φωνήεν=תנועה (אות ניקוד)|άλλα=אחרים, אחרות
+σ=Σωστό, נכון|λ=Λάθος, לא נכון|ω=הסיומת של εγώ (אני)|εις=הסיומת של εσύ (את/ה)|ει=הסיומת של αυτός / αυτή (הוא / היא)|ουμε=הסיומת של εμείς (אנחנו)|ετε=הסיומת של εσείς (אתם)|ουν=הסיומת של αυτοί (הם)`.split(/[|\n]/).forEach(x=>{const i=x.indexOf("=");DICT[x.slice(0,i)]=x.slice(i+1)});
+for(const st in HV){END.forEach((e,i)=>DICT[st+e]=`${HP[i]} ${HV[st][i>2?1:0]}`);DICT[st]=`${DICT[st+"ω"]} (השורש של ${st}ω)`}
+DICT["φωνήεν"]="תנועה (α, ε, η, ι, ο, υ, ω)";
+const WORD=/\p{Script=Greek}+(?:-\p{Script=Greek}+|\(ε\))?/gu,tr=w=>{w=w.normalize("NFC").replace(/-|\(ε\)/g,"").toLowerCase();if(/^(κ|π|τ|μπ|ντ|γκ|ξ|ψ)$/.test(w))return`האות ${w}`;return DICT[w]||DICT[w.replace(/σ$/,"ς")]};
+
+/* שאלות עם שני מקומות: כל מקום נבחר בנפרד. Q.p=[{l:כותרת,a:נכון,o:אפשרויות}] */
+for(const Q of QS){const id=Q.e.sh+"."+Q.e.n;if(!/^1\.(2|3|8)$/.test(id))continue;
+ const sp2=x=>id==="1.8"?(i=>[x.slice(0,i+1),x.slice(i+2)])(x.indexOf(". ")):x.split(" / "),A=sp2(Q.a).map(x=>x.replace("(ε)","")),C=[0,1].map(k=>[...new Set(Q.o.map(x=>sp2(x)[k].replace("(ε)","")))]);
+ const fill=(k,list)=>{for(const x of list)if(C[k].length<4&&!C[k].some(y=>base(y)===base(x)))C[k].push(x)};
+ if(id==="1.2"){fill(0,[...new Set(EIM)]);const cap=/^[Α-Ω]/.test(A[1]);fill(1,["ω","εις","ει","ουμε","ετε","ουν"].map(e=>(cap?"Μέν":"μέν")+e))}
+ if(id==="1.8"){const n1=A[0].match(/^(.*από )(\S+)( .*)$/u),n2=A[1].match(/^(Μένει )(\S+)( .*)$/u);fill(0,["τον","την","τη","το"].map(t=>n1[1]+t+n1[3]));fill(1,["στον","στην","στη","στο"].map(t=>n2[1]+t+n2[3]))}
+ const L=id==="1.3"?["{Είμαι από…}","{Μένω…}"]:id==="1.8"?["המשפט הראשון","המשפט השני"]:["המקום הראשון","המקום השני"];
+ Q.p=[0,1].map(k=>({l:L[k],a:A[k],o:C[k]}))}
+
 const N=QS.length,PT=10,KEY="greek-sheets-v2",app=document.getElementById("app");
 const NAMES={roni:"רוני",nir:"ניר"},SYNC="https://greek-sync.ronigreen.workers.dev/sheets/";
 let view="home",syncOk=null,timer=null;
@@ -255,29 +355,47 @@ const autoSet=()=>{const p=prev();return S.auto&&p&&done_(p.bits)?p.bits:null};
 function fillAuto(){const a=autoSet();let c=false;if(a)while(S.cur.length<N&&a[S.cur.length]==="2"){S.cur+="2";c=true}if(c)save()}
 function skip(n){back.push(S.cur.length);S.cur+="2".repeat(n);save();ask()}
 
+/* לחיצה על מילה: חלון תרגום */
+function words(root){const tw=document.createTreeWalker(root,4),ns=[];while(tw.nextNode()){const n=tw.currentNode,p=n.parentElement;if(!p.closest(".w,kbd,summary,.btn,.x,.top")&&n.data.match(WORD))ns.push(n)}
+ for(const n of ns){const inWhy=n.parentElement.closest(".why"),f=document.createDocumentFragment();let at=0;for(const m of n.data.matchAll(WORD)){const w=m[0];if(!tr(w)||(inWhy&&w.length===1&&!/[οη]/.test(w)))continue;f.append(n.data.slice(at,m.index));const e=document.createElement("span");e.className="w";e.textContent=w;f.append(e);at=m.index+w.length}if(at){f.append(n.data.slice(at));n.replaceWith(f)}}}
+let tip=null;
+function closeTip(){if(tip){tip.remove();tip=null;document.querySelectorAll(".w.sel").forEach(x=>x.classList.remove("sel"))}}
+function openTip(e){closeTip();e.classList.add("sel");tip=document.createElement("div");tip.className="tip";tip.setAttribute("role","status");const b=document.createElement("b");b.textContent=e.textContent.replace("-","");tip.append(b,tr(e.textContent));document.body.append(tip);
+ const a=e.getClientRects()[0],w=tip.offsetWidth,h=tip.offsetHeight,vw=document.documentElement.clientWidth,c=a.left+a.width/2,x=Math.max(10,Math.min(vw-w-10,c-w/2)),bar=document.querySelector(".top"),up=a.top-h-10>(bar?bar.getBoundingClientRect().bottom:0);
+ tip.classList.toggle("below",!up);tip.style.left=x+scrollX+"px";tip.style.top=(up?a.top-h-10:a.bottom+10)+scrollY+"px";tip.style.setProperty("--ax",Math.max(16,Math.min(w-16,c-x))+"px")}
+document.addEventListener("click",ev=>{const w=ev.target.closest&&ev.target.closest(".w"),o=ev.target.closest&&ev.target.closest(".o"),was=tip&&w&&w.classList.contains("sel"),had=!!tip;
+ if(o&&!o.classList.contains("off2")){if(had){closeTip();ev.stopPropagation();ev.preventDefault()}return}
+ closeTip();if(w&&!was)openTip(w)},true);
+addEventListener("resize",closeTip);document.addEventListener("keydown",ev=>{if(ev.key==="Escape")closeTip()});
+
 function ask(){
+  closeTip();
   view="q";picked=null;fillAuto();const i=answered();if(i>=N)return end();
   const Q=QS[i],e=Q.e,sh=e.sh===1?SH1:SH2,opts=Q.fix?Q.o:shuf(Q.o);
+  const groups=Q.p?Q.p.map(p=>shuf(p.o)):[opts],sel=[];
+  const optBtn=(o,k,g,used)=>`<button class="o${used?" used":""}" data-k="${k}" data-g="${g}"${Q.p?' aria-pressed="false"':""}><kbd>${k+1}</kbd><span>${esc(o)}</span></button>`;
   const long=Math.max(...opts.map(o=>o.length));
   const before=e.kind==="cloze"?e.items.slice(0,Q.i).map(x=>x[2].a):[];
-  app.innerHTML=topbar(i)+`<section class="card sheet" id="sheet"><p class="st">דף ${e.sh} מתוך 2<span class="nm">, <span class="gr">${sh.t}</span></span><span class="br">, </span>שאלה ${i+1} מתוך ${N}</p>
+  app.innerHTML=topbar(i)+`<section class="card sheet" id="sheet"><p class="st hint"><em>דף ${e.sh} מתוך 2<span class="nm">, <span class="gr">${sh.t}</span></span><span class="br">, </span>שאלה ${i+1} מתוך ${N}</em><span>לחיצה על מילה ביוונית מציגה תרגום</span></p>
   <div class="task"><p class="gr">${e.n}. ${e.t}</p><p>${e.he}</p></div>
   <div id="qb">${body(Q,false)}</div>
   <details id="help"><summary class="gr">Θυμάμαι</summary><div class="in gr">${sh.help.replace(/<table>/g,'<div class="tw"><table>').replace(/<\/table>/g,"</table></div>")}</div></details></section>
-  <div class="opts ${opts.length===6?"tri":long>24?"one":""}" id="opts">${opts.map((o,k)=>`<button class="o${before.includes(o)?" used":""}" data-k="${k}"><kbd>${k+1}</kbd><span>${esc(o)}</span></button>`).join("")}</div><div class="sk" id="sk"><button class="btn ghost" id="skip">לדלג על השאלה</button>${e.items.length-Q.i>1?`<button class="btn ghost" id="skipx">לדלג על שאר התרגיל (${e.items.length-Q.i} שאלות)</button>`:""}${back.length?`<button class="x" id="undo">ביטול הדילוג האחרון</button>`:""}</div><div id="fb" aria-live="polite"></div>`;
+  ${Q.p?`<div class="two" id="opts">${groups.map((g,gi)=>`<p class="gl">${G(Q.p[gi].l)}</p><div class="opts${Math.max(...g.map(x=>x.length))>24?" one":" pair"}">${g.map((o,k)=>optBtn(o,k,gi)).join("")}</div>`).join("")}</div>`:`<div class="opts ${opts.length===6?"tri":long>24?"one":""}" id="opts">${opts.map((o,k)=>optBtn(o,k,0,before.includes(o))).join("")}</div>`}<div class="sk" id="sk"><button class="btn ghost" id="skip">לדלג על השאלה</button>${e.items.length-Q.i>1?`<button class="btn ghost" id="skipx">לדלג על שאר התרגיל (${e.items.length-Q.i} שאלות)</button>`:""}${back.length?`<button class="x" id="undo">ביטול הדילוג האחרון</button>`:""}</div><div id="fb" aria-live="polite"></div>`;
   document.getElementById("skip").onclick=()=>skip(1);const sx=document.getElementById("skipx");if(sx)sx.onclick=()=>skip(e.items.length-Q.i);
   const un=document.getElementById("undo");if(un)un.onclick=()=>{S.cur=S.cur.slice(0,back.pop());save();view="q";ask()};
-  app.querySelectorAll(".o").forEach(b=>b.onclick=()=>pick(Q,opts[b.dataset.k],b,opts));
+  app.querySelectorAll(".o").forEach(b=>b.onclick=()=>{const g=+b.dataset.g,o=groups[g][b.dataset.k];if(!Q.p)return pick(Q,[o],groups);if(picked)return;sel[g]=o;app.querySelectorAll(`.o[data-g="${g}"]`).forEach(x=>{x.classList.toggle("ch",x===b);x.setAttribute("aria-pressed",x===b)});
+    const at=document.querySelectorAll("#qb .q .bl,#qb td.cur");if(at.length===2){at[g].textContent=o;words(at[g])}else if(at[0]){at[0].textContent=sel.filter(Boolean).join(" ");words(at[0])}
+    if(sel[0]!==undefined&&sel[1]!==undefined)pick(Q,sel,groups)});
   document.getElementById("home").onclick=home;
-  window.scrollTo(0,0);
+  words(app);window.scrollTo(0,0);
 }
-function pick(Q,o,b,opts){
-  if(picked)return;picked=o;const ok=o===Q.a;S.cur+=ok?"1":"0";back=[];document.getElementById("sk").hidden=true;save();
-  app.querySelectorAll(".o").forEach(x=>{x.disabled=true;const v=opts[x.dataset.k];if(v===Q.a){x.classList.add("ok")}else if(x===b)x.classList.add("no")});
+function pick(Q,c,groups){
+  if(picked||S.cur.length!==QS.indexOf(Q))return;picked=c;closeTip();const want=Q.p?Q.p.map(p=>p.a):[Q.a],ok=want.every((a,g)=>a===c[g]);S.cur+=ok?"1":"0";back=[];document.getElementById("sk").hidden=true;save();
+  app.querySelectorAll(".o").forEach(x=>{x.classList.add("off2");x.setAttribute("aria-disabled","true");const g=+x.dataset.g,v=groups[g][x.dataset.k];if(v===want[g])x.classList.add("ok");else if(v===c[g])x.classList.add("no")});
   document.getElementById("qb").innerHTML=body(Q,true);
   const t=document.createElement("div");t.innerHTML=topbar(S.cur.length);app.replaceChild(t.firstChild,app.firstChild);document.getElementById("home").onclick=home;
-  document.getElementById("fb").innerHTML=`<div class="fb ${ok?"g":"b"}"><div><h2>${ok?`<span class="gr">Σωστά!</span> נכון, ${PT} נקודות`:"לא נכון. התשובה הנכונה:"}</h2>${ok?"":`<p class="gr ans">${esc(Q.a)}</p>`}${Q.note?`<small>${Q.note.replace(/«.*?»/g,m=>`<bdi dir="ltr">${m}</bdi>`)}</small>`:""}</div><button class="btn" id="next">${S.cur.length<N?"לשאלה הבאה":"לתוצאה"}</button></div>`;
-  const n=document.getElementById("next");n.onclick=ask;n.focus({preventScroll:true});document.getElementById("fb").scrollIntoView({block:"nearest",behavior:"smooth"});
+  document.getElementById("fb").innerHTML=`<div class="fb ${ok?"g":"b"}"><div><h2>${ok?`<span class="gr">Σωστά!</span> נכון, ${PT} נקודות`:"לא נכון. התשובה הנכונה:"}</h2>${ok?"":`<p class="gr ans">${esc(Q.a)}</p><div class="why">${whyHtml(Q,Q.p?c:c[0])}</div>`}${Q.note?`<small>${Q.note.replace(/«.*?»/g,m=>`<bdi dir="ltr">${m}</bdi>`)}</small>`:""}</div><button class="btn" id="next">${S.cur.length<N?"לשאלה הבאה":"לתוצאה"}</button></div>`;
+  const n=document.getElementById("next");n.onclick=ask;n.focus({preventScroll:true});words(app);const fb=document.getElementById("fb");fb.scrollIntoView({block:fb.offsetHeight>innerHeight-150?"start":"nearest",behavior:"smooth"});
 }
 function end(){
   back=[];const bits=S.cur;if(!done_(bits)){S.cur="";save();return home()}
@@ -290,12 +408,13 @@ function end(){
   app.innerHTML=`<section class="final"><p>הציון של ${NAMES[who]}</p><div class="big">${me}</div><p>מתוך ${an*PT}, ${me/PT} תשובות נכונות מתוך ${an}${sk?`. דילגתם על ${sk}`:""}</p><h2>${msg}</h2>${ALL[other()].runs.length?`<p>השיא של ${NAMES[other()]}: ${bestOf(ALL[other()])}</p>`:""}<div class="row"><button class="btn" id="again">לשחק שוב מהתחלה</button><button class="btn ghost" id="home">למסך הפתיחה</button></div>${autoBox()}</section>
   <section class="card"><h2>לפי תרגילים</h2><div class="ex">${rows}</div></section>
   ${miss.length?`<section class="card"><h2>הטעויות והתשובות הנכונות</h2><div class="miss">${miss.map(q=>`<div><p class="st">דף ${q.e.sh}, תרגיל ${q.e.n}, שאלה ${q.i+1}</p><p class="gr">${solved(q)}</p></div>`).join("")}</div></section>`:""}`;
-  document.getElementById("again").onclick=start;wireAuto();document.getElementById("home").onclick=home;window.scrollTo(0,0);
+  document.getElementById("again").onclick=start;wireAuto();document.getElementById("home").onclick=home;words(app);window.scrollTo(0,0);
 }
 function autoBox(){const p=prev(),k=p?skips(p.bits):0;return k?`<label class="auto"><input type="checkbox" id="auto"${S.auto?" checked":""}> בלי ${k===1?"השאלה שדילגתם עליה":`${k} השאלות שדילגתם עליהן`} בפעם הקודמת</label>`:""}
 function wireAuto(){const a=document.getElementById("auto");if(a)a.onchange=()=>{S.auto=a.checked;save()}}
 function start(){back=[];S.cur="";save();ask()}
 function home(quiet){
+  closeTip();
   if(quiet!==true&&timer)push(who);
   view="home";const i=answered(),p=prev();
   app.innerHTML=`<div>${T("logo")}</div><section class="hero">${T("ring")}<h1>דפי העבודה <b>ביוונית</b></h1><p>${N} שאלות משני דפי העבודה, בדיוק לפי הסדר. ${PT} נקודות לכל תשובה נכונה, ואפשר לדלג על מה שלא רלוונטי.</p>
@@ -307,7 +426,7 @@ function home(quiet){
   const re=document.getElementById("re");if(re)re.onclick=()=>{document.getElementById("cf").innerHTML=`<p>למחוק את ${pts(S.cur)} הנקודות מהסיבוב הזה ולהתחיל משאלה 1?</p><div class="row" style="margin-top:10px"><button class="btn" id="y">כן, מהתחלה</button><button class="btn ghost" id="n">לא</button></div>`;document.getElementById("y").onclick=start;document.getElementById("n").onclick=home};
   if(quiet!==true)window.scrollTo(0,0);
 }
-document.addEventListener("keydown",ev=>{if(view!=="q"||ev.metaKey||ev.ctrlKey)return;if(/^[1-6]$/.test(ev.key)&&!picked){const b=app.querySelector(`.o[data-k="${ev.key-1}"]`);if(b){ev.preventDefault();b.click()}}});
+document.addEventListener("keydown",ev=>{if(view!=="q"||ev.metaKey||ev.ctrlKey)return;if(/^[1-6]$/.test(ev.key)&&!picked){const g=app.querySelector('.o[data-g="0"].ch')?1:0,b=app.querySelector(`.o[data-g="${g}"][data-k="${ev.key-1}"]`);if(b){ev.preventDefault();b.click()}}});
 home();pull();
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"){if(timer)push(who,true)}else if(view==="home")pull()});
 </script>
