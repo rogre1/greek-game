@@ -5,7 +5,7 @@
 /* Layout: עמודה אחת; פס ציון דביק למעלה, דף העבודה כקלף לבן, מתחתיו התשובות. בהיר בלבד. */
 :root{--bg:#EEF3F8;--pale:#E1E9F1;--card:#fff;--navy:#27415E;--deep:#1F3550;--blue:#4F7DB0;--turq:#7FE3D8;--mint:#E2F6F4;--ink2:#3D5877;--ink3:#58708C;--line:#D5DEE8;
 --good:#1B7F5C;--goodbg:#E1F5EC;--bad:#B5462F;--badbg:#FBEFE9;--he:'Assistant',system-ui,sans-serif;--gr:'Commissioner','Helvetica Neue',Arial,sans-serif;--sh:0 14px 34px rgba(39,65,94,.08)}
-*,*::before,*::after{box-sizing:border-box}
+*,*::before,*::after{box-sizing:border-box}[hidden]{display:none!important}html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--navy);font-family:var(--he);font-size:17px;line-height:1.6}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 .wrap{max-width:760px;margin:0 auto;padding-block:16px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:16px}
@@ -45,7 +45,7 @@ h2{font-size:1.25rem;font-weight:800;line-height:1.3}
 .txt{background:var(--bg);border-radius:16px;padding:14px 16px;line-height:1.75}
 .bl{display:inline-block;min-width:70px;border-bottom:2.5px solid var(--blue);line-height:1.05;margin:0 2px}
 .bl.s{min-width:34px}.bl.cur{background:var(--mint);border-color:#2FA89B;border-radius:4px 4px 0 0}.bl.f{min-width:0;color:var(--good);font-weight:800;border-color:var(--good)}
-.tw{overflow-x:auto}table{border-collapse:collapse;direction:ltr;text-align:left;font-family:var(--gr);width:100%;font-size:.98rem}th{font-weight:400;color:var(--ink3);background:var(--bg)}td,th{border:1px solid var(--line);padding:7px 10px;vertical-align:top}
+.tw{overflow-x:auto;direction:ltr}table{border-collapse:collapse;direction:ltr;text-align:left;font-family:var(--gr);width:100%;font-size:.98rem}th{font-weight:400;color:var(--ink3);background:var(--bg)}td,th{border:1px solid var(--line);padding:7px 10px;vertical-align:top}
 td.cur{background:var(--mint);box-shadow:inset 0 0 0 2px #2FA89B}td.f{color:var(--good);font-weight:800}tr.now td{font-weight:600;color:var(--deep)}tr.now td.f{font-weight:800;color:var(--good)}
 .conj td:first-child,.conj th:first-child{color:var(--ink3)}
 details{font-size:.95rem}summary{cursor:pointer;color:var(--blue);font-weight:800;width:fit-content}details .in{display:grid;gap:10px;margin-top:10px}
@@ -63,7 +63,12 @@ details{font-size:.95rem}summary{cursor:pointer;color:var(--blue);font-weight:80
 .miss{display:grid;gap:10px;margin-top:10px}.miss>div{border-top:1px solid var(--line);padding-top:10px}.miss .a{color:var(--good);font-weight:800}
 .who{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:480px}.pl{border:2px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:#fff;border-radius:18px;padding:12px 16px;text-align:right;display:flex;flex-direction:column;font-variant-numeric:tabular-nums}.pl b{font-size:1.25rem;line-height:1.3}.pl span{color:var(--pale);font-size:.9rem;line-height:1.45}.pl[aria-pressed="true"]{border-color:var(--turq);background:rgba(127,227,216,.16)}.pl[aria-pressed="true"] b{color:var(--turq)}
 .sk{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.sk .btn{padding:9px 18px;font-size:.95rem;font-weight:400}.auto{display:flex;gap:8px;align-items:center;color:var(--pale);font-size:.98rem;cursor:pointer}.auto input{width:20px;height:20px;accent-color:#7FE3D8;flex:none}
-@media(max-width:560px){.hero{padding:30px 22px 26px}.card{padding:18px}.opts:not(.tri){grid-template-columns:1fr}.opts.tri .o{padding:12px 10px;gap:8px;justify-content:center}.opts.tri kbd{display:none}.hring{width:150px}.conj td,.conj th{padding:6px;font-size:.9rem}}
+@media(max-width:560px){.hero{padding:30px 22px 26px}.card{padding:18px}.opts:not(.tri){grid-template-columns:1fr}.opts.tri .o{padding:12px 10px;gap:8px;justify-content:center}.opts.tri kbd{display:none}.hring{width:150px}.conj .off{display:none}.nm{display:none}
+.wrap{gap:12px;padding-block:10px 32px}.card{border-radius:20px;padding:16px}.sheet{gap:10px}.q{padding-top:10px}.task .gr{font-size:1.1rem}.txt{font-size:1rem;line-height:1.6;padding:12px 14px}
+.o{min-height:50px;padding:10px 14px;font-size:1.05rem}.opts{gap:8px}td,th{padding:6px 8px;font-size:.95rem}.hero{border-radius:26px}
+details table td,details table th{padding:5px 4px;font-size:.76rem}
+.stk .hd,.stk .old{display:none}.stk,.stk tbody{display:block}.stk tr{display:block;border:1px solid var(--line);border-radius:14px;padding:8px 12px;margin-bottom:8px}.stk tr.now{border:2px solid #2FA89B}.stk td{display:grid;grid-template-columns:96px 1fr;gap:10px;border:0;padding:3px 0;font-weight:400}.stk td::before{content:attr(data-l);color:var(--ink3);font-weight:400;font-size:.85rem}.stk td.cur{background:none;box-shadow:none}.stk td.cur::after{content:"";border-bottom:2.5px solid var(--blue);width:70px;height:1.1em}.stk tr.now td{font-weight:600}.stk td.f:empty{display:none}.fb{padding:14px 16px;border-radius:20px}.fb .btn{width:100%}}
+@media(max-width:350px){td,th{padding:5px;font-size:.86rem}details table td,details table th{padding:3px 2px;font-size:.66rem;overflow-wrap:anywhere}.opts.tri{grid-template-columns:1fr 1fr}.top .l{flex-wrap:wrap;gap:4px 10px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <main class="wrap" id="app" dir="rtl" lang="he"></main>
@@ -227,11 +232,11 @@ const circled=(q,a)=>esc(q).replace(/\((.*?)\)/,(m,g)=>"("+g.split(" / ").map(w=
 function body(Q,done){
   const e=Q.e,k=e.kind,rows=f=>e.items.slice(0,Q.i+1).map((it,i)=>f(it,i,i<Q.i||done,i===Q.i)).slice(-3).join("");
   const right=i=>QS.find(x=>x.e===e&&x.i===i).a;
-  const head=e.cols?`<tr>${e.cols.map(c=>`<th>${c}`).join("")}</tr><tr>${e.row0.map(c=>`<td>${c}`).join("")}</tr>`:"";
+  const lb=j=>` data-l="${e.cols[j]}"`,head=e.cols?`<tr class="hd">${e.cols.map(c=>`<th>${c}`).join("")}</tr><tr>${e.row0.map((c,j)=>`<td${lb(j)}>${c}`).join("")}</tr>`:"";
   if(k==="place")return `<div class="tw"><table>${head}${rows((it,i,f,now)=>{const p=right(i).split(" / ");return `<tr class="${now?"now":""}"><td>${i+1}. ${it[0]}<td class="${f?"f":now?"cur":""}">${f?p[0]:""}<td class="${f?"f":now?"cur":""}">${f?p[1]:""}`})}</table></div>`;
-  if(k==="card")return `<div class="tw"><table>${head}${rows((it,i,f,now)=>`<tr class="${now?"now":""}">${it[0].map(c=>`<td>${c}`).join("")}<td class="${f?"f":now?"cur":""}">${f?right(i):""}`)}</table></div>`;
-  if(k==="tf")return `<div class="tw"><table>${head}${rows((it,i,f,now)=>{const a=right(i),s=a===S_;return `<tr class="${now?"now":""}"><td>${i+1}. ${it[0]}<td class="${f?"f":now?"cur":""}">${f?(s?"Σ":"Λ"):""}<td class="${f?"f":now?"cur":""}">${f&&!s?a.slice(4):""}`})}</table></div>`;
-  if(k==="conj"){const at=new Map(e.items.map((it,i)=>[it[0].join(),i]));return `<div class="tw"><table class="conj"><tr><th>Πρόσωπο${VERBS.map(v=>`<th>${v}ω`).join("")}</tr>${PERS.map((p,r)=>`<tr><td>${p}${VERBS.map((v,c)=>{const i=at.get(r+","+c);if(i===undefined)return `<td>${v+END[r]}`;const f=i<Q.i||(i===Q.i&&done);return `<td class="${f?"f":i===Q.i?"cur":""}">${f?v+END[r]:""}`}).join("")}`).join("")}</table></div>`}
+  if(k==="card")return `<div class="tw"><table class="stk">${head}${rows((it,i,f,now)=>`<tr class="${now?"now":"old"}">${it[0].map((c,j)=>`<td${lb(j)}>${c}`).join("")}<td${lb(3)} class="${f?"f":now?"cur":""}">${f?right(i):""}`)}</table></div>`;
+  if(k==="tf")return `<div class="tw"><table class="stk">${head}${rows((it,i,f,now)=>{const a=right(i),s=a===S_;return `<tr class="${now?"now":"old"}"><td${lb(0)}>${i+1}. ${it[0]}<td${lb(1)} class="${f?"f":now?"cur":""}">${f?(s?"Σ":"Λ"):""}<td${lb(2)} class="${f?"f":now?"cur":""}">${f&&!s?a.slice(4):""}`})}</table></div>`;
+  if(k==="conj"){const at=new Map(e.items.map((it,i)=>[it[0].join(),i]));return `<div class="tw"><table class="conj"><tr><th>Πρόσωπο${VERBS.map((v,c)=>`<th${c===Q.q[1]?"":` class="off"`}>${v}ω`).join("")}</tr>${PERS.map((p,r)=>`<tr><td>${p}${VERBS.map((v,c)=>{const i=at.get(r+","+c);const of=c===Q.q[1]?"":" off";if(i===undefined)return `<td class="${of}">${v+END[r]}`;const f=i<Q.i||(i===Q.i&&done);return `<td class="${f?"f":i===Q.i?"cur":""}${of}">${f?v+END[r]:""}`}).join("")}`).join("")}</table></div>`}
   if(k==="cloze"){let j=0;return `<p class="gr">${esc(e.bank)}</p><p class="gr txt">${esc(e.text).replace(/____/g,()=>{const i=j++;return i<Q.i||(i===Q.i&&done)?`<span class="bl f">${right(i)}</span>`:`<span class="bl${i===Q.i?" cur":""}"></span>`})}</p>`}
   const num=`${Q.i+1}. `;
   let h=e.text?`<p class="gr txt">${esc(e.text)}</p>`:"";
@@ -255,7 +260,7 @@ function ask(){
   const Q=QS[i],e=Q.e,sh=e.sh===1?SH1:SH2,opts=Q.fix?Q.o:shuf(Q.o);
   const long=Math.max(...opts.map(o=>o.length));
   const before=e.kind==="cloze"?e.items.slice(0,Q.i).map(x=>x[2].a):[];
-  app.innerHTML=topbar(i)+`<section class="card sheet" id="sheet"><p class="st">דף ${e.sh} מתוך 2, <span class="gr">${sh.t}</span><br>שאלה ${i+1} מתוך ${N}</p>
+  app.innerHTML=topbar(i)+`<section class="card sheet" id="sheet"><p class="st">דף ${e.sh} מתוך 2<span class="nm">, <span class="gr">${sh.t}</span></span><span class="br">, </span>שאלה ${i+1} מתוך ${N}</p>
   <div class="task"><p class="gr">${e.n}. ${e.t}</p><p>${e.he}</p></div>
   <div id="qb">${body(Q,false)}</div>
   <details id="help"><summary class="gr">Θυμάμαι</summary><div class="in gr">${sh.help.replace(/<table>/g,'<div class="tw"><table>').replace(/<\/table>/g,"</table></div>")}</div></details></section>
